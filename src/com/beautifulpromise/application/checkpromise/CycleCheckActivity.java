@@ -3,23 +3,6 @@ package com.beautifulpromise.application.checkpromise;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.beautifulpromise.R;
-import com.beautifulpromise.application.addpromise.AddPromiseDTO;
-import com.beautifulpromise.application.addpromise.FriendViewDialog;
-import com.facebook.halo.application.types.User;
-import com.facebook.halo.application.types.connection.Checkins;
-import com.facebook.halo.application.types.connection.Feed;
-import com.facebook.halo.application.types.connection.Friends;
-import com.facebook.halo.application.types.infra.FacebookType;
-import com.facebook.halo.framework.common.AccessToken;
-import com.facebook.halo.framework.core.Connection;
-import com.google.android.maps.GeoPoint;
-import com.google.android.maps.MapActivity;
-import com.google.android.maps.MapController;
-import com.google.android.maps.MapView;
-import com.google.android.maps.Overlay;
-import com.google.android.maps.OverlayItem;
-
 import android.app.Dialog;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -31,6 +14,21 @@ import android.location.LocationListener;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.beautifulpromise.R;
+import com.beautifulpromise.application.addpromise.FriendViewDialog;
+import com.beautifulpromise.common.dto.AddPromiseDTO;
+import com.facebook.halo.application.types.User;
+import com.facebook.halo.application.types.connection.Checkins;
+import com.facebook.halo.application.types.connection.Friends;
+import com.facebook.halo.framework.common.AccessToken;
+import com.facebook.halo.framework.core.Connection;
+import com.google.android.maps.GeoPoint;
+import com.google.android.maps.MapActivity;
+import com.google.android.maps.MapController;
+import com.google.android.maps.MapView;
+import com.google.android.maps.Overlay;
+import com.google.android.maps.OverlayItem;
 
 public class CycleCheckActivity extends MapActivity {
 

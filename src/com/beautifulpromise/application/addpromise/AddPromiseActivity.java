@@ -10,8 +10,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.location.Location;
-import android.location.LocationListener;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -38,7 +36,6 @@ import com.beautifulpromise.database.DatabaseHelper;
 import com.beautifulpromise.database.GoalsDAO;
 import com.facebook.halo.application.types.User;
 import com.facebook.halo.application.types.connection.Friends;
-import com.facebook.halo.framework.common.AccessToken;
 import com.facebook.halo.framework.core.Connection;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
@@ -88,6 +85,7 @@ public class AddPromiseActivity extends MapActivity {
 	
 	Connection<Friends> friends;
 	
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,12 +107,13 @@ public class AddPromiseActivity extends MapActivity {
 
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
+
 				if(event.getAction() == event.ACTION_UP){
+					Log.i("immk", "ACTION_UP");
 					int X = (int) event.getX();
 					int Y = (int) event.getY();
 					
 					GeoPoint geoPoint = mapView.getProjection().fromPixels(X, Y);
-					Log.i("immk", "위도: " + geoPoint.getLatitudeE6() +" 경도 : " + geoPoint.getLongitudeE6());
 					
 					mapController.animateTo(geoPoint);
 					mapController.setZoom(15); 
@@ -127,6 +126,9 @@ public class AddPromiseActivity extends MapActivity {
 		            itemizedoverlay.addOverlay(overlayitem);
 		            mapOverlays.clear();
 		            mapOverlays.add(itemizedoverlay);
+		            
+		            promiseDTO.setLatitue(Double.valueOf(geoPoint.getLatitudeE6()));
+		            promiseDTO.setLongitude(Double.valueOf(geoPoint.getLongitudeE6()));
 				}
 				return false;
 			}

@@ -29,12 +29,12 @@ public class GoalsDAO implements IGoalsDAO {
 			if (goalId >= 0) {
 				
 				switch (addPromiseDTO.getCategoryId()) {
-				case 0: // Helpers, Alarms
-					insertAlarms(goalId, addPromiseDTO.getTime(), addPromiseDTO.getMin(), addPromiseDTO.getDayPeriod());
-					break;
-				case 1:	// Helpers, Locations, Alarms
+				case 0: // Helpers, Alarms, Locations
 					insertAlarms(goalId, addPromiseDTO.getTime(), addPromiseDTO.getMin(), addPromiseDTO.getDayPeriod());
 					insertLocations(goalId, addPromiseDTO.getLatitue(), addPromiseDTO.getLongitude());
+					break;
+				case 1:	// Helpers, Alarms
+					insertAlarms(goalId, addPromiseDTO.getTime(), addPromiseDTO.getMin(), addPromiseDTO.getDayPeriod());
 					break;
 				case 2:	// Helpers
 					break;
@@ -65,7 +65,7 @@ public class GoalsDAO implements IGoalsDAO {
 	}
 
 	public boolean insertLocations(int goalId, Double latitude, Double longitude) {
-		String query = "INSERT INTO Alarms(goal_id, latitude, longitude) "
+		String query = "INSERT INTO Locations(goal_id, latitude, longitude) "
 						+ "VALUES(" + goalId + "," + latitude + "," + longitude + ")";
 		boolean isSuccess = SQLClient.executeUpdate(databaseHelper, query);
 		return isSuccess;
@@ -106,14 +106,14 @@ public class GoalsDAO implements IGoalsDAO {
 		
 		//TODO
 		switch (promiseDTO.getCategoryId()) {
-		case 1: // Locations, Alarms
+		case 0: // Locations, Alarms
 			query = "SELECT latitude, longitude FROM Locations WHERE goal_id = " + id;
 			rows = SQLClient.executeQuery(databaseHelper, query, new Class[] {Double.class, Double.class});
 			for (HashMap row : rows) {
 				promiseDTO.setLatitue((Double) row.get("latitude"));
 				promiseDTO.setLongitude((Double) row.get("longitude"));
 			}
-		case 0: // Alarms 
+		case 1: // Alarms 
 			query = "SELECT monday, tuesday, wednesday, thursday, friday, saturday, sunday, time, min FROM Alarms WHERE goal_id = " + id;
 			rows = SQLClient.executeQuery(databaseHelper, query, new Class[] {Integer.class, Integer.class, Integer.class, Integer.class, Integer.class, Integer.class, Integer.class, Integer.class, Integer.class});
 			for (HashMap row : rows) {

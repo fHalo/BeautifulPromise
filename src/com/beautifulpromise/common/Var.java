@@ -7,7 +7,7 @@ public class Var {
 	public static int LEFT_MENUBAR_WIDTH = 300;
 	public static final String APP_ID = "222120417868240";
 	public static final String[] PERMISSIONS =  new String[] {
-		"user_about_me", "publish_stream"
-		};
+		"user_about_me", "publish_stream", "user_photos"
+	};
 	
 }
