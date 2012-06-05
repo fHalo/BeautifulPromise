@@ -31,6 +31,7 @@ import android.widget.Toast;
 
 import com.beautifulpromise.R;
 import com.beautifulpromise.common.dto.AddPromiseDTO;
+import com.beautifulpromise.common.repository.Repository;
 import com.beautifulpromise.common.utils.DateUtils;
 import com.beautifulpromise.common.utils.ImageUtils;
 import com.beautifulpromise.database.DatabaseHelper;
@@ -369,10 +370,7 @@ public class AddPromiseActivity extends MapActivity {
 	}
 	
 	private List<Friends> getFriendList(){
-		
-		//TODO
-		User user = new User();
-		user = user.createInstance("100001428910089");
+		User user = Repository.getInstance().getUser();
 		friends = user.friends();
 		return friends.getData();
 	}

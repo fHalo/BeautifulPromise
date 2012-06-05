@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.beautifulpromise.R;
 import com.beautifulpromise.common.dto.AddPromiseDTO;
+import com.beautifulpromise.common.repository.Repository;
 import com.beautifulpromise.common.utils.DateUtils;
 import com.beautifulpromise.common.utils.ImageUtils;
 import com.beautifulpromise.database.DatabaseHelper;
@@ -127,10 +128,7 @@ public class UploadFeedDialog extends Dialog{
 					
 					String path = ImageUtils.saveBitmap(context, captureBitmap);
 					
-					AccessToken.setAccessToken("AAACEdEose0cBAHNrEBile5bKF9AhAodKZBRxMoEauNKYmjBCmGNQEZAZCZAxiCWHRzZB7IVRm1LiqMnKF3eQf63UGv2mmKGA7AxCR3S9KpvAwzP19cdYL");
-					User user = new User();
-					user = user.createInstance("100001428910089");
-					
+					User user = Repository.getInstance().getUser();
 					String albumId = null ;
 					Connection<Album> albums = user.albums();
 					for(List<Album> albumList : albums)

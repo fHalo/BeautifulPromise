@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 import com.beautifulpromise.R;
 import com.beautifulpromise.application.feedviewer.PromiseFeedList;
 import com.beautifulpromise.common.Var;
+import com.beautifulpromise.common.repository.Repository;
 import com.beautifulpromise.facebooklibrary.DialogError;
 import com.beautifulpromise.facebooklibrary.Facebook;
 import com.beautifulpromise.facebooklibrary.Facebook.DialogListener;
@@ -33,6 +34,7 @@ public class Intro extends Activity {
 			
 			//TODO
 			AccessToken.setAccessToken(mFacebook.getAccessToken());
+			Repository.getInstance().setUser();
 			startActivity(new Intent(Intro.this, HomeActivity.class));
 			finish();
 		}
@@ -54,6 +56,7 @@ public class Intro extends Activity {
                 	SessionStore.save(mFacebook, getBaseContext());
                 	//TODO
                     AccessToken.setAccessToken(mFacebook.getAccessToken());
+                    Repository.getInstance().setUser();
                 	startActivity(new Intent(Intro.this, PromiseFeedList.class));
                 	finish();
                 }
