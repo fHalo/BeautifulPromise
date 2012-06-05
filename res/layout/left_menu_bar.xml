@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" 
+    android:id = "@+id/menu_layout"
+    android:background="#FFFFFFFF">
+    
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text = "목표 설정"/>
+    
+	<Button 
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:text = "목표 생성"
+		android:id = "@+id/add_promise_btn"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textSize="25dp"/>
+    
+    <Button 
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:text = "내 목표"
+        android:id = "@+id/my_promise_btn"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textSize="25dp"/>
+    
+    <Button 
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:text = "관심 목표"
+        android:id = "@+id/helper_promise_btn"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textSize="25dp"/>
+    
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:id = "@+id/friend_promise_btn"
+        android:text="친구 목표"
+        android:textSize="25dp" />
+    
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text = "설정창"/>
+    
+    <Button 
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:text = "포인트 샵"
+        android:id = "@+id/pointshop_btn"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textSize="25dp"/>
+    
+    <Button 
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:text = "설정"
+        android:id = "@+id/setting_btn"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textSize="25dp"/>
+    
+</LinearLayout>

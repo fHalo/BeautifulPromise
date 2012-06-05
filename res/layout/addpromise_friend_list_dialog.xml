@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <TextView 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text = "친구를 선택해주세요.(최대 5명)"
+        android:textColor="#FF000000"
+        android:gravity="center"
+        android:background="#FFFFFFFF"/>
+    
+    <ListView 
+        android:layout_width="fill_parent"
+        android:layout_height="300dp"
+        android:id = "@+id/friend_listview"/>
+    
+    <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        
+        <Button 
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id = "@+id/okay_button"
+            android:text = "확인"/>
+ 
+        <Button 
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id = "@+id/cancel_button"
+            android:text = "취소"/>        
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, PromiseUActivity!</string>
+    <string name="app_name">아름다운 약속</string>
+    <string name="category">Category</string>
+    <string name="select_category">목표 종류 선택</string>
+	<string name="map_api_key">0aogvvvwYoqr3yp16lWI7TcobWU_nk9ssG0mP6w</string>
+</resources>
