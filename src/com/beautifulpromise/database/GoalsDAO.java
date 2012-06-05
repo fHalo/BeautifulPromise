@@ -152,25 +152,25 @@ public class GoalsDAO implements IGoalsDAO {
 		
 		switch (day) {    
 		case 1:
-			query += "monday=1";
+			query += "sunday=1";
 			break;
 		case 2:
-			query += "tuesday=1";
+			query += "monday=1";
 			break;
 		case 3:
-			query += "wednesday=1";
+			query += "tuesday=1";
 			break;
 		case 4:
-			query += "thursday=1";
+			query += "wednesday=1";
 			break;
 		case 5:
-			query += "friday=1";
+			query += "thursday=1";
 			break;
 		case 6:
-			query += "saturday=1";
+			query += "friday=1";
 			break;
 		case 7:
-			query += "sunday=1";
+			query += "saturday=1";
 			break;
 		}
 		query += ") as at"
