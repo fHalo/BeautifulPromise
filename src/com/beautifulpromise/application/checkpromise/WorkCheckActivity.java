@@ -132,7 +132,7 @@ public class WorkCheckActivity extends Activity {
 			Intent intent = new Intent(WorkCheckActivity.this, WorkCheckFeedActivity.class);
 			intent.putExtra("Time", SendMessage);
 			
-			Bundle extras = new Bundle(); 
+			Bundle extras = new Bundle();
 			extras.putSerializable("PromiseDTO", promiseobject); 
 			intent.putExtras(extras);
 			
