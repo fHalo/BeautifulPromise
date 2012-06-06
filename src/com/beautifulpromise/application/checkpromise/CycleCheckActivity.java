@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
@@ -11,13 +12,18 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.LocationListener;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.beautifulpromise.R;
 import com.beautifulpromise.application.addpromise.FriendViewDialog;
 import com.beautifulpromise.common.dto.AddPromiseDTO;
+import com.beautifulpromise.common.utils.ImageUtils;
 import com.facebook.halo.application.types.User;
 import com.facebook.halo.application.types.connection.Checkins;
 import com.facebook.halo.application.types.connection.Friends;
@@ -32,16 +38,18 @@ import com.google.android.maps.OverlayItem;
 
 public class CycleCheckActivity extends MapActivity {
 
-	Cycle_Gps_DBHelper gps_DBHelper;
+	CycleGpsDBHelper gps_DBHelper;
 	LocationListener mLocationListener;
 	MapView mapview;
 	MapController mc;
 	List<Overlay> overlay;
+	
+	AddPromiseDTO promiseobject;
 
 	Connection<Friends> friends;
-
-	AddPromiseDTO promiseDTO;
-
+	
+	TextView PromisenameText;
+	TextView PeriodText;
 	Button PostBtn;
 	Button CameraBtn;
 
@@ -52,11 +60,30 @@ public class CycleCheckActivity extends MapActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.checkpromise_cyclecheck_activity);
 
+		PromisenameText = (TextView) findViewById(R.id.checkpromise_cyclecheck_promisename_text);
+		PeriodText = (TextView) findViewById(R.id.checkpromise_cyclecheck_period_text);
 		PostBtn = (Button) findViewById(R.id.checkpromise_cyclecheck_post_btn);
 		CameraBtn = (Button) findViewById(R.id.checkpromise_cycle_camera_btn);
 
 		PostBtn.setOnClickListener(buttonClickListener);
 		CameraBtn.setOnClickListener(buttonClickListener);
+		
+		//home에서 객체 받아오기
+		Object tempobject = getIntent().getExtras().get("PromiseDTO");
+		promiseobject = (AddPromiseDTO) tempobject;
+		
+		//약속 제목 텍스트 설정
+		PromisenameText.setText(promiseobject.getTitle());
+		
+		//목표기간 텍스트 설정
+		String StartTime = promiseobject.getStartDate();
+		StartTime = StartTime.substring(0, 4) + "." + StartTime.substring(4, 6)+ "." + StartTime.substring(6, 8);
+		
+		String EndTime = promiseobject.getEndDate();
+		EndTime = EndTime.substring(0, 4) + "." + EndTime.substring(4, 6)+ "." + EndTime.substring(6, 8);
+		
+		PeriodText.setText(StartTime + " ~ " + EndTime);
+
 
 		mapview = (MapView) findViewById(R.id.checkpromise_cyclecheck_mapview);
 		mapview.setBuiltInZoomControls(true);
@@ -65,7 +92,7 @@ public class CycleCheckActivity extends MapActivity {
 
 		SQLiteDatabase db;
 
-		gps_DBHelper = new Cycle_Gps_DBHelper(this);
+		gps_DBHelper = new CycleGpsDBHelper(this);
 		db = gps_DBHelper.getReadableDatabase();
 
 		Cursor cursor;
@@ -86,7 +113,7 @@ public class CycleCheckActivity extends MapActivity {
 				R.drawable.comment_write);
 		bitmap = Bitmap.createScaledBitmap(bitmap, 50, 50, false);
 		Drawable drawable = new BitmapDrawable(bitmap);
-		Cycle_Gps_PinOverlay mdio = new Cycle_Gps_PinOverlay(drawable);
+		CycleGpsPinOverlay mdio = new CycleGpsPinOverlay(drawable);
 		OverlayItem overlayitem = new OverlayItem(gp, "", "");
 		mdio.addOverlayItem(overlayitem);
 		overlay = mapview.getOverlays();
@@ -100,28 +127,13 @@ public class CycleCheckActivity extends MapActivity {
 			switch (v.getId()) {
 
 			case R.id.checkpromise_cyclecheck_post_btn:
-				User user = new User();
-				user = user.createInstance("me");
-
-				Checkins checkins = new Checkins();
-				checkins.setMessage("Where R U ?");
-				List<String> tags = new ArrayList<String>();
-				tags.add("100001428910089"); // Friend1 Id
-				tags.add("100001066448386"); // Friend2 Id
-				checkins.setTags(tags);
-				checkins.setCoordinates(Latitude.toString(),
-						Longitude.toString()); // My Position
-				checkins.setPlace("228600137193828"); // Place Position
-				user.publishCheckins(checkins);
 
 				break;
 
 			case R.id.checkpromise_cycle_camera_btn:
-				FriendViewDialog.Builder friendViewBuilder = new FriendViewDialog.Builder(
-						CycleCheckActivity.this, friends.getData(),
-						promiseDTO.getHelperList());
-				Dialog friendDialog = friendViewBuilder.create();
-				friendDialog.show();
+				CameraDialog.Builder cameraBuilder = new CameraDialog.Builder(CycleCheckActivity.this);
+				Dialog cameraDialog = cameraBuilder.create();
+				cameraDialog.show();
 				break;
 
 			default:
@@ -139,13 +151,30 @@ public class CycleCheckActivity extends MapActivity {
 	public void onDestroy() {
 		super.onDestroy();
 	}
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		Uri imageUri;
+		Bitmap bitmap;
+		
+		if (resultCode == RESULT_OK) {
+			switch (requestCode) {
+			case CameraDialog.FINISH_TAKE_PHOTO:
+				bitmap = (Bitmap) data.getExtras().get("data"); 
+				String path = ImageUtils.saveBitmap(CycleCheckActivity.this, bitmap);
+				
+				break;
+				
+			case CameraDialog.FINISH_GET_IMAGE:
+				imageUri = data.getData();
+				String[] proj = { MediaStore.Images.Media.DATA };
+				Cursor cursor = managedQuery(imageUri, proj, null, null, null);
+				cursor.moveToFirst();
+				String imagePath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA));
+				Toast.makeText(this, imagePath, Toast.LENGTH_SHORT).show();
+				bitmap = ImageUtils.getResizedBitmap(imagePath);
 
-	private List<Friends> getFriendList() {
-		AccessToken
-				.setAccessToken("AAACEdEose0cBABA2zfMNaWAKAslGBQgKKxJDAwpX2uIErZAfVZA4UnpGvGmIEGCaIJ8Kn2MWTGqa814f7qpjGLagMxImYy68NHoI864sC7IQKmhdFb");
-		User user = new User();
-		user = user.createInstance("me");
-		friends = user.friends();
-		return friends.getData();
+				break;
+			}
+		}
 	}
 }

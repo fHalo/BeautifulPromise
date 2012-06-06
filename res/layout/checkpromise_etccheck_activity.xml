@@ -91,6 +91,7 @@
             android:layout_marginTop="10dp"
             android:layout_weight="0.75"
             android:ems="10"
+            android:background="@drawable/popup_bg_white_plate"
             android:inputType="textMultiLine" >
 
             <requestFocus />
@@ -124,7 +125,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:background="@drawable/ico_observer"
+            android:background="@drawable/ico_camera"
             android:gravity="center_vertical" />
     </LinearLayout>
 

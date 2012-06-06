@@ -4,8 +4,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class Cycle_Gps_DBHelper extends SQLiteOpenHelper {
-	public Cycle_Gps_DBHelper(Context context) {
+public class CycleGpsDBHelper extends SQLiteOpenHelper {
+	public CycleGpsDBHelper(Context context) {
 		super(context, "Gps.db", null, 1);
 	}
 

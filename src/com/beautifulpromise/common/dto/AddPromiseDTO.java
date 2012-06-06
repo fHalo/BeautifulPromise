@@ -1,13 +1,15 @@
 package com.beautifulpromise.common.dto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 
 import com.beautifulpromise.application.addpromise.DonationDTO;
 import com.facebook.halo.application.types.connection.Friends;
 
 import android.graphics.Bitmap;
 
-public class AddPromiseDTO {
+public class AddPromiseDTO implements Serializable {
 
 	private int id;
 	private String userId;
@@ -27,6 +29,7 @@ public class AddPromiseDTO {
 	private int result ;
 	private String signPath;
 	private Bitmap signBitmap;
+	private int d_day;
 	
 	public int getId() {
 		return id;
@@ -135,5 +138,22 @@ public class AddPromiseDTO {
 	}
 	public void setResult(int result) {
 		this.result = result;
+	}
+	public int getD_day() {
+		return d_day;
+	}
+	public void setD_day(String d_day) {
+		GregorianCalendar cal = new GregorianCalendar();       
+		  long currentTime = cal.getTimeInMillis() / (1000*60*60*24);       
+		  //getTimeInMillis()는 현재 시각을 밀리세컨드로 리턴하므로 1000으로 나눔.    
+		  //날짜로 구하려고 60*60*24 를 해줌
+		  
+		  cal.set(Integer.parseInt(d_day.substring(0, 4)),Integer.parseInt(d_day.substring(4, 6)) - 1,Integer.parseInt(d_day.substring(6, 8)) - 1,0,0);      
+		  //기준이 될 특정 날짜를 세팅(주의:일, 월 은 0부터 시작)      
+		  long birthTime = cal.getTimeInMillis() / (1000*60*60*24); 
+		  //수정한 시각을 밀리세컨드로 리턴받아서 1000으로 나눔      
+		  int interval = (int)(birthTime -currentTime);     
+		  //현재시각에서 생일시각을 빼서 현재까지 경과된 시간을 구함
+		this.d_day = interval;
 	}
 }

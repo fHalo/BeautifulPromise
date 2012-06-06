@@ -5,10 +5,10 @@ import android.graphics.drawable.Drawable;
 import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.OverlayItem;
 
-public class Cycle_Gps_PinOverlay extends ItemizedOverlay<OverlayItem> {
+public class CycleGpsPinOverlay extends ItemizedOverlay<OverlayItem> {
 	private ArrayList<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
 
-	public Cycle_Gps_PinOverlay(Drawable defaultMarker) {
+	public CycleGpsPinOverlay(Drawable defaultMarker) {
 		super(boundCenterBottom(defaultMarker));
 	}
 

@@ -12,17 +12,17 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-public class Cycle_Gps_Alarm extends BroadcastReceiver{
+public class CycleGpsAlarm extends BroadcastReceiver{
 	
 	LocationListener mLocationListener;
 	LocationManager lm;
-	Cycle_Gps_DBHelper gps_DBHelper;
+	CycleGpsDBHelper gps_DBHelper;
 	Context context;
 	
 	public void onReceive(Context context, Intent intent) {
 		
 		this.context = context;
-		gps_DBHelper = new Cycle_Gps_DBHelper(context);
+		gps_DBHelper = new CycleGpsDBHelper(context);
 		
 		lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
 		
@@ -42,23 +42,25 @@ public class Cycle_Gps_Alarm extends BroadcastReceiver{
 					row.put("latitude", Latitude);
 					row.put("longitude", Longitude);
 					db.insert("gps", null, row);
+					Toast.makeText(CycleGpsAlarm.this.context, "알람알람",
+							Toast.LENGTH_SHORT).show();
 					lm.removeUpdates(mLocationListener);
 				}
 			}
 			
 			public void onProviderDisabled(String arg0) {
-				Toast.makeText(Cycle_Gps_Alarm.this.context, "provider disabled " + arg0,
+				Toast.makeText(CycleGpsAlarm.this.context, "provider disabled " + arg0,
 								Toast.LENGTH_SHORT).show();
 			}
 
 			public void onProviderEnabled(String arg0) {
-				Toast.makeText(Cycle_Gps_Alarm.this.context, "provider enabled " + arg0,
+				Toast.makeText(CycleGpsAlarm.this.context, "provider enabled " + arg0,
 								Toast.LENGTH_SHORT).show();
 			}
 
 			public void onStatusChanged(String arg0, int arg1, Bundle arg2) {
 				// TODO Auto-generated method stub
-				Toast.makeText(Cycle_Gps_Alarm.this.context,
+				Toast.makeText(CycleGpsAlarm.this.context,
 						"GPS 상태가 변경되었습니다.\n" + arg0 + ", " + arg1 + "",
 						Toast.LENGTH_SHORT).show();
 			}

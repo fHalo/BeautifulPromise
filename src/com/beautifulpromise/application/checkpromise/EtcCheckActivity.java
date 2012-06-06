@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.beautifulpromise.R;
@@ -31,6 +32,8 @@ import com.facebook.halo.application.types.infra.FacebookType;
 import com.facebook.halo.framework.core.Connection;
 
 public class EtcCheckActivity extends Activity {
+	TextView PromisenameText;
+	TextView PeriodText;
 	Button PostBtn;
 	Button CameraBtn;
 	EditText contentEdit;
@@ -38,12 +41,14 @@ public class EtcCheckActivity extends Activity {
 
 	Connection<Friends> friends;
 
-	AddPromiseDTO promiseDTO;
-
+	AddPromiseDTO promiseobject;
+	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.checkpromise_etccheck_activity);
 
+		PromisenameText = (TextView) findViewById(R.id.checkpromise_etccheck_promisename_text);
+		PeriodText = (TextView) findViewById(R.id.checkpromise_etccheck_period_text);
 		PostBtn = (Button) findViewById(R.id.checkpromise_etccheck_post_btn);
 		CameraBtn = (Button) findViewById(R.id.checkpromise_etccheck_camera_btn);
 		contentEdit = (EditText) findViewById(R.id.checkpromise_etccheck_content_edit);
@@ -52,7 +57,22 @@ public class EtcCheckActivity extends Activity {
 		PostBtn.setOnClickListener(buttonClickListener);
 		CameraBtn.setOnClickListener(buttonClickListener);
 
-		promiseDTO = new AddPromiseDTO();
+		//home에서 객체 받아오기
+		Object tempobject = getIntent().getExtras().get("PromiseDTO");
+		promiseobject = (AddPromiseDTO) tempobject;
+		
+		//약속 제목 텍스트 설정
+		PromisenameText.setText(promiseobject.getTitle());
+		
+		//목표기간 텍스트 설정
+		String StartTime = promiseobject.getStartDate();
+		StartTime = StartTime.substring(0, 4) + "." + StartTime.substring(4, 6)+ "." + StartTime.substring(6, 8);
+		
+		String EndTime = promiseobject.getEndDate();
+		EndTime = EndTime.substring(0, 4) + "." + EndTime.substring(4, 6)+ "." + EndTime.substring(6, 8);
+		
+		PeriodText.setText(StartTime + " ~ " + EndTime);
+		
 	}
 
 	View.OnClickListener buttonClickListener = new View.OnClickListener() {
