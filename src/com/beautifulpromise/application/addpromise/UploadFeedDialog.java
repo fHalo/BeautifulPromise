@@ -33,7 +33,6 @@ import com.facebook.halo.application.types.connection.Albums;
 import com.facebook.halo.application.types.connection.Friends;
 import com.facebook.halo.application.types.connection.Photos;
 import com.facebook.halo.application.types.infra.FacebookType;
-import com.facebook.halo.framework.common.AccessToken;
 import com.facebook.halo.framework.core.Connection;
 
 public class UploadFeedDialog extends Dialog{
@@ -133,8 +132,6 @@ public class UploadFeedDialog extends Dialog{
 					Connection<Album> albums = user.albums();
 					for(List<Album> albumList : albums)
 						for(Album album : albumList){
-							
-							System.out.println("Album ID : " + album.getId());
 							if(album.getName().equals("아름다운 약속")) {
 								albumId = album.getId();
 								break;
@@ -165,13 +162,13 @@ public class UploadFeedDialog extends Dialog{
 						tag.setY(""+(70));
 						tags.add(tag);
 					}
-					boolean result = user.publishTagsAtPhoto(type.getId(), tags);
+					boolean result = user.publishTagsAtPhoto(type.getId().toString(), tags);
 					if(result){
-//						//TODO DB저장
+						//TODO DB저장
 						DatabaseHelper databaseHelper = new DatabaseHelper(context);
 						GoalsDAO dao = new GoalsDAO(databaseHelper);
-						boolean rr = dao.insert(promiseDTO);
-						Log.i("immk", "insert : " + rr);
+						boolean isCheck = dao.insert(promiseDTO);
+						Log.i("immk", "insert : " + isCheck);
 						dialog.cancel();
 					}else{
 						Toast.makeText(context, "Upload에 실패하였습니다.", Toast.LENGTH_SHORT).show();

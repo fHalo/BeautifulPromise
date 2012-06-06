@@ -3,10 +3,6 @@ package com.beautifulpromise.application.addpromise;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
-import com.beautifulpromise.R;
-import com.beautifulpromise.common.dto.AddPromiseDTO;
-
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -14,12 +10,14 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.os.Environment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+
+import com.beautifulpromise.R;
+import com.beautifulpromise.common.dto.AddPromiseDTO;
 
 public class SignViewDialog extends Dialog{
 	

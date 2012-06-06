@@ -2,7 +2,6 @@ package com.beautifulpromise.application.checkpromise;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -21,21 +20,14 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.beautifulpromise.R;
-import com.beautifulpromise.R.id;
-import com.beautifulpromise.application.addpromise.AddPromiseActivity;
-import com.beautifulpromise.application.addpromise.AddPromiseDTO;
-import com.beautifulpromise.application.addpromise.FriendViewDialog;
-import com.beautifulpromise.application.addpromise.SignViewDialog;
+import com.beautifulpromise.common.dto.AddPromiseDTO;
 import com.beautifulpromise.common.utils.ImageUtils;
 import com.facebook.halo.application.types.Album;
-//import com.facebook.halo.application.types.Tags;
 import com.facebook.halo.application.types.User;
 import com.facebook.halo.application.types.connection.Albums;
-import com.facebook.halo.application.types.connection.Feed;
 import com.facebook.halo.application.types.connection.Friends;
 import com.facebook.halo.application.types.connection.Photos;
 import com.facebook.halo.application.types.infra.FacebookType;
-import com.facebook.halo.framework.common.AccessToken;
 import com.facebook.halo.framework.core.Connection;
 
 public class EtcCheckActivity extends Activity {
