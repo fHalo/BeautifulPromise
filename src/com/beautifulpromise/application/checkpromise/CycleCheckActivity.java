@@ -1,6 +1,5 @@
 package com.beautifulpromise.application.checkpromise;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Dialog;
@@ -21,13 +20,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.beautifulpromise.R;
-import com.beautifulpromise.application.addpromise.FriendViewDialog;
 import com.beautifulpromise.common.dto.AddPromiseDTO;
 import com.beautifulpromise.common.utils.ImageUtils;
-import com.facebook.halo.application.types.User;
-import com.facebook.halo.application.types.connection.Checkins;
 import com.facebook.halo.application.types.connection.Friends;
-import com.facebook.halo.framework.common.AccessToken;
 import com.facebook.halo.framework.core.Connection;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;

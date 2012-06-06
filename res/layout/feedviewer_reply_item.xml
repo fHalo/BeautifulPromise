@@ -22,7 +22,8 @@
         android:layout_marginLeft="5dp"
         android:layout_toRightOf="@+id/replyProfileImage"
         android:text="Jaemyung Shin"
-        android:textAppearance="?android:attr/textAppearanceMedium" android:textColor="#000000"/>
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#000000" />
 
     <TextView
         android:id="@+id/replyFeedText"
@@ -34,23 +35,28 @@
         android:layout_toRightOf="@+id/replyProfileImage"
         android:text="hello hi good bye this si test .. . .blah blah balh balh this is too long sentence ghahaha" />
 
-    <TextView
-        android:id="@+id/replyDateText"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/replyFeedText"
-        android:layout_below="@+id/replyFeedText"
-        android:layout_marginTop="3dp"
-        android:text="2012/4/12 PM 2:32" />
+        android:layout_below="@id/replyFeedText"
+        android:layout_toRightOf="@id/replyProfileImage"
+        android:orientation="horizontal" >
 
-    <TextView
-        android:id="@+id/replyLikeText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/replyDateText"
-        android:layout_alignBottom="@+id/replyDateText"
-        android:layout_marginLeft="16dp"
-        android:layout_toRightOf="@+id/replyDateText"
-        android:text="좋아요" />
+        <TextView
+            android:id="@+id/replyDateText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:text="2012/4/12 PM 2:32" />
+
+        <TextView
+            android:id="@+id/replyLikeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="8dp"
+            android:text="　　좋아요" />
+    </LinearLayout>
 
 </RelativeLayout>
