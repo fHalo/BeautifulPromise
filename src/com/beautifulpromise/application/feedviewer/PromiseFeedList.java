@@ -35,7 +35,7 @@ public class PromiseFeedList extends BeautifulPromiseActivity{
 			@Override
 			public void run() {
 		        Post feed = new Post();
-		        feed = feed.createInstance("1675068773_2916094596176");
+		        feed = feed.createInstance("100003162160041_238075626307841");
 		        feedItem = new FeedItemDTO(feed);
 		        arrayFeedItem.add(feedItem);
 		        

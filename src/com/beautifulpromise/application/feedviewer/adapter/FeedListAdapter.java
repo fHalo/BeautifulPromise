@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.content.Intent;
-import android.opengl.Visibility;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +11,6 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -102,16 +100,6 @@ public class FeedListAdapter extends BaseAdapter {
 		//like setting
 		final TextView like = (TextView)convertView.findViewById(R.id.likeText);
 		like.setText("" +arrayListFeedItem.get(position).getLikeCount());
-		like.setOnClickListener(new TextView.OnClickListener() {
-			public void onClick(View v) {
-				if(like.getText().equals("좋아요")) { //좋아요하기
-					like.setText("좋아요 취소");
-				}
-				else { //좋아요 취소하기
-					like.setText("좋아요");
-				}
-			}
-		});
 		
 		//reply & like click listener
 		RelativeLayout viewerBottom = (RelativeLayout)convertView.findViewById(R.id.feedViewerBottom);

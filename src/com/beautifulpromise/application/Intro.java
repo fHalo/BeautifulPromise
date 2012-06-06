@@ -57,7 +57,7 @@ public class Intro extends Activity {
                 	//TODO
                     AccessToken.setAccessToken(mFacebook.getAccessToken());
                     Repository.getInstance().setUser();
-                	startActivity(new Intent(Intro.this, PromiseFeedList.class));
+                	startActivity(new Intent(Intro.this, HomeActivity.class));
                 	finish();
                 }
     

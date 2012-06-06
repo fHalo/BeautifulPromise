@@ -19,6 +19,7 @@ public class FeedItemDTO {
 	private Likes like;
 	private Long commentCount;
 	private Long likeCount;
+	private boolean liked;
 	
 	public FeedItemDTO() {}
 	
