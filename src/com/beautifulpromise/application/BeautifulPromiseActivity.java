@@ -118,25 +118,28 @@ public class BeautifulPromiseActivity extends Activity{
 
 			case R.id.my_promise_btn:
 				intent = new Intent(BeautifulPromiseActivity.this, PromiseFeedList.class);
+				Var.menuShowFlag = false;
 				startActivity(intent);
 				break;
 				
 			case R.id.helper_promise_btn:
 				intent = new Intent(BeautifulPromiseActivity.this, PromiseFeedList.class);
+				Var.menuShowFlag = false;
 				startActivity(intent);
 				break;
 				
 			case R.id.friend_promise_btn:
 				intent = new Intent(BeautifulPromiseActivity.this, PromiseFeedList.class);
+				Var.menuShowFlag = false;
 				startActivity(intent);
 				break;
 				
 			case R.id.pointshop_btn:
-				
+				Var.menuShowFlag = false;
 				break;
 				
 			case R.id.setting_btn:
-				
+				Var.menuShowFlag = false;
 				break;
 			default:
 				break;

@@ -16,18 +16,16 @@
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/editText1"
+            android:id="@+id/replyEditText"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:ems="10" >
-
-            <requestFocus />
         </EditText>
 
         <Button
-            android:id="@+id/button1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/replySubmitButton"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:text="등록" />
     </LinearLayout>
 
