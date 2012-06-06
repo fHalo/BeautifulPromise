@@ -23,6 +23,7 @@ public class Intro extends Activity {
 	
 	ImageButton loginButton;
 
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
