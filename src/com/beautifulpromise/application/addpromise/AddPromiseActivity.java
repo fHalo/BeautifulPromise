@@ -348,8 +348,7 @@ public class AddPromiseActivity extends MapActivity {
 			switch (requestCode) {
 			case CameraDialog.FINISH_TAKE_PHOTO:
 				bitmap = (Bitmap) data.getExtras().get("data"); 
-				String path = ImageUtils.saveBitmap(AddPromiseActivity.this, bitmap); // 
-				
+				String path = ImageUtils.saveBitmap(AddPromiseActivity.this, bitmap); 
 				break;
 				
 			case CameraDialog.FINISH_GET_IMAGE:
