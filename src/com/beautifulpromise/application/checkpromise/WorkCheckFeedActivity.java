@@ -1,6 +1,12 @@
 package com.beautifulpromise.application.checkpromise;
 
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
@@ -8,23 +14,35 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.beautifulpromise.R;
 import com.beautifulpromise.common.dto.AddPromiseDTO;
+import com.beautifulpromise.common.repository.Repository;
 import com.beautifulpromise.common.utils.ImageUtils;
-import com.google.android.maps.*;
+import com.facebook.halo.application.types.Album;
+import com.facebook.halo.application.types.Tags;
+import com.facebook.halo.application.types.User;
+import com.facebook.halo.application.types.connection.Albums;
+import com.facebook.halo.application.types.connection.Friends;
+import com.facebook.halo.application.types.connection.Photos;
+import com.facebook.halo.application.types.infra.FacebookType;
+import com.facebook.halo.framework.core.Connection;
 
 public class WorkCheckFeedActivity extends Activity{
+	private static final int CROP_FROM_CAMERA = 1;
 	TextView PromiseName_TextView;
 	TextView Period_TextView;
 	TextView Content_TextView;
 	EditText Feed_EditBox;
+	ImageView Upload_ImageView;
 	
 	Button PostBtn;
 	Button CameraBtn;
@@ -41,7 +59,8 @@ public class WorkCheckFeedActivity extends Activity{
 		PostBtn = (Button) findViewById(R.id.checkpromise_workcheckfeed_post_btn);
 		CameraBtn = (Button) findViewById(R.id.checkpromise_workcheckfeed_camera_btn);
 		Content_TextView = (TextView)findViewById(R.id.checkpromise_workcheckfeed_content_text);
-		
+		Upload_ImageView = (ImageView)findViewById(R.id.checkpromise_workcheckfeed_uploadimage_img);
+		Feed_EditBox = (EditText)findViewById(R.id.checkpromise_workcheckfeed_content_edit);
 		
 		Intent intent= getIntent();
 		String time= intent.getStringExtra("Time");
@@ -74,9 +93,84 @@ public class WorkCheckFeedActivity extends Activity{
 			switch (v.getId()) {
 
 			case R.id.checkpromise_workcheckfeed_post_btn:
+				Upload_ImageView.buildDrawingCache();
+				Bitmap captureBitmap = Upload_ImageView.getDrawingCache();
+				FileOutputStream fos;
+				try {
+					fos = new FileOutputStream(Environment
+							.getExternalStorageDirectory().toString()
+							+ "/capture.jpeg");
+					captureBitmap
+							.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+					captureBitmap = Bitmap.createScaledBitmap(captureBitmap,
+							Upload_ImageView.getWidth(), Upload_ImageView.getHeight(),
+							true);
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
 
+				String path = ImageUtils.saveBitmap(WorkCheckFeedActivity.this, captureBitmap);
+
+				User user = Repository.getInstance().getUser();
+
+				String albumId = null;
+				Connection<Album> albums = user.albums();
+				for (List<Album> albumList : albums)
+					for (Album album : albumList) {
+
+						System.out.println("Album ID : " + album.getId());
+						if (album.getName().equals("아름다운 약속")) {
+							albumId = album.getId();
+							break;
+						}
+					}
+
+				if (albumId == null) {
+					Albums album = new Albums();
+					album.setName("아름다운 약속");
+					album.setMessage("당신이 약속을 지킴으로써 소중한 한 생명이 살아날 수 있습니다.");
+					albumId = user.publishAlbums(album).getId();
+				}
+
+				Photos photos = new Photos();
+				photos.setMessage(PromiseName_TextView.getText().toString() + "\n\n"
+						+ "목표 기간 : " + Period_TextView.getText().toString() + "\n\n"
+						+ Content_TextView.getText().toString() + "\n\n"
+						+ Feed_EditBox.getText().toString() + "\n\n\n"
+						+ "구글 Play 유료게임 1위!!! 팔라독 다운 받기\n"
+						+ "http://bit.ly/LaEn8k\n");
+				photos.setSource(path);
+				photos.setFileName("Beautiful Promise");
+				FacebookType type = user.publishPhotos(albumId, photos);
+
+				
+//				ArrayList<Friends> HelperList = promiseobject.getHelperList();
+				ArrayList<Tags> tags = new ArrayList<Tags>();
+//				for (Friends friends : HelperList) {
+//					Tags tag = new Tags();
+//					tag.setTagUid(friends.getId());
+//					tags.add(tag);
+//					
+//				}
+				
+
+				Tags tag = new Tags();
+				tag.setTagUid("100001428910089");
+				tags.add(tag);
+				Tags taga = new Tags();
+				taga.setTagUid("100001066448386");
+				tags.add(taga);
+
+				boolean result = user.publishTagsAtPhoto(type.getId(), tags);
+				if (result) {
+					Toast.makeText(WorkCheckFeedActivity.this, "성공",
+							Toast.LENGTH_SHORT).show();
+				} else {
+					Toast.makeText(WorkCheckFeedActivity.this, "Upload에 실패하였습니다.",
+							Toast.LENGTH_SHORT).show();
+				}
 				break;
-
+			
 			case R.id.checkpromise_workcheckfeed_camera_btn:
 				CameraDialog.Builder cameraBuilder = new CameraDialog.Builder(WorkCheckFeedActivity.this);
 				Dialog cameraDialog = cameraBuilder.create();
@@ -96,10 +190,26 @@ public class WorkCheckFeedActivity extends Activity{
 		
 		if (resultCode == RESULT_OK) {
 			switch (requestCode) {
+			case CROP_FROM_CAMERA:
+			{
+				// 크롭이 된 이후의 이미지를 넘겨 받습니다. 이미지뷰에 이미지를 보여준다거나 부가적인 작업 이후에
+				// 임시 파일을 삭제합니다.
+				final Bundle extras = data.getExtras();
+	
+				if(extras != null)
+				{
+					Bitmap photo = extras.getParcelable("data");
+					Upload_ImageView.setImageBitmap(photo);
+				}
+	
+	
+				break;
+			}
+			
 			case CameraDialog.FINISH_TAKE_PHOTO:
 				bitmap = (Bitmap) data.getExtras().get("data"); 
 				String path = ImageUtils.saveBitmap(WorkCheckFeedActivity.this, bitmap);
-				
+				Upload_ImageView.setImageBitmap(bitmap);
 				break;
 				
 			case CameraDialog.FINISH_GET_IMAGE:
@@ -108,8 +218,18 @@ public class WorkCheckFeedActivity extends Activity{
 				Cursor cursor = managedQuery(imageUri, proj, null, null, null);
 				cursor.moveToFirst();
 				String imagePath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA));
-				Toast.makeText(this, imagePath, Toast.LENGTH_SHORT).show();
 				bitmap = ImageUtils.getResizedBitmap(imagePath);
+				Intent intent = new Intent("com.android.camera.action.CROP");
+				intent.setDataAndType(imageUri, "image/*");
+	
+				intent.putExtra("outputX", Upload_ImageView.getWidth()/2);
+				intent.putExtra("outputY", Upload_ImageView.getHeight()/2);
+				intent.putExtra("aspectX", Upload_ImageView.getWidth());
+				intent.putExtra("aspectY", Upload_ImageView.getHeight());
+				intent.putExtra("scale", true);
+				intent.putExtra("return-data", true);
+				startActivityForResult(intent, CROP_FROM_CAMERA);
+//				Upload_ImageView.setImageBitmap(bitmap);
 
 				break;
 			}
