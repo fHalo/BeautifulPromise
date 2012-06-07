@@ -28,6 +28,9 @@ public class PromiseFeedList extends BeautifulPromiseActivity{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
+		//arrayFeedItem 객체생성
+		arrayFeedItem = new ArrayList<FeedItemDTO>();
+		
         //웹에서 데이터 받아오기
         mHandler = new Handler();
         mHandler.post(new Runnable() {
@@ -35,7 +38,10 @@ public class PromiseFeedList extends BeautifulPromiseActivity{
 			@Override
 			public void run() {
 		        Post feed = new Post();
+		        
+//		        feed = feed.createInstance("100002579649067_289219304507389");
 		        feed = feed.createInstance("100003162160041_238075626307841");
+//		        feed = feed.createInstance("100001428910089_369804946410466");
 		        feedItem = new FeedItemDTO(feed);
 		        arrayFeedItem.add(feedItem);
 		        
@@ -53,7 +59,7 @@ public class PromiseFeedList extends BeautifulPromiseActivity{
 		LinearLayout feedListLayout = (LinearLayout)View.inflate(this, R.layout.feedviewer_feed_list, null);
 		setActivityLayout(feedListLayout);
 		
-		arrayFeedItem = new ArrayList<FeedItemDTO>();
+		
 		
 		//adapter 생성 후 레이아웃&데이터 세팅
 		FeedListAdapter feedListAdapter = new FeedListAdapter(this, R.layout.feedviewer_feed_item, arrayFeedItem);
