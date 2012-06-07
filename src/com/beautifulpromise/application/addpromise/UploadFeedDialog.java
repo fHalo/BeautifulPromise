@@ -204,9 +204,8 @@ public class UploadFeedDialog extends Dialog{
 						tag.setX(""+(10*count));
 						tag.setY(""+(70));
 						tags.add(tag);
-					
-						result = user.publishTagsAtPhoto(facebookId, tags);
 					}
+					result = user.publishTagsAtPhoto(facebookId, tags);
 				}else 
 					result = true;
 				return 0L;
