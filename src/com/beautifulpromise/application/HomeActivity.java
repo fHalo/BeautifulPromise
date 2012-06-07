@@ -12,15 +12,19 @@ import com.beautifulpromise.application.checkpromise.WorkCheckActivity;
 import com.beautifulpromise.application.checkpromise.WorkCheckFeedActivity;
 import com.beautifulpromise.common.alarm.Alarm;
 import com.beautifulpromise.common.dto.AddPromiseDTO;
+import com.beautifulpromise.database.CheckDBHelper;
 import com.beautifulpromise.database.DatabaseHelper;
 import com.beautifulpromise.database.GoalsDAO;
 
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -36,10 +40,12 @@ import android.widget.TextView;
 public class HomeActivity extends BeautifulPromiseActivity {
 	/** Called when the activity is first created. */
 
+	CheckDBHelper gps_DBHelper;
+	SQLiteDatabase db;
+	
 	ListView PromiseListView;
 	MyListAdapter MyAdapter;
 	ArrayList<AddPromiseDTO> promisedto;
-//	ArrayList<TodayPromiseDTO> arItem;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -51,12 +57,31 @@ public class HomeActivity extends BeautifulPromiseActivity {
 		Calendar oCalendar = Calendar.getInstance();
 		DatabaseHelper databaseHelper = new DatabaseHelper(this);
 		GoalsDAO dao = new GoalsDAO(databaseHelper);
-
+		
+		//오늘해야되는 약속만 객체로 반환 받기
 		promisedto = dao.getGoalList(oCalendar.get(Calendar.DAY_OF_WEEK));
 		
+		//D-dat계산해서 객체에 값넣음
 		for (int i = 0; i < promisedto.size(); i++) {
 			promisedto.get(i).setD_day(promisedto.get(i).getEndDate());
 		}
+		
+		//DB에 임시 데이터 삽입
+		gps_DBHelper = new CheckDBHelper(this);
+		db = gps_DBHelper.getWritableDatabase();
+		
+		db.delete("feed", null, null);
+		
+		ContentValues row;
+		row = new ContentValues();
+		
+		for (AddPromiseDTO temppromise : promisedto) {
+			row.clear();
+			row.put("promiseid", temppromise.getId());
+			row.put("check", 0);
+			db.insert("feed", null, row);
+		}
+		
 //		arItem = new ArrayList<TodayPromiseDTO>();
 //		TodayPromiseDTO promiseObject;
 //
@@ -72,22 +97,10 @@ public class HomeActivity extends BeautifulPromiseActivity {
 		PromiseListView.setItemsCanFocus(false);
 		PromiseListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
-//		Alarm alarm = new Alarm();
-//		alarm.SetAlarm(this, 1);
-		AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-
-		Intent intent;
-		PendingIntent sender;
-		intent = new Intent(HomeActivity.this, CycleGpsAlarm.class);
-		sender = PendingIntent.getBroadcast(HomeActivity.this, 0, intent, 0);
-
-		// 알람 시간
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTimeInMillis(System.currentTimeMillis());
-		calendar.add(Calendar.SECOND, 10);
-
-		// 알람 등록
-		am.set(AlarmManager.RTC, calendar.getTimeInMillis(), sender);
+		//알람
+		Alarm alarm = new Alarm();
+		alarm.SetAlarm(this, 1);
+		
 	}
 
 	class MyListAdapter extends BaseAdapter implements OnClickListener {
@@ -128,11 +141,10 @@ public class HomeActivity extends BeautifulPromiseActivity {
 			TextView d_daytxt = (TextView) convertView.findViewById(R.id.d_day);
 			ImageView checkimg = (ImageView) convertView.findViewById(R.id.home_check);
 			
-			
-			
-			
 			promisenametxt.setText(arSrc.get(position).getTitle());
-
+			Cursor cursor = db.rawQuery("SELECT check FROM feed WHERE promiseid=" + arSrc.get(position).getId(), null);
+			cursor.moveToNext();
+			int check = cursor.getInt(0);
 			//D-Day, D-day가 지나서 평가를 해야되는 약속들
 			if(arSrc.get(position).getResult() == 0 && arSrc.get(position).getD_day() < 1)
 			{
@@ -140,15 +152,16 @@ public class HomeActivity extends BeautifulPromiseActivity {
 				d_daytxt.setTextColor(Color.RED);
 			}
 			//오늘 피드를 올린 약속
+			else if(check == 1)
+			{
+				d_daytxt.setText("D-" + String.valueOf(arSrc.get(position).getD_day()));
+				checkimg.setImageResource(R.drawable.ico_assessment);
+			}
+			//오늘 피드를 올리지 않은 약속
 			else
 			{
 				d_daytxt.setText("D-" + String.valueOf(arSrc.get(position).getD_day()));
 			}
-			//오늘 피드를 올리지 않은 약속
-//			else
-//			{
-//				d_daytxt.setText("D-" + String.valueOf(arSrc.get(position).getD_day()));
-//			}
 			
 			
 			convertView.setTag(position);

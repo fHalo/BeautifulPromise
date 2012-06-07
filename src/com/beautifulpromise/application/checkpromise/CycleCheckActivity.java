@@ -3,6 +3,7 @@ package com.beautifulpromise.application.checkpromise;
 import java.util.List;
 
 import android.app.Dialog;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 import com.beautifulpromise.R;
 import com.beautifulpromise.common.dto.AddPromiseDTO;
 import com.beautifulpromise.common.utils.ImageUtils;
+import com.beautifulpromise.database.CheckDBHelper;
 import com.facebook.halo.application.types.connection.Friends;
 import com.facebook.halo.framework.core.Connection;
 import com.google.android.maps.GeoPoint;
@@ -33,7 +35,9 @@ import com.google.android.maps.OverlayItem;
 
 public class CycleCheckActivity extends MapActivity {
 
-	CycleGpsDBHelper gps_DBHelper;
+	CheckDBHelper gps_DBHelper;
+	SQLiteDatabase db;
+	
 	LocationListener mLocationListener;
 	MapView mapview;
 	MapController mc;
@@ -79,40 +83,53 @@ public class CycleCheckActivity extends MapActivity {
 		
 		PeriodText.setText(StartTime + " ~ " + EndTime);
 
-
 		mapview = (MapView) findViewById(R.id.checkpromise_cyclecheck_mapview);
 		mapview.setBuiltInZoomControls(true);
 		mapview.setSatellite(false);
 		mc = mapview.getController();
 
-		SQLiteDatabase db;
-
-		gps_DBHelper = new CycleGpsDBHelper(this);
-		db = gps_DBHelper.getReadableDatabase();
+		gps_DBHelper = new CheckDBHelper(this);
+		db = gps_DBHelper.getWritableDatabase();
+		
+		db.delete("gps", null, null);
+		ContentValues row;
+		row = new ContentValues();
+		row.put("promiseid", promiseobject.getId());
+		row.put("latitude", 37.589207);
+		row.put("longitude", 126.979294);
+		db.insert("gps", null, row);
 
 		Cursor cursor;
+		
+		int a = 12345678;
+		
+		try{
+			cursor = db.rawQuery("SELECT latitude, longitude FROM gps WHERE promiseid=" + promiseobject.getId(), null);
 
-		cursor = db.rawQuery("SELECT latitude, longitude FROM gps", null);
-		cursor.moveToNext();
-		Latitude = cursor.getDouble(0);
-		Longitude = cursor.getDouble(1);
+			cursor.moveToNext();
+			Latitude = cursor.getDouble(0);
+			Longitude = cursor.getDouble(1);
 
-		// 위도 경로 입력
-		GeoPoint gp = new GeoPoint((int) (Latitude * 1000000),
-				(int) (Longitude * 1000000));
-		mc.animateTo(gp);
-		mc.setZoom(18);
+			// 위도 경로 입력
+			GeoPoint gp = new GeoPoint((int) (Latitude * 1000000),
+					(int) (Longitude * 1000000));
+			mc.animateTo(gp);
+			mc.setZoom(18);
 
-		// PIN만들기
-		Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
-				R.drawable.comment_write);
-		bitmap = Bitmap.createScaledBitmap(bitmap, 50, 50, false);
-		Drawable drawable = new BitmapDrawable(bitmap);
-		CycleGpsPinOverlay mdio = new CycleGpsPinOverlay(drawable);
-		OverlayItem overlayitem = new OverlayItem(gp, "", "");
-		mdio.addOverlayItem(overlayitem);
-		overlay = mapview.getOverlays();
-		overlay.add(mdio);
+			// PIN만들기
+			Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
+					R.drawable.comment_write);
+			bitmap = Bitmap.createScaledBitmap(bitmap, 50, 50, false);
+			Drawable drawable = new BitmapDrawable(bitmap);
+			CycleGpsPinOverlay mdio = new CycleGpsPinOverlay(drawable);
+			OverlayItem overlayitem = new OverlayItem(gp, "", "");
+			mdio.addOverlayItem(overlayitem);
+			overlay = mapview.getOverlays();
+			overlay.add(mdio);
+		}catch (Exception e) {
+			Toast.makeText(this, "GPS좌표값이 저장되어 있지 않습니다.", Toast.LENGTH_SHORT).show();
+		}
+		
 
 	}
 
