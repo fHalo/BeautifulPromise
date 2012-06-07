@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -40,9 +42,6 @@ public class HttpClients {
 	
 	public String getUrlToJson(String site, ArrayList<NameValuePair> params) {
 		
-//		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-//		params.add(new BasicNameValuePair("id", ApplicationRepository.getInstance().getUserId()));
-
 		try {
 			URI url = null;
 			if(params == null){
@@ -80,19 +79,25 @@ public class HttpClients {
 			return false;
 		}
 	}
-	
-	public ArrayList<Object> getResultList(String data){
+
+	@SuppressWarnings("rawtypes")
+	public ArrayList getResultList(String data){
 		
-		ArrayList<Object> list = new ArrayList<Object>();
-		
+		ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
 		try {
 			JSONObject json = new JSONObject(data);
 			JSONArray jarray = json.getJSONArray("data");
 			
 			for(int i = 0 ; i < jarray.length() ; i++){
+				HashMap<String, String> map = new HashMap<String,String>();
 				JSONObject object = jarray.getJSONObject(i);
-				Log.i("immk", object.keys().toString());
-				list.add(object.getString(object.keys().toString()));
+				Iterator iterator = object.keys();
+				while(iterator.hasNext()){
+					String key = (String) iterator.next();
+					String value = object.getString(key);
+					map.put(key, value);
+				}
+				list.add(map);
 			}
 			return list;
 		} catch (JSONException e) {
@@ -100,14 +105,4 @@ public class HttpClients {
 			return null;
 		}
 	}
-	
-//	public static boolean insert(ArrayList<HashMap<String, Object>> list){
-//		
-//		HashMap<String, Object> row = null;
-//		for(int i = 0 ; i < list.size() ; i++){
-//			
-//		}
-//		return false;
-//	}
-
 }

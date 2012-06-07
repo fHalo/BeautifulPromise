@@ -13,7 +13,6 @@ import com.beautifulpromise.R;
 
 public class DateDialog extends Dialog{
 	
-
     public DateDialog(Context context, int theme) {
         super(context, theme);
     }

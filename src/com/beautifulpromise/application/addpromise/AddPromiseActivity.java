@@ -171,15 +171,16 @@ public class AddPromiseActivity extends MapActivity {
 		promiseDTO = new AddPromiseDTO();
 		promiseDTO.setDayPeriod(new boolean[]{false, false, false, false, false, false, false});
 		
-//		DatabaseHelper databaseHelper = new DatabaseHelper(this);
-//		GoalsDAO dao = new GoalsDAO(databaseHelper);
-//		ArrayList<AddPromiseDTO> aa = dao.getList();
-//		ArrayList<AddPromiseDTO> bb = dao.getGoalList(2);
-//		Log.i("immk", bb.get(0).getTitle());
+		DatabaseHelper databaseHelper = new DatabaseHelper(this);
+		GoalsDAO dao = new GoalsDAO(databaseHelper);
+		ArrayList<AddPromiseDTO> aa = dao.getList();
+		ArrayList<AddPromiseDTO> bb = dao.getGoalList(2);
+		Log.i("immk", bb.get(0).getTitle());
 		
 //		Controller ctr = new Controller();
-//		ctr.get
-
+//		ArrayList<String> aa = ctr.GetHelperList("113852212089571");
+//		ArrayList<String> bb = ctr.GetCheckList("15649845");
+//		ArrayList<String> cc = ctr.GetProjectStatus(3);
     }
     
     View.OnClickListener buttonClickListener = new View.OnClickListener() {
@@ -221,7 +222,7 @@ public class AddPromiseActivity extends MapActivity {
 				
 			case R.id.create_button:
 				
-				//TODO promiseDTO 객체에 정보 담기 
+				//TODO promiseDTO 객체에 정보 담기  
 //				promiseDTO.setTitle(goalTitleEdit.getText().toString());
 				promiseDTO.setStartDate(startDateText.getText().toString());
 //				promiseDTO.setEndDate(endDateText.getText().toString());
@@ -429,34 +430,29 @@ public class AddPromiseActivity extends MapActivity {
 		switch (key) {
 		case 0: 	// 주기 활동
 			promiseDTO.setTitle("영어 공부 하기");
-			promiseDTO.setContent("1. 하루 30분 공부하기 \n2.영어 단어 50개 암기");
+			promiseDTO.setContent("1. 하루 30분 공부하기 \n2. 영어 단어 50개 암기");
 			promiseDTO.setEndDate("2012년 6월 20일");
 			promiseDTO.setLatitue(3.749611E7);
 			promiseDTO.setLongitude(1.27051993E8);
 			promiseDTO.setDayPeriod(new boolean[]{true, true, true, true, true, false, false});
 			promiseDTO.setTime(10);
 			promiseDTO.setMin(30);
-			promiseDTO.setHelperList(null);
 			break;
 		case 1:  	// 운동
 			promiseDTO.setTitle("운동 하기");
-			promiseDTO.setContent("1. 아침운동 30분 하기 \n2.저녁은 조금만 먹을랭");
+			promiseDTO.setContent("1. 아침운동 30분 하기 \n2. 저녁은 조금만 먹을랭");
 			promiseDTO.setEndDate("2012년 6월 14일");
 			promiseDTO.setDayPeriod(new boolean[]{true, true, true, true, true, true, true});
 			promiseDTO.setTime(10);
 			promiseDTO.setMin(0);
-			promiseDTO.setHelperList(null);
 			break;
 		case 2:		// 기타
 			promiseDTO.setTitle("규칙적인 생활하기");
-			promiseDTO.setContent("1. 아침 9시에 일어나기 \n2.2시에 자기");
+			promiseDTO.setContent("1. 아침 9시에 일어나기 \n2. 2시에 자기");
 			promiseDTO.setEndDate("2012년 6월 22일");
-			promiseDTO.setHelperList(null);
 			break;			
 		default:
 			break;
 		}
-		
-		
 	}
 }
