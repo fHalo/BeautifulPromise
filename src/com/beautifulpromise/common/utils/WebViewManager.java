@@ -14,26 +14,4 @@ public class WebViewManager extends WebViewClient {
 		view.loadUrl(url);
 		return true;
 	}
-
-	/**
-	 * webView imaage Resize
-	 * @param url
-	 * @return html body
-	 */
-	public static String webViewImageReSize(String url) {
-		StringBuffer sb = new StringBuffer("<HTML>");
-		sb.append("<HEAD>");
-		sb.append("<META http-equiv=Content-Type content=\"text/html; charset=utf-8\">");
-		sb.append("<META content=\"TAGFREE Active Designer v3.0\" name=GENERATOR>");
-		sb.append("<META name=\"viewport\" content=\"user-scalable=yes, initial-scale=0.1, maximum-scale=0.0, minimum-scale=0.0");
-		sb.append("</HEAD>");
-		sb.append("<BODY style=\"margin:0;padding:0\">");
-		sb.append("<img width=100%;height:100% src=\"" + url + "\"/>");
-		// sb.append("</OBJECT>");
-		sb.append("</BODY>");
-		sb.append("</HTML>");
-		String htmlBody = sb.toString();
-
-		return htmlBody;
-	}
 }

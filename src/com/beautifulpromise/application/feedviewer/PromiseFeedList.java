@@ -40,16 +40,16 @@ public class PromiseFeedList extends BeautifulPromiseActivity{
 		        Post feed = new Post();
 		        
 //		        feed = feed.createInstance("100002579649067_289219304507389");
-		        feed = feed.createInstance("100003162160041_238075626307841");
-//		        feed = feed.createInstance("100001428910089_369804946410466");
+//		        feed = feed.createInstance("100003162160041_238075626307841");
+		        feed = feed.createInstance("113840848757374");
 		        feedItem = new FeedItemDTO(feed);
 		        arrayFeedItem.add(feedItem);
 		        
-		        feed = feed.createInstance("100001345286735_359498797438293");
+		        feed = feed.createInstance("374610762596551");
 		        feedItem = new FeedItemDTO(feed);
 		        arrayFeedItem.add(feedItem);
 		        
-		        feed = feed.createInstance("1233102578_3213209649135");
+		        feed = feed.createInstance("369804936410467");
 		        feedItem = new FeedItemDTO(feed);
 		        arrayFeedItem.add(feedItem);
 			}
@@ -58,8 +58,6 @@ public class PromiseFeedList extends BeautifulPromiseActivity{
         //Layout setting
 		LinearLayout feedListLayout = (LinearLayout)View.inflate(this, R.layout.feedviewer_feed_list, null);
 		setActivityLayout(feedListLayout);
-		
-		
 		
 		//adapter 생성 후 레이아웃&데이터 세팅
 		FeedListAdapter feedListAdapter = new FeedListAdapter(this, R.layout.feedviewer_feed_item, arrayFeedItem);

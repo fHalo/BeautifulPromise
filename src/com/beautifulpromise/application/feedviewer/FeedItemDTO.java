@@ -1,9 +1,12 @@
 package com.beautifulpromise.application.feedviewer;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 
+import com.facebook.halo.application.types.Comment;
 import com.facebook.halo.application.types.Post;
 import com.facebook.halo.application.types.Post.Comments;
+import com.facebook.halo.application.types.Post.Likes;
 import com.facebook.halo.application.types.User;
 import com.facebook.halo.application.types.infra.NamedFacebookType;
 import com.facebook.halo.framework.core.Connection;
@@ -17,7 +20,7 @@ public class FeedItemDTO {
 	private String photoImagePath;
 	private String feed;
 	private Comments comment;
-	private Connection<NamedFacebookType> likePeople;
+	private Likes like;
 	private Long commentCount;
 	private Long likeCount;
 	
@@ -44,19 +47,20 @@ public class FeedItemDTO {
 		
 		feed = post.getMessage();
 		
-		likePeople = post.likePeople();
-		
 		comment = post.getComments();
 		
-		if(post.getLikesCount() == null)
+		like = post.getLikes();
+		
+		if(like == null)
 			likeCount = 0L;
-		else
-			likeCount = post.getLikesCount();
+		else 
+			likeCount = (long) like.getData().size();
 		
 		if(comment == null)
 			commentCount = 0L;
-		else
-			commentCount = comment.getCount();
+		else {
+			commentCount = (long) comment.getData().size();
+		}
 	}
 	
 	/**
@@ -81,7 +85,9 @@ public class FeedItemDTO {
 		this.date = date;
 	}
 	public final String getPhotoImagePath() {
-		return photoImagePath;
+		int length = photoImagePath.length();
+		String tmp = photoImagePath.substring(0, length-5) + "n" + photoImagePath.substring(length-4, length);
+		return tmp;
 	}
 	public final void setPhotoImagePath(String photoImagePath) {
 		this.photoImagePath = photoImagePath;
@@ -125,12 +131,12 @@ public class FeedItemDTO {
 		this.id = id;
 	}
 
-	public final Connection<NamedFacebookType> getLikePeople() {
-		return likePeople;
+	public final Likes getLike() {
+		return like;
 	}
 
-	public final void setLikePeople(Connection<NamedFacebookType> likePeople) {
-		this.likePeople = likePeople;
+	public final void setLike(Likes like) {
+		this.like = like;
 	}
 
 
