@@ -21,4 +21,8 @@ public class Repository {
 	public void setUser() {
 		this.user = user.createInstance("me");
 	}
+	
+	public String getUserId() {
+		return user.getId();
+	}
 }

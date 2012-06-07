@@ -11,8 +11,11 @@ import android.graphics.Bitmap;
 
 public class AddPromiseDTO implements Serializable {
 
+	private static final long serialVersionUID = -2166289912424139381L;
+	
 	private int id;
 	private String userId;
+	private String postId;
 	private int categoryId;
 	private String title;
 	private String startDate; 
@@ -155,5 +158,11 @@ public class AddPromiseDTO implements Serializable {
 		  int interval = (int)(birthTime -currentTime);     
 		  //현재시각에서 생일시각을 빼서 현재까지 경과된 시간을 구함
 		this.d_day = interval;
+	}
+	public String getPostId() {
+		return postId;
+	}
+	public void setPostId(String postId) {
+		this.postId = postId;
 	}
 }

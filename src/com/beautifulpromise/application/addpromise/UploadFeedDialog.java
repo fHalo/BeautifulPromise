@@ -2,12 +2,15 @@ package com.beautifulpromise.application.addpromise;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -49,15 +52,14 @@ public class UploadFeedDialog extends Dialog{
         private Context context;
     	private UploadFeedDialog dialog;
     	
-    	
+    	LinearLayout progressLayout;
     	LinearLayout promiseLayout;
-    	
     	ImageView donationImage;
     	TextView titleText;
     	TextView donationTitle;
     	TextView dateText;
     	ImageView signImage;
-    	TextView subContentText;
+//    	TextView subContentText;
     	LinearLayout helperLayout;
     	
     	Button okayBtn;
@@ -65,6 +67,9 @@ public class UploadFeedDialog extends Dialog{
     	
     	View layout;
     	AddPromiseDTO promiseDTO;
+    	String path;
+    	
+    	int count = 0;
         
         public Builder(Context context, AddPromiseDTO promiseDTO) {
         	this.context = context;
@@ -78,6 +83,7 @@ public class UploadFeedDialog extends Dialog{
             layout = inflater.inflate(R.layout.addpromise_upload_feed_dialog, null);
             layout.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
             
+            progressLayout = (LinearLayout) layout.findViewById(R.id.progressLayout);
             promiseLayout = (LinearLayout) layout.findViewById(R.id.promise_layout);
             
             donationImage = (ImageView) layout.findViewById(R.id.donation_image_view);
@@ -85,24 +91,24 @@ public class UploadFeedDialog extends Dialog{
             donationTitle = (TextView) layout.findViewById(R.id.donation_title_text);
             dateText = (TextView) layout.findViewById(R.id.date_text);
             signImage = (ImageView) layout.findViewById(R.id.sign_image);
-            subContentText = (TextView) layout.findViewById(R.id.sub_content_textview);
+//            subContentText = (TextView) layout.findViewById(R.id.sub_content_textview);
             helperLayout = (LinearLayout) layout.findViewById(R.id.helper_layout);
             
             okayBtn = (Button) layout.findViewById(R.id.okay_button);
             cancelBtn = (Button) layout.findViewById(R.id.cancel_button);
             
-            donationImage.setImageBitmap(promiseDTO.getDonation().getBitmap());
+            donationImage.setImageDrawable(promiseDTO.getDonation().getDrawable());
             titleText.setText(setContent());
             donationTitle.setText(setDontationText());
             dateText.setText(DateUtils.getDate());
             signImage.setImageBitmap(promiseDTO.getSignBitmap());
             
-            subContentText.setText(promiseDTO.getContent());
+//            subContentText.setText(promiseDTO.getContent());
             Bitmap bitmap = ((AddPromiseActivity)context).getHelperImage();
             helperLayout.setBackgroundDrawable(ImageUtils.bitmapToDrawable(bitmap));
-
-            okayBtn.setOnClickListener(buttonClickListener);
             
+            okayBtn.setOnClickListener(buttonClickListener);
+            progressLayout.setVisibility(View.GONE);
             dialog.setContentView(layout);			
             return dialog;
         }
@@ -124,55 +130,9 @@ public class UploadFeedDialog extends Dialog{
 					} catch (FileNotFoundException e) {
 						e.printStackTrace();
 					}
-					
-					String path = ImageUtils.saveBitmap(context, captureBitmap);
-					
-					User user = Repository.getInstance().getUser();
-					String albumId = null ;
-					Connection<Album> albums = user.albums();
-					for(List<Album> albumList : albums)
-						for(Album album : albumList){
-							if(album.getName().equals("아름다운 약속")) {
-								albumId = album.getId();
-								break;
-							}
-						}
-					
-					if(albumId == null){
-						Albums album = new Albums();
-						album.setName("아름다운 약속");
-						album.setMessage("아름다운 서약서");
-						albumId = user.publishAlbums(album).getId();
-					}
-							
-					Photos photos = new Photos();
-					photos.setMessage(subContentText.getText().toString() + "\n\n" + "[아름다운 약속] 앱 다운 받기" + "\n" + "http://www.enjoybazar.com");
-					photos.setSource(path);
-					photos.setFileName("Beautiful Promise");
-					FacebookType type = user.publishPhotos(albumId, photos);
-
-					ArrayList<Tags> tags = new ArrayList<Tags>();
-					int count=0;
-					for(Friends friend : promiseDTO.getHelperList()){
-						count++;
-						Tags tag = new Tags();
-						
-						tag.setTagUid(friend.getId());
-						tag.setX(""+(10*count));
-						tag.setY(""+(70));
-						tags.add(tag);
-					}
-					boolean result = user.publishTagsAtPhoto(type.getId().toString(), tags);
-					if(result){
-						//TODO DB저장
-						DatabaseHelper databaseHelper = new DatabaseHelper(context);
-						GoalsDAO dao = new GoalsDAO(databaseHelper);
-						boolean isCheck = dao.insert(promiseDTO);
-						Log.i("immk", "insert : " + isCheck);
-						dialog.cancel();
-					}else{
-						Toast.makeText(context, "Upload에 실패하였습니다.", Toast.LENGTH_SHORT).show();
-					}	
+					path = ImageUtils.saveBitmap(context, captureBitmap);
+					FacebookAsynTask task = new FacebookAsynTask();
+					task.execute();
 					break;
 					
 				case R.id.cancel_button:
@@ -196,9 +156,144 @@ public class UploadFeedDialog extends Dialog{
 		private String setDontationText(){
 			String str;
 			
-			str = "이 목표는 " + promiseDTO.getDonation().getTitle() + "와 함께 합니다.";
+			str = "이 목표는 " + promiseDTO.getDonation().getTitle() + "과 함께 합니다.";
 			return str; 
 		}
 		
+		public class FacebookAsynTask extends AsyncTask<URL, Integer, Long> {
+			
+			boolean result;
+			String facebookId;
+			
+			@Override
+			protected Long doInBackground(URL... params) {
+				
+				User user = Repository.getInstance().getUser();
+				String albumId = null ;
+				Connection<Album> albums = user.albums();
+				for(List<Album> albumList : albums)
+					for(Album album : albumList){
+						if(album.getName().equals("아름다운 약속")) {
+							albumId = album.getId();
+							break;
+						}
+					}
+				
+				if(albumId == null){
+					Albums album = new Albums();
+					album.setName("아름다운 약속");
+					album.setMessage("아름다운 서약서");
+					albumId = user.publishAlbums(album).getId();
+				}
+						
+				Photos photos = new Photos();
+				photos.setMessage(promiseDTO.getContent() + "\n\n" + "[아름다운 약속] 앱 다운 받기" + "\n" + "http://www.enjoybazar.com");
+				photos.setSource(path);
+				photos.setFileName("Beautiful Promise");
+				FacebookType type = user.publishPhotos(albumId, photos);
+				facebookId = type.getId();
+				promiseDTO.setPostId(facebookId);
+				
+				ArrayList<Tags> tags = new ArrayList<Tags>();
+				int count=0;
+				if(promiseDTO.getHelperList() != null && promiseDTO.getHelperList().size() > 0){
+					for(Friends friend : promiseDTO.getHelperList()){
+						count++;
+						Tags tag = new Tags();
+						tag.setTagUid(friend.getId());
+						tag.setX(""+(10*count));
+						tag.setY(""+(70));
+						tags.add(tag);
+					
+						result = user.publishTagsAtPhoto(facebookId, tags);
+					}
+				}else 
+					result = true;
+				return 0L;
+			}
+
+			@Override
+			protected void onPreExecute() {
+				progressLayout.setVisibility(View.VISIBLE);
+			}
+
+			@Override
+			protected void onProgressUpdate(Integer... progress) {
+			}
+
+			@Override
+			protected void onPostExecute(Long result) {
+				if(this.result){
+					DatabaseAsynTask dbTask = new DatabaseAsynTask();
+					dbTask.execute();
+					ServerAsynTask task = new ServerAsynTask(facebookId);
+					task.execute();
+				}
+			}
+		}
+		
+		public class DatabaseAsynTask extends AsyncTask<URL, Integer, Long> {
+
+			@Override
+			protected Long doInBackground(URL... params) {
+				DatabaseHelper databaseHelper = new DatabaseHelper(context);
+				GoalsDAO dao = new GoalsDAO(databaseHelper);
+				boolean isCheck = dao.insert(promiseDTO);
+				Log.i("immk", "Database : "+isCheck);
+				count++;
+				return 0L;
+			}
+
+			@Override
+			protected void onPreExecute() {
+			}
+
+			@Override
+			protected void onProgressUpdate(Integer... progress) {
+			}
+
+			@Override
+			protected void onPostExecute(Long result) {
+				if(count == 2){
+					progressLayout.setVisibility(View.GONE);
+					dialog.dismiss();
+					((Activity)context).finish();
+				}
+			}
+		}
+		
+		public class ServerAsynTask extends AsyncTask<URL, Integer, Long> {
+			
+			String facebookId;
+			public ServerAsynTask(String facebookId){
+				this.facebookId = facebookId;
+			}
+			
+			@Override
+			protected Long doInBackground(URL... params) {
+				AddPromiseController ctr = new AddPromiseController();
+				boolean isCheck = ctr.InsertPromise(promiseDTO.getDonation().getId(), facebookId, promiseDTO.getTitle(), DateUtils.convertStringDate(promiseDTO.getStartDate()), DateUtils.convertStringDate(promiseDTO.getEndDate()));
+				Log.i("immk", "Server : "+isCheck);
+				count++;
+				return 0L;
+			}
+
+			@Override
+			protected void onPreExecute() {
+			}
+
+			@Override
+			protected void onProgressUpdate(Integer... progress) {
+			}
+
+			@Override
+			protected void onPostExecute(Long result) {
+				if(count == 2){
+					progressLayout.setVisibility(View.GONE);
+					dialog.dismiss();
+					((Activity)context).finish();
+				}
+			}
+		}
     }
 }

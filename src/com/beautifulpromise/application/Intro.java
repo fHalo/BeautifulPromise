@@ -1,20 +1,30 @@
 package com.beautifulpromise.application;
 
+import java.util.ArrayList;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.beautifulpromise.R;
 import com.beautifulpromise.application.feedviewer.PromiseFeedList;
 import com.beautifulpromise.common.Var;
 import com.beautifulpromise.common.repository.Repository;
+import com.beautifulpromise.common.utils.MessageUtils;
 import com.beautifulpromise.facebooklibrary.DialogError;
 import com.beautifulpromise.facebooklibrary.Facebook;
 import com.beautifulpromise.facebooklibrary.Facebook.DialogListener;
 import com.beautifulpromise.facebooklibrary.FacebookError;
 import com.beautifulpromise.facebooklibrary.SessionStore;
+import com.beautifulpromise.parser.HttpClients;
+import com.facebook.halo.application.types.User;
 import com.facebook.halo.framework.common.AccessToken;
 
 public class Intro extends Activity {
@@ -36,6 +46,8 @@ public class Intro extends Activity {
 			//TODO
 			AccessToken.setAccessToken(mFacebook.getAccessToken());
 			Repository.getInstance().setUser();
+            if(setNewMember())
+            	Toast.makeText(Intro.this, "Success", Toast.LENGTH_SHORT).show();
 			startActivity(new Intent(Intro.this, HomeActivity.class));
 			finish();
 		}
@@ -46,7 +58,7 @@ public class Intro extends Activity {
 		loginButton = (ImageButton) findViewById(R.id.loginButton);
 		loginButton.setOnClickListener(buttonClickListener);
 	}
-	
+
 	View.OnClickListener buttonClickListener = new View.OnClickListener() {
 		
 		@Override
@@ -58,6 +70,8 @@ public class Intro extends Activity {
                 	//TODO
                     AccessToken.setAccessToken(mFacebook.getAccessToken());
                     Repository.getInstance().setUser();
+                    if(setNewMember())
+                    	Toast.makeText(Intro.this, "Success", Toast.LENGTH_SHORT).show();
                 	startActivity(new Intent(Intro.this, HomeActivity.class));
                 	finish();
                 }
@@ -80,5 +94,31 @@ public class Intro extends Activity {
 		super.onActivityResult(requestCode, resultCode, data);
         mFacebook.authorizeCallback(requestCode, resultCode, data);
 	}
-
+	
+	private boolean setNewMember() {
+		User user = Repository.getInstance().getUser();
+		
+		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("fb_key", user.getId()));
+		params.add(new BasicNameValuePair("fb_name", user.getName()));
+		if(user.getGender().equals("female"))
+			params.add(new BasicNameValuePair("fb_gender", "F"));
+		else if(user.getGender().equals("male"))
+			params.add(new BasicNameValuePair("fb_gender", "M"));
+		else
+			params.add(new BasicNameValuePair("fb_gender", "0"));
+		
+		if(user.getBirthday() != null)
+			params.add(new BasicNameValuePair("fb_birth", user.getBirthday()));
+		else
+			params.add(new BasicNameValuePair("fb_birth", "0000-00-00"));
+		
+		HttpClients client = new HttpClients();
+		String data = client.getUrlToJson(MessageUtils.SET_NEW_MEMBER, params);
+		
+		if(data != null){
+			return client.getResult(data);
+		} else 
+			return false;
+	}
 }

@@ -79,7 +79,6 @@ public class CycleCheckActivity extends MapActivity {
 		
 		PeriodText.setText(StartTime + " ~ " + EndTime);
 
-
 		mapview = (MapView) findViewById(R.id.checkpromise_cyclecheck_mapview);
 		mapview.setBuiltInZoomControls(true);
 		mapview.setSatellite(false);

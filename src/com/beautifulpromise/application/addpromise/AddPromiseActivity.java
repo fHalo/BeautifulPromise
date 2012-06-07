@@ -1,5 +1,6 @@
 package com.beautifulpromise.application.addpromise;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -11,6 +12,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -34,6 +36,7 @@ import com.beautifulpromise.common.utils.DateUtils;
 import com.beautifulpromise.common.utils.ImageUtils;
 import com.beautifulpromise.database.DatabaseHelper;
 import com.beautifulpromise.database.GoalsDAO;
+import com.beautifulpromise.parser.Controller;
 import com.facebook.halo.application.types.User;
 import com.facebook.halo.application.types.connection.Friends;
 import com.facebook.halo.framework.core.Connection;
@@ -49,6 +52,8 @@ public class AddPromiseActivity extends MapActivity {
 
 	protected static final int TIME_DIALOG_ID = 100;
 
+	LinearLayout progressLayout;
+	
 	Spinner goalSpinner;
 	EditText goalTitleEdit;
 	Button createBtn;
@@ -85,13 +90,15 @@ public class AddPromiseActivity extends MapActivity {
 	
 	Connection<Friends> friends;
 	
-	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.addpromise_main_layout);
         
         setVariable();
+		FriendsAsynTask task = new FriendsAsynTask();
+		task.execute();
+		
         mapView = new MapView(this, getResources().getString(R.string.map_api_key));
         mapView.setClickable(true);
 		mapView.displayZoomControls(true);
@@ -129,18 +136,13 @@ public class AddPromiseActivity extends MapActivity {
 		            
 		            promiseDTO.setLatitue(Double.valueOf(geoPoint.getLatitudeE6()));
 		            promiseDTO.setLongitude(Double.valueOf(geoPoint.getLongitudeE6()));
+		            
+		            Log.i("immk", ""+ Double.valueOf(geoPoint.getLatitudeE6()) + " " + Double.valueOf(geoPoint.getLongitudeE6()));
 				}
 				return false;
 			}
 		});
 		
-//		LocationManager locationMgr = (LocationManager) getSystemService(LOCATION_SERVICE);
-//		Criteria criteria = new Criteria();
-//		criteria.setAccuracy(Criteria.NO_REQUIREMENT);
-//		criteria.setPowerRequirement(Criteria.NO_REQUIREMENT);
-//		String best = locationMgr.getBestProvider(criteria, true);
-//		locationMgr.requestLocationUpdates(best, 1000, 0, this);
-      		
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.category, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         goalSpinner.setAdapter(adapter);
@@ -175,7 +177,8 @@ public class AddPromiseActivity extends MapActivity {
 //		ArrayList<AddPromiseDTO> bb = dao.getGoalList(2);
 //		Log.i("immk", bb.get(0).getTitle());
 		
-		getFriendList();
+//		Controller ctr = new Controller();
+//		ctr.get
 
     }
     
@@ -219,10 +222,10 @@ public class AddPromiseActivity extends MapActivity {
 			case R.id.create_button:
 				
 				//TODO promiseDTO 객체에 정보 담기 
-				promiseDTO.setTitle(goalTitleEdit.getText().toString());
+//				promiseDTO.setTitle(goalTitleEdit.getText().toString());
 				promiseDTO.setStartDate(startDateText.getText().toString());
-				promiseDTO.setEndDate(endDateText.getText().toString());
-				promiseDTO.setContent(contentEdit.getText().toString());
+//				promiseDTO.setEndDate(endDateText.getText().toString());
+//				promiseDTO.setContent(contentEdit.getText().toString());
 				
 				SignViewDialog.Builder signBuilder = new SignViewDialog.Builder(AddPromiseActivity.this, promiseDTO);
 				Dialog signDialog = signBuilder.create();
@@ -242,18 +245,22 @@ public class AddPromiseActivity extends MapActivity {
 			if(position == 0 ) {
 				setView(0);
 				promiseDTO.setCategoryId(0);
+				CreateObject(0);
 			}else if(position == 1 ) {
 				setView(1);
 				promiseDTO.setCategoryId(1);
+				CreateObject(1);
 			}else if(position == 2 ) {
 				setView(2);
 				promiseDTO.setCategoryId(2);
+				CreateObject(2);
 			}
 		}
 
 		@Override
 		public void onNothingSelected(AdapterView<?> arg0) {
 			promiseDTO.setCategoryId(0);
+			CreateObject(0);
 		
 		}
 	};
@@ -316,6 +323,7 @@ public class AddPromiseActivity extends MapActivity {
 	
 	private void setVariable(){
 		
+		progressLayout = (LinearLayout) findViewById(R.id.progressLayout);
 		goalSpinner = (Spinner) findViewById(R.id.goal_spinner);
         createBtn = (Button) findViewById(R.id.create_button);
     	goalTitleEdit = (EditText) findViewById(R.id.goal_title_edit);
@@ -337,32 +345,6 @@ public class AddPromiseActivity extends MapActivity {
         helperBtn = (Button) findViewById(R.id.helper_button);
         mapBtn = (Button) findViewById(R.id.google_map_button);
         tutorialBtn = (Button) findViewById(R.id.tutorial_button);
-	}
-	
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-		Uri imageUri;
-		Bitmap bitmap;
-		
-		if (resultCode == RESULT_OK) {
-			switch (requestCode) {
-			case CameraDialog.FINISH_TAKE_PHOTO:
-				bitmap = (Bitmap) data.getExtras().get("data"); 
-				String path = ImageUtils.saveBitmap(AddPromiseActivity.this, bitmap); 
-				break;
-				
-			case CameraDialog.FINISH_GET_IMAGE:
-				imageUri = data.getData();
-				String[] proj = { MediaStore.Images.Media.DATA };
-				Cursor cursor = managedQuery(imageUri, proj, null, null, null);
-				cursor.moveToFirst();
-				String imagePath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA));
-				Toast.makeText(this, imagePath, Toast.LENGTH_SHORT).show();
-				bitmap = ImageUtils.getResizedBitmap(imagePath);
-
-				break;
-			}
-		}
 	}
 
 	@Override
@@ -409,5 +391,72 @@ public class AddPromiseActivity extends MapActivity {
 				mapView.getOverlays().add(myLocationOverlay);
 			}
 		});
+	}
+	
+	public void visibleProgress(){
+		progressLayout.setVisibility(View.VISIBLE);
+	}
+
+	public void goneProgress(){
+		progressLayout.setVisibility(View.GONE);
+	}
+	
+	public class FriendsAsynTask extends AsyncTask<URL, Integer, Long> {
+		
+		@Override
+		protected Long doInBackground(URL... params) {
+			getFriendList();
+			return 0L;
+		}
+
+		@Override
+		protected void onPreExecute() {
+//			progressLayout.setVisibility(View.VISIBLE);
+		}
+
+		@Override
+		protected void onProgressUpdate(Integer... progress) {
+		}
+
+		@Override
+		protected void onPostExecute(Long result) {
+			goneProgress();
+		}
+	}
+	
+	private void CreateObject(int key) {
+		
+		switch (key) {
+		case 0: 	// 주기 활동
+			promiseDTO.setTitle("영어 공부 하기");
+			promiseDTO.setContent("1. 하루 30분 공부하기 \n2.영어 단어 50개 암기");
+			promiseDTO.setEndDate("2012년 6월 20일");
+			promiseDTO.setLatitue(3.749611E7);
+			promiseDTO.setLongitude(1.27051993E8);
+			promiseDTO.setDayPeriod(new boolean[]{true, true, true, true, true, false, false});
+			promiseDTO.setTime(10);
+			promiseDTO.setMin(30);
+			promiseDTO.setHelperList(null);
+			break;
+		case 1:  	// 운동
+			promiseDTO.setTitle("운동 하기");
+			promiseDTO.setContent("1. 아침운동 30분 하기 \n2.저녁은 조금만 먹을랭");
+			promiseDTO.setEndDate("2012년 6월 14일");
+			promiseDTO.setDayPeriod(new boolean[]{true, true, true, true, true, true, true});
+			promiseDTO.setTime(10);
+			promiseDTO.setMin(0);
+			promiseDTO.setHelperList(null);
+			break;
+		case 2:		// 기타
+			promiseDTO.setTitle("규칙적인 생활하기");
+			promiseDTO.setContent("1. 아침 9시에 일어나기 \n2.2시에 자기");
+			promiseDTO.setEndDate("2012년 6월 22일");
+			promiseDTO.setHelperList(null);
+			break;			
+		default:
+			break;
+		}
+		
+		
 	}
 }

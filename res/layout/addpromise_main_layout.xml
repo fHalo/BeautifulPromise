@@ -1,304 +1,325 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#FFFFFFFF"
     android:orientation="vertical" >
 
     <LinearLayout
-        android:id="@+id/main_layout"
-        android:layout_width="320dp"
+        android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:background="#FFFFFFFF"
         android:orientation="vertical" >
 
         <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_bar_top"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:text="목표 생성하기"
-                android:textColor="#FFFFFFFF"
-                android:textSize="20dp" />
+            android:id="@+id/main_layout"
+            android:layout_width="320dp"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:gravity="right"
+                android:background="@drawable/bg_bar_top"
                 android:orientation="horizontal" >
 
-                <Button
-                    android:id="@+id/create_button"
+                <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="35dp"
-                    android:layout_marginRight="15dp"
-                    android:text="생성" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/popup_bg_gray_plate"
-            android:orientation="vertical"
-            android:paddingBottom="20dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:paddingTop="20dp" >
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:orientation="horizontal" >
-
-                <Spinner
-                    android:id="@+id/goal_spinner"
-                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@drawable/box_green"
-                    android:gravity="center"
-                    android:paddingLeft="10dp"
-                    android:prompt="@string/category" />
-            </LinearLayout>
-
-            <!-- 목표 제목 입력 -->
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:text="목표 : " />
+                    android:text="목표 생성하기"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="20dp" />
 
-                <EditText
-                    android:id="@+id/goal_title_edit"
+                <LinearLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginRight="10dp"
-                    android:gravity="center_vertical"
-                    android:textSize="10dp" />
-            </LinearLayout>
-
-            <!-- 시작/정료일 선택 -->
-
-            <LinearLayout
-                android:id="@+id/date_layout"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
-                android:orientation="vertical" >
-
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginTop="5dp"
+                    android:gravity="right"
                     android:orientation="horizontal" >
 
-                    <TextView
+                    <Button
+                        android:id="@+id/create_button"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="20dp"
-                        android:text="시작일 : " />
-
-                    <TextView
-                        android:id="@+id/start_date_text"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginTop="5dp"
-                    android:orientation="horizontal" >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="20dp"
-                        android:text="종료일 : " />
-
-                    <TextView
-                        android:id="@+id/end_date_text"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp" />
+                        android:layout_height="35dp"
+                        android:layout_marginRight="15dp"
+                        android:text="생성" />
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- 반복 요일 선택 -->
-
-            <LinearLayout
-                android:id="@+id/day_repeat_layout"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="20dp"
-                    android:text="반복 : " />
-
-                <TextView
-                    android:id="@+id/day_repeat_text"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp" />
-            </LinearLayout>
-
-            <!-- 알람 시간 선택 -->
-
-            <LinearLayout
-                android:id="@+id/alarm_time_layout"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="20dp"
-                    android:text="알람: " />
-
-                <TextView
-                    android:id="@+id/alarm_time_text"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp" />
-            </LinearLayout>
-
-            <!-- 내용 입력 -->
-
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="20dp"
-                    android:text="내용 : " />
-
-                <EditText
-                    android:id="@+id/content_edit"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:maxHeight="100dp"
-                    android:minHeight="100dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="70dp"
+                android:background="@drawable/popup_bg_gray_plate"
                 android:orientation="vertical"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp" >
+                android:paddingBottom="20dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="20dp" >
 
-                <TextView
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:orientation="horizontal" >
+
+                    <Spinner
+                        android:id="@+id/goal_spinner"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/box_green"
+                        android:gravity="center"
+                        android:paddingLeft="10dp"
+                        android:prompt="@string/category" />
+                </LinearLayout>
+
+                <!-- 목표 제목 입력 -->
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="20dp"
+                        android:text="목표 : " />
+
+                    <EditText
+                        android:id="@+id/goal_title_edit"
+                        android:layout_width="fill_parent"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="10dp"
+                        android:gravity="center_vertical"
+                        android:textSize="10dp" />
+                </LinearLayout>
+
+                <!-- 시작/정료일 선택 -->
+
+                <LinearLayout
+                    android:id="@+id/date_layout"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
-                    android:text="도움주실 분 "
-                    android:textColor="#FF228b22"
-                    android:textSize="10dp" />
+                    android:layout_marginTop="5dp"
+                    android:orientation="vertical" >
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="20dp"
+                            android:text="시작일 : " />
+
+                        <TextView
+                            android:id="@+id/start_date_text"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="20dp"
+                            android:text="종료일 : " />
+
+                        <TextView
+                            android:id="@+id/end_date_text"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- 반복 요일 선택 -->
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="60dp"
+                    android:id="@+id/day_repeat_layout"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
                     android:orientation="horizontal" >
-                    
-                    <GridView 
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="20dp"
+                        android:text="반복 : " />
+
+                    <TextView
+                        android:id="@+id/day_repeat_text"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp" />
+                </LinearLayout>
+
+                <!-- 알람 시간 선택 -->
+
+                <LinearLayout
+                    android:id="@+id/alarm_time_layout"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="20dp"
+                        android:text="알람: " />
+
+                    <TextView
+                        android:id="@+id/alarm_time_text"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp" />
+                </LinearLayout>
+
+                <!-- 내용 입력 -->
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="20dp"
+                        android:text="내용 : " />
+
+                    <EditText
+                        android:id="@+id/content_edit"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:maxHeight="100dp"
+                        android:minHeight="100dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="70dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:text="도움주실 분 "
+                        android:textColor="#FF228b22"
+                        android:textSize="10dp" />
+
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="60dp"
-                        android:numColumns="5"
-                        android:id = "@+id/friend_image_gridview" />
+                        android:orientation="horizontal" >
+
+                        <GridView
+                            android:id="@+id/friend_image_gridview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="60dp"
+                            android:numColumns="5" />
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-        
-            <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:gravity="bottom" >
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_bar_bottom"
-            android:gravity="center_vertical"
-            android:orientation="horizontal" >
-
-            <Button
-                android:id="@+id/helper_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:background="@drawable/ico_observer"
-                android:gravity="center_vertical" />
-
-            <Button
-                android:id="@+id/google_map_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:background="@drawable/ico_pin" />
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:layout_gravity="center"
-                android:gravity="right|center"
-                android:orientation="horizontal" >
+                android:gravity="bottom" >
 
-                <Button
-                    android:id="@+id/tutorial_button"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="15dp"
-                    android:background="@drawable/ico_tutorial"
-                    android:gravity="center_vertical" />
+                    android:background="@drawable/bg_bar_bottom"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" >
+
+                    <Button
+                        android:id="@+id/helper_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:background="@drawable/ico_observer"
+                        android:gravity="center_vertical" />
+
+                    <Button
+                        android:id="@+id/google_map_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/ico_pin" />
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_gravity="center"
+                        android:gravity="right|center"
+                        android:orientation="horizontal" >
+
+                        <Button
+                            android:id="@+id/tutorial_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="15dp"
+                            android:background="@drawable/ico_tutorial"
+                            android:gravity="center_vertical" />
+                    </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-        
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#55000000"
+        android:orientation="vertical"
+        android:id ="@+id/progressLayout"
+        android:gravity="center" >
+
+        <ProgressBar
+            android:id="@+id/progressBar3"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </LinearLayout>
-</LinearLayout>
+
+</FrameLayout>

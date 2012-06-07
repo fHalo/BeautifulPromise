@@ -43,6 +43,7 @@ public class DonationAdapter extends BaseAdapter {
 	
 	public class ViewHolder {
 		public TextView donationTitle;
+		public TextView donationDetails;
 		public ImageView donationImage;
 		public LinearLayout donationLayout;
 	}
@@ -58,6 +59,7 @@ public class DonationAdapter extends BaseAdapter {
 			holder.donationLayout = (LinearLayout) convertView.findViewById(R.id.donation_layout);
 			holder.donationImage = (ImageView) convertView.findViewById(R.id.donation_image_view);
 			holder.donationTitle = (TextView)convertView.findViewById(R.id.donation_title_text);
+			holder.donationDetails = (TextView)convertView.findViewById(R.id.donation_details_text);
 			convertView.setTag(holder);
 		
 		} else {
@@ -65,11 +67,10 @@ public class DonationAdapter extends BaseAdapter {
 		}
 		
 		if(donation != null) {			
-			if(donation.getBitmap() != null)
-				holder.donationImage.setImageBitmap(donation.getBitmap());
-//			else
-//				holder.donationImage.setImageResource(R.drawable.sns_mypage_profile_small_defult);
+			if(donation.getDrawable() != null)
+				holder.donationImage.setImageDrawable(donation.getDrawable());
 			holder.donationTitle.setText(donation.getTitle());
+			holder.donationDetails.setText(donation.getDetails());
 		}
 		return convertView;
 	}
