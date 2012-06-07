@@ -6,19 +6,14 @@ import java.util.Calendar;
 
 import com.beautifulpromise.R;
 import com.beautifulpromise.application.checkpromise.CycleCheckActivity;
-import com.beautifulpromise.application.checkpromise.CycleGpsAlarm;
 import com.beautifulpromise.application.checkpromise.EtcCheckActivity;
 import com.beautifulpromise.application.checkpromise.WorkCheckActivity;
-import com.beautifulpromise.application.checkpromise.WorkCheckFeedActivity;
 import com.beautifulpromise.common.alarm.Alarm;
 import com.beautifulpromise.common.dto.AddPromiseDTO;
 import com.beautifulpromise.database.CheckDBHelper;
 import com.beautifulpromise.database.DatabaseHelper;
 import com.beautifulpromise.database.GoalsDAO;
 
-import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -40,9 +35,9 @@ import android.widget.TextView;
 public class HomeActivity extends BeautifulPromiseActivity {
 	/** Called when the activity is first created. */
 
-	CheckDBHelper gps_DBHelper;
+	CheckDBHelper checkDBHelper;
 	SQLiteDatabase db;
-	
+
 	ListView PromiseListView;
 	MyListAdapter MyAdapter;
 	ArrayList<AddPromiseDTO> promisedto;
@@ -54,53 +49,27 @@ public class HomeActivity extends BeautifulPromiseActivity {
 				R.layout.homeactivity, null);
 		setActivityLayout(layout);
 
-		Calendar oCalendar = Calendar.getInstance();
-		DatabaseHelper databaseHelper = new DatabaseHelper(this);
-		GoalsDAO dao = new GoalsDAO(databaseHelper);
-		
-		//오늘해야되는 약속만 객체로 반환 받기
-		promisedto = dao.getGoalList(oCalendar.get(Calendar.DAY_OF_WEEK));
-		
-		//D-dat계산해서 객체에 값넣음
-		for (int i = 0; i < promisedto.size(); i++) {
-			promisedto.get(i).setD_day(promisedto.get(i).getEndDate());
-		}
-		
-		//DB에 임시 데이터 삽입
-		gps_DBHelper = new CheckDBHelper(this);
-		db = gps_DBHelper.getWritableDatabase();
-		
-		db.delete("feed", null, null);
-		
-		ContentValues row;
-		row = new ContentValues();
-		
-		for (AddPromiseDTO temppromise : promisedto) {
-			row.clear();
-			row.put("promiseid", temppromise.getId());
-			row.put("check", 0);
-			db.insert("feed", null, row);
-		}
-		
-//		arItem = new ArrayList<TodayPromiseDTO>();
-//		TodayPromiseDTO promiseObject;
+		// DB에 임시 데이터 삽입
+//		checkDBHelper = new CheckDBHelper(this);
+//		db = checkDBHelper.getWritableDatabase();
 //
-//		for (AddPromiseDTO addPromiseDTO : promisedto) {
-//			promiseObject = new TodayPromiseDTO(addPromiseDTO.getTitle(), addPromiseDTO.getEndDate(), addPromiseDTO.getCategoryId(), false);
-//			arItem.add(promiseObject);
+//		db.delete("feed", null, null);
+//
+//		ContentValues row;
+//		row = new ContentValues();
+//
+//		for (AddPromiseDTO temppromise : promisedto) {
+//			row.clear();
+//			row.put("promiseid", temppromise.getId());
+//			row.put("check", 0);
+//			db.insert("feed", null, row);
 //		}
 
-		MyAdapter = new MyListAdapter(this, R.layout.homeactivity_list, promisedto);
-
 		PromiseListView = (ListView) findViewById(R.id.list);
-		PromiseListView.setAdapter(MyAdapter);
-		PromiseListView.setItemsCanFocus(false);
-		PromiseListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-
-		//알람
+		// 알람
 		Alarm alarm = new Alarm();
 		alarm.SetAlarm(this, 1);
-		
+
 	}
 
 	class MyListAdapter extends BaseAdapter implements OnClickListener {
@@ -139,31 +108,36 @@ public class HomeActivity extends BeautifulPromiseActivity {
 			TextView promisenametxt = (TextView) convertView
 					.findViewById(R.id.promisename);
 			TextView d_daytxt = (TextView) convertView.findViewById(R.id.d_day);
-			ImageView checkimg = (ImageView) convertView.findViewById(R.id.home_check);
-			
+			ImageView checkimg = (ImageView) convertView
+					.findViewById(R.id.home_check);
+
 			promisenametxt.setText(arSrc.get(position).getTitle());
-			Cursor cursor = db.rawQuery("SELECT check FROM feed WHERE promiseid=" + arSrc.get(position).getId(), null);
-			cursor.moveToNext();
-			int check = cursor.getInt(0);
-			//D-Day, D-day가 지나서 평가를 해야되는 약속들
-			if(arSrc.get(position).getResult() == 0 && arSrc.get(position).getD_day() < 1)
-			{
+			// Cursor cursor =
+			// db.rawQuery("SELECT check FROM feed WHERE promiseid=" +
+			// arSrc.get(position).getId(), null);
+			// cursor.moveToNext();
+			// int check = cursor.getInt(0);
+			// D-Day, D-day가 지나서 평가를 해야되는 약속들
+			if (arSrc.get(position).getResult() == 0
+					&& arSrc.get(position).getD_day() < 1) {
 				d_daytxt.setText("D-Day");
 				d_daytxt.setTextColor(Color.RED);
 			}
-			//오늘 피드를 올린 약속
-			else if(check == 1)
+			// 오늘 피드를 올린 약속
+			else // if(check == 1)
 			{
-				d_daytxt.setText("D-" + String.valueOf(arSrc.get(position).getD_day()));
+				d_daytxt.setText("D-"
+						+ String.valueOf(arSrc.get(position).getD_day()));
 				checkimg.setImageResource(R.drawable.ico_assessment);
 			}
-			//오늘 피드를 올리지 않은 약속
-			else
-			{
-				d_daytxt.setText("D-" + String.valueOf(arSrc.get(position).getD_day()));
-			}
-			
-			
+			// 오늘 피드를 올리지 않은 약속
+			// else
+			// {
+			// d_daytxt.setText("D-" +
+			// String.valueOf(arSrc.get(position).getD_day()));
+			// }
+			//
+
 			convertView.setTag(position);
 			convertView.setOnClickListener(this);
 
@@ -175,24 +149,48 @@ public class HomeActivity extends BeautifulPromiseActivity {
 
 			AddPromiseDTO promiseObject = getItem(position);
 			Intent intent;
-			
-			Bundle extras = new Bundle(); 
-			extras.putSerializable("PromiseDTO", promiseObject); 
-			
-			//주기(GPS)
+
+			Bundle extras = new Bundle();
+			extras.putSerializable("PromiseDTO", promiseObject);
+
+			// 주기(GPS)
 			if (promiseObject.getCategoryId() == 0) {
 				intent = new Intent(HomeActivity.this, CycleCheckActivity.class);
 			}
-			//운동/공부 (타이머)
+			// 운동/공부 (타이머)
 			else if (promiseObject.getCategoryId() == 1) {
 				intent = new Intent(HomeActivity.this, WorkCheckActivity.class);
-			} 
-			
+			}
+
 			else {
 				intent = new Intent(HomeActivity.this, EtcCheckActivity.class);
 			}
 			intent.putExtras(extras);
-			startActivityForResult(intent,0);
+			startActivityForResult(intent, 0);
 		}
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+
+		Calendar oCalendar = Calendar.getInstance();
+		DatabaseHelper databaseHelper = new DatabaseHelper(this);
+		GoalsDAO dao = new GoalsDAO(databaseHelper);
+
+		promisedto = dao.getGoalList(oCalendar.get(Calendar.DAY_OF_WEEK));
+
+		// D-dat계산해서 객체에 값넣음
+		for (int i = 0; i < promisedto.size(); i++) {
+			promisedto.get(i).setD_day(promisedto.get(i).getEndDate());
+		}
+
+		MyAdapter = new MyListAdapter(this, R.layout.homeactivity_list,
+				promisedto);
+
+		// PromiseListView = (ListView) findViewById(R.id.list);
+		PromiseListView.setAdapter(MyAdapter);
+		PromiseListView.setItemsCanFocus(false);
+		PromiseListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 	}
 }

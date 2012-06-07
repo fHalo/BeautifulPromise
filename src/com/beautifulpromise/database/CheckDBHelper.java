@@ -11,21 +11,22 @@ public class CheckDBHelper extends SQLiteOpenHelper {
 
 	public void onCreate(SQLiteDatabase db) {
 		StringBuffer buffer = new StringBuffer();
+//		buffer.append("CREATE TABLE feed (");
+//		buffer.append("id INTEGER PRIMARY KEY AUTOINCREMENT,");
+//		buffer.append("promiseid INT,");
+//		buffer.append("check INT");
+//		buffer.append(")");
+//		db.execSQL(buffer.toString());
+//		
+		buffer.setLength(0);
 		buffer.append("CREATE TABLE gps (");
 		buffer.append("id INTEGER PRIMARY KEY AUTOINCREMENT,");
-		buffer.append("promiseid INT,");
+		buffer.append("promiseid INTEGER,");
 		buffer.append("latitude DOUBLE,");
 		buffer.append("longitude DOUBLE");
 		buffer.append(")");
 		db.execSQL(buffer.toString());
 		
-		buffer.setLength(0);
-		buffer.append("CREATE TABLE feed (");
-		buffer.append("id INTEGER PRIMARY KEY AUTOINCREMENT,");
-		buffer.append("promiseid INT,");
-		buffer.append("check INT");
-		buffer.append(")");
-		db.execSQL(buffer.toString());
 	}
 
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
