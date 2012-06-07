@@ -1,12 +1,13 @@
 package com.beautifulpromise.application.addpromise;
 
-import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 
 public class DonationDTO {
 
 	private int id;
 	private String title;
-	private Bitmap bitmap;
+	private String details;
+	private Drawable drawable;
 	
 	public int getId() {
 		return id;
@@ -20,10 +21,16 @@ public class DonationDTO {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public Bitmap getBitmap() {
-		return bitmap;
+	public Drawable getDrawable() {
+		return drawable;
 	}
-	public void setBitmap(Bitmap bitmap) {
-		this.bitmap = bitmap;
+	public void setDrawable(Drawable drawable) {
+		this.drawable = drawable;
+	}
+	public String getDetails() {
+		return details;
+	}
+	public void setDetails(String details) {
+		this.details = details;
 	}
 }

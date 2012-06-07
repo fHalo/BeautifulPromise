@@ -1,10 +1,18 @@
 package com.beautifulpromise.application.addpromise;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -47,27 +55,7 @@ public class DonationDialog extends Dialog{
             
             donationListView = (ListView) layout.findViewById(R.id.donation_list_view);
             
-            ArrayList<DonationDTO> donationList = new ArrayList<DonationDTO>();
-            DonationDTO donation1  = new DonationDTO();
-            Bitmap bitmap1= ImageUtils.drawableToBitmap(context.getResources().getDrawable(R.drawable.donation_image1));
-            donation1.setId(1);
-            donation1.setBitmap(bitmap1);
-            donation1.setTitle("우물프로젝트");
-
-            DonationDTO donation2  = new DonationDTO();
-            Bitmap bitmap2= ImageUtils.drawableToBitmap(context.getResources().getDrawable(R.drawable.donation_image2));
-            donation2.setId(2);
-            donation2.setBitmap(bitmap2);
-            donation2.setTitle("사랑의 학교짓기");
-            
-            donationList.add(donation1);
-            donationList.add(donation2);
-            donationList.add(donation1);
-            donationList.add(donation2);
-            donationList.add(donation2);
-            donationList.add(donation1);
-            donationList.add(donation1);
-            donationList.add(donation2);
+            ArrayList<DonationDTO> donationList = loadDonation();
             
             DonationAdapter adapter = new DonationAdapter(context, donationList);
             donationListView.setAdapter(adapter);
@@ -111,6 +99,50 @@ public class DonationDialog extends Dialog{
 				}
 			}
 		};
-        
+		
+		protected ArrayList<DonationDTO> loadDonation() {
+			ArrayList<DonationDTO> list = new ArrayList<DonationDTO>();
+			XmlPullParser parser = context.getResources().getXml(R.xml.donation);
+			try {
+				while (parser.next() != XmlPullParser.END_DOCUMENT) {
+					if ("donation".equals(parser.getName())) {
+						list.add(add(parser));
+						parser.next();
+					}
+				}
+			} catch (XmlPullParserException e) {
+				e.printStackTrace();
+				return null;
+			} catch (IOException e) {
+				e.printStackTrace();
+				return null;
+			}
+			return list;
+		}
+		
+		private DonationDTO add(XmlPullParser parser){
+			
+			DonationDTO donation = new DonationDTO();
+			donation.setId(Integer.parseInt(parser.getAttributeValue(0)));
+			donation.setTitle(parser.getAttributeValue(1));
+			donation.setDetails(parser.getAttributeValue(2));
+			donation.setDrawable(loadResource(parser.getAttributeValue(3)));
+			
+			return donation;
+		}
+		
+		public Drawable loadResource(String path) {
+			Drawable drawable = null;
+
+			try {
+				AssetManager assetManager = context.getAssets();
+				InputStream is = assetManager.open(path);
+				Bitmap bitmap = BitmapFactory.decodeStream(is);
+				return ImageUtils.bitmapToDrawable(bitmap);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return drawable;
+		}
     }
 }

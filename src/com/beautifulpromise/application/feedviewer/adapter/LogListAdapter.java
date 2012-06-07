@@ -106,7 +106,7 @@ public class LogListAdapter extends BaseAdapter{
 		
 		//like setting
 		TextView like = (TextView)convertView.findViewById(R.id.likeText);
-		like.setText("" +arrayListFeedItem.get(position).getLike());
+		like.setText("" +arrayListFeedItem.get(position).getLikeCount());
 		like.setOnClickListener(new TextView.OnClickListener() {
 			public void onClick(View v) {
 				Intent intent = new Intent(context, FeedWithReply.class);
@@ -122,9 +122,6 @@ public class LogListAdapter extends BaseAdapter{
 		profileImage.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
 		profileImage.loadUrl(arrayListFeedItem.get(position).getProfileImagePath());
 
-		//photo image setting
-		
-		
 		return convertView;
 	}
 	

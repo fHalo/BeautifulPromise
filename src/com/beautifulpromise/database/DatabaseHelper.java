@@ -15,6 +15,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("CREATE TABLE Goals (");
 		buffer.append("id INTEGER PRIMARY KEY AUTOINCREMENT,");
+		buffer.append("post_id TEXT,");
 		buffer.append("category INT,");
 		buffer.append("title TEXT,");
 		buffer.append("start_date TEXT,");

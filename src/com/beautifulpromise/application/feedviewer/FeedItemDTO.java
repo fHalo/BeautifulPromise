@@ -4,8 +4,9 @@ import java.text.SimpleDateFormat;
 
 import com.facebook.halo.application.types.Post;
 import com.facebook.halo.application.types.Post.Comments;
-import com.facebook.halo.application.types.Post.Likes;
 import com.facebook.halo.application.types.User;
+import com.facebook.halo.application.types.infra.NamedFacebookType;
+import com.facebook.halo.framework.core.Connection;
 
 public class FeedItemDTO {
 	
@@ -16,10 +17,9 @@ public class FeedItemDTO {
 	private String photoImagePath;
 	private String feed;
 	private Comments comment;
-	private Likes like;
+	private Connection<NamedFacebookType> likePeople;
 	private Long commentCount;
 	private Long likeCount;
-	private boolean liked;
 	
 	public FeedItemDTO() {}
 	
@@ -44,14 +44,14 @@ public class FeedItemDTO {
 		
 		feed = post.getMessage();
 		
-		like = post.getLikes();
+		likePeople = post.likePeople();
 		
 		comment = post.getComments();
 		
-		if(like == null)
+		if(post.getLikesCount() == null)
 			likeCount = 0L;
-		else 
-			likeCount = like.getCount();
+		else
+			likeCount = post.getLikesCount();
 		
 		if(comment == null)
 			commentCount = 0L;
@@ -101,14 +101,6 @@ public class FeedItemDTO {
 		this.comment = comment;
 	}
 
-	public final Likes getLike() {
-		return like;
-	}
-
-	public final void setLike(Likes like) {
-		this.like = like;
-	}
-
 	public final Long getCommentCount() {
 		return commentCount;
 	}
@@ -131,6 +123,14 @@ public class FeedItemDTO {
 
 	public final void setId(String id) {
 		this.id = id;
+	}
+
+	public final Connection<NamedFacebookType> getLikePeople() {
+		return likePeople;
+	}
+
+	public final void setLikePeople(Connection<NamedFacebookType> likePeople) {
+		this.likePeople = likePeople;
 	}
 
 

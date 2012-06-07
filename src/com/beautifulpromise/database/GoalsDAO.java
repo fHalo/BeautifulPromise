@@ -20,8 +20,8 @@ public class GoalsDAO implements IGoalsDAO {
 		
 		boolean isSuccess = false;
 		addPromiseDTO.setCreateDate(DateUtils.getCreateDate());
-		String query = "INSERT INTO Goals(category, title, start_date, end_date, content, result, create_date) " 
-				+ "VALUES(" + addPromiseDTO.getCategoryId() + ",'" + addPromiseDTO.getTitle() + "','" 
+		String query = "INSERT INTO Goals(post_id, category, title, start_date, end_date, content, result, create_date) " 
+				+ "VALUES('" + addPromiseDTO.getPostId() + "',"+ addPromiseDTO.getCategoryId() + ",'" + addPromiseDTO.getTitle() + "','" 
 				+ DateUtils.convertStringDate(addPromiseDTO.getStartDate()) + "','" + DateUtils.convertStringDate(addPromiseDTO.getEndDate()) + "','" + addPromiseDTO.getContent()
 				+ "',0,'" + addPromiseDTO.getCreateDate() + "')";
 		if (SQLClient.executeUpdate(databaseHelper, query)) {
@@ -91,10 +91,11 @@ public class GoalsDAO implements IGoalsDAO {
 	public AddPromiseDTO get(int id) {
 		AddPromiseDTO promiseDTO = new AddPromiseDTO();
 		
-		String query = "SELECT category, title, start_date, end_date, content, result, create_date FROM Goals WHERE id = " + id;
-		ArrayList<HashMap> rows = SQLClient.executeQuery(databaseHelper, query, new Class[] {Integer.class, String.class, String.class, String.class, String.class, Integer.class, String.class });
+		String query = "SELECT post_id, category, title, start_date, end_date, content, result, create_date FROM Goals WHERE id = " + id;
+		ArrayList<HashMap> rows = SQLClient.executeQuery(databaseHelper, query, new Class[] {String.class, Integer.class, String.class, String.class, String.class, String.class, Integer.class, String.class });
 		for (HashMap row : rows) {
 			promiseDTO.setId(id);
+			promiseDTO.setPostId((String) row.get("post_id"));
 			promiseDTO.setCategoryId((Integer) row.get("category"));
 			promiseDTO.setTitle((String) row.get("title"));
 			promiseDTO.setStartDate((String) row.get("start_date"));
@@ -133,7 +134,7 @@ public class GoalsDAO implements IGoalsDAO {
  
 	@Override
 	public ArrayList<AddPromiseDTO> getList() {
-		String query= "SELECT id FROM Goals WHERE result = 0 ORDER BY id";
+		String query= "SELECT id FROM Goals WHERE result=0 ORDER BY id";
 		return getList(query);
 	}
 	
