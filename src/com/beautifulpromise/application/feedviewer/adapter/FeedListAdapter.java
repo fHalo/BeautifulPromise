@@ -18,6 +18,7 @@ import com.beautifulpromise.R;
 import com.beautifulpromise.application.feedviewer.FeedItemDTO;
 import com.beautifulpromise.application.feedviewer.FeedWithReply;
 import com.beautifulpromise.application.feedviewer.PromiseLogList;
+import com.beautifulpromise.common.utils.ImageUtils;
 import com.beautifulpromise.common.utils.WebViewManager;
 
 public class FeedListAdapter extends BaseAdapter {
@@ -82,7 +83,7 @@ public class FeedListAdapter extends BaseAdapter {
 			photoImage.setVisibility(View.GONE);
 		else {
 			Log.e("position : " + position, arrayListFeedItem.get(position).getPhotoImagePath());
-			url = WebViewManager.webViewImageReSize(arrayListFeedItem.get(position).getPhotoImagePath());
+			url = ImageUtils.webViewImageReSize(arrayListFeedItem.get(position).getPhotoImagePath());
 			photoImage.loadDataWithBaseURL(null, url, "text/html", "utf-8", null);
 //			Log.e("EE", "H:" + photoImage.getHeight() + "// w : " + photoImage.getWidth());
 //			 url = arrayListFeedItem.get(position).getPhotoImagePath();

@@ -1,6 +1,7 @@
 package com.beautifulpromise.parser;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -69,14 +70,20 @@ public class Controller {
 	 * @param postId
 	 * @return boolean
 	 */
-	public boolean GetCheckList (String postId) {
-		boolean isSuccess = false;
+
+	@SuppressWarnings({"unchecked", "rawtypes"})
+	public ArrayList<String> GetCheckList (String postId) {
+		ArrayList<String> list = new ArrayList<String>();
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("td_article_id", postId));
 		String data = client.getUrlToJson(MessageUtils.GET_TODO_CHECK_LIST, params);
-		if(data != null)
-			isSuccess = client.getResult(data);
-		return isSuccess;
+		if(data != null){
+			ArrayList<HashMap> rows = client.getResultList(data);
+			for(HashMap row : rows){
+				list.add((String) row.get("tdc_article_id"));
+			}
+		}
+		return list;
 	}
 	
 	/**
@@ -84,14 +91,19 @@ public class Controller {
 	 * @param postId
 	 * @return boolean
 	 */
-	public boolean GetHelperList (String postId) {
-		boolean isSuccess = false;
+	@SuppressWarnings({"unchecked", "rawtypes"})
+	public ArrayList<String> GetHelperList (String postId) {
+		ArrayList<String> list = new ArrayList<String>();
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("td_article_id", ""+postId));
 		String data = client.getUrlToJson(MessageUtils.GET_TODO_HELPER_LIST, params);
-		if(data != null)
-			isSuccess = client.getResult(data);
-		return isSuccess;
+		if(data != null){
+			ArrayList<HashMap> rows = client.getResultList(data);
+			for(HashMap row : rows){
+				list.add((String) row.get("fb_member_fb_key"));
+			}
+		}
+		return list;
 	}
 	
 	/**
@@ -99,13 +111,19 @@ public class Controller {
 	 * @param postId
 	 * @return boolean
 	 */
-	public boolean GetProjectStatus (int projectId) {
-		boolean isSuccess = false;
+	@SuppressWarnings({"unchecked", "rawtypes"})
+	public ArrayList<String> GetProjectStatus (int projectId) {
+		ArrayList<String> list = new ArrayList<String>();
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("pl_key", ""+projectId));
 		String data = client.getUrlToJson(MessageUtils.GET_PROJECT_STATUS, params);
-		if(data != null)
-			isSuccess = client.getResult(data);
-		return isSuccess;
+		if(data != null){
+			ArrayList<HashMap> rows = client.getResultList(data);
+			for(HashMap row : rows){
+				list.add((String) row.get("pl_goal"));
+				list.add((String) row.get("pl_now_status"));
+			}
+		}
+		return list;
 	}
 }
