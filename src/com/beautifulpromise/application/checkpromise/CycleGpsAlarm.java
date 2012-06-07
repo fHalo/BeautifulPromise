@@ -1,5 +1,7 @@
 package com.beautifulpromise.application.checkpromise;
 
+import com.beautifulpromise.database.CheckDBHelper;
+
 import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -16,13 +18,13 @@ public class CycleGpsAlarm extends BroadcastReceiver{
 	
 	LocationListener mLocationListener;
 	LocationManager lm;
-	CycleGpsDBHelper gps_DBHelper;
+	CheckDBHelper gps_DBHelper;
 	Context context;
 	
 	public void onReceive(Context context, Intent intent) {
 		
 		this.context = context;
-		gps_DBHelper = new CycleGpsDBHelper(context);
+		gps_DBHelper = new CheckDBHelper(context);
 		
 		lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
 		
