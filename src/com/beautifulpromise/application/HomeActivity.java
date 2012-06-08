@@ -21,7 +21,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -116,7 +115,6 @@ public class HomeActivity extends BeautifulPromiseActivity {
 				d_daytxt.setText("D-" + String.valueOf(arSrc.get(position).getD_day()));
 				checkimg.setImageResource(R.drawable.ico_clear);
 			}
-			
 
 			convertView.setTag(position);
 			convertView.setOnClickListener(this);

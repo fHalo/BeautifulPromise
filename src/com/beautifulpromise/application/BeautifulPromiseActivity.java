@@ -1,7 +1,14 @@
 package com.beautifulpromise.application;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import android.app.Activity;
+import android.content.ContentProvider;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -12,11 +19,14 @@ import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 
 import com.beautifulpromise.R;
 import com.beautifulpromise.application.addpromise.AddPromiseActivity;
 import com.beautifulpromise.application.feedviewer.PromiseFeedList;
 import com.beautifulpromise.common.Var;
+import com.beautifulpromise.database.DatabaseHelper;
+import com.beautifulpromise.database.NotificationProvider;
 import com.beautifulpromise.facebooklibrary.Facebook;
 
 public class BeautifulPromiseActivity extends Activity{
@@ -33,8 +43,8 @@ public class BeautifulPromiseActivity extends Activity{
 	Button friendPromiseBtn;
 	Button pointShopBtn;
 	Button settingBtn;
+	ListView notificationListView;
 	
-	LinearLayout observerLayout;
 	LinearLayout notificationLayout;
 	LinearLayout leftMenuLayout;
 	LinearLayout activityLayout;
@@ -42,6 +52,7 @@ public class BeautifulPromiseActivity extends Activity{
 	HorizontalScrollView hscroll;
 	private int leftWidth = Var.LEFT_MENUBAR_WIDTH;
 	
+		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -59,8 +70,8 @@ public class BeautifulPromiseActivity extends Activity{
 		pointShopBtn = (Button) findViewById(R.id.pointshop_btn);
 		settingBtn = (Button) findViewById(R.id.setting_btn);
 		
-		observerLayout = (LinearLayout) findViewById(R.id.observer_image);
-		notificationLayout  = (LinearLayout) findViewById(R.id.notification_image);
+		notificationLayout  = (LinearLayout) findViewById(R.id.notification_layout);
+		notificationListView = (ListView) findViewById(R.id.notification_listview);
 		leftMenuLayout = (LinearLayout) findViewById(R.id.menu_layout);
 		activityLayout = (LinearLayout) findViewById(R.id.activity_layout);
 		
@@ -78,6 +89,37 @@ public class BeautifulPromiseActivity extends Activity{
 		hscroll = (HorizontalScrollView) findViewById(R.id.horizontal_scrollview);
 		mySmoothScrollTo(leftWidth, 0);
 		hscroll.setOnTouchListener(hscrollTouchListener);
+		
+		notificationLayout.setVisibility(View.GONE);
+		
+		//TODO Test
+		ContentResolver cr = getContentResolver();
+//		ContentValues row = new ContentValues();
+//		row.put("title", "Jaemyung Shin commented on 소지섭's photo of you: \"test\"");
+//		row.put("send_user_id", "100001066448386");
+//		row.put("fb_id", "113835812091211");
+//		cr.insert(NotificationProvider.CONTENT_URI, row);
+		
+//		ContentValues row = new ContentValues();
+//		row.put("title", "소지섭 added 4 photos of you.");
+//		row.put("send_user_id", "100003943796581");
+//		row.put("fb_id", "114560352018757");
+//		cr.insert(NotificationProvider.CONTENT_URI, row);
+		
+		Cursor cursor = cr.query(NotificationProvider.CONTENT_URI, null, null, null, null);
+		cursor.moveToFirst();
+
+		startManagingCursor(cursor);
+		NotificationAdapter adapter = new NotificationAdapter(this, cursor);
+		notificationListView.setAdapter(adapter);
+		
+//		
+//		int count = cursor.getCount();
+//		if(count > 0) {
+//			startManagingCursor(cursor);
+//			NotificationAdapter adapter = new NotificationAdapter(this, cursor);
+//			notificationListView.setAdapter(adapter);
+//		}
 	} 
 	
 	View.OnClickListener buttonClickLisetner = new View.OnClickListener() {
@@ -103,10 +145,16 @@ public class BeautifulPromiseActivity extends Activity{
 			case R.id.notification_button:
 				if(notificationLayout.isShown())
 					notificationLayout.setVisibility(View.GONE);
-				else
+				else {
 					notificationLayout.setVisibility(View.VISIBLE);
+					Log.i("immk", "Timer Start");
+					Timer timer = new Timer();
+					timer.schedule(myTask, 1000);
+				}
+				//TODO Test
+//				ContentResolver cr = getContentResolver();
+//				cr.query(NotificationProvider.CONTENT_URI, null, null, null, null);
 				
-				observerLayout.setVisibility(View.GONE);
 				break;	
 				
 			case R.id.add_promise_btn:
@@ -144,6 +192,28 @@ public class BeautifulPromiseActivity extends Activity{
 			default:
 				break;
 			}
+		}
+	};
+
+	TimerTask myTask = new TimerTask() {
+		
+		@Override
+		public void run() {
+			
+			Log.i("immk", "TimerTask Start");
+			
+			ContentResolver cr = getContentResolver();
+			ContentValues row = new ContentValues();
+			row.put("title", "Jaemyung Shin commented on 소지섭's photo of you: \"test\"");
+			row.put("send_user_id", "100001066448386");
+			row.put("fb_id", "113835812091211");
+			cr.insert(NotificationProvider.CONTENT_URI, row);
+			
+			row = new ContentValues();
+			row.put("title", "소지섭 added 4 photos of you.");
+			row.put("send_user_id", "100003943796581");
+			row.put("fb_id", "114560352018757");
+			cr.insert(NotificationProvider.CONTENT_URI, row);
 		}
 	};
 	

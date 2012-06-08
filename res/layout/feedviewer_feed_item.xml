@@ -69,7 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:text="Promise log" />
+            android:text="약속일지" />
 
         <TextView
             android:id="@+id/replyText"
@@ -105,6 +105,24 @@
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/likeText"
             android:src="@drawable/like" />
+        
+		<ImageView
+            android:id="@+id/addFreindImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/addFriendText"
+            android:src="@drawable/like" android:visibility="invisible"/>
+                
+        <TextView
+            android:id="@+id/noFriendText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:layout_alignParentRight="true"
+            android:text="친구아님"
+            android:textSize="15dp" android:visibility="invisible"/>
     </RelativeLayout>
 
 </RelativeLayout>

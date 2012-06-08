@@ -178,6 +178,10 @@ public class AddPromiseActivity extends MapActivity {
 //		Log.i("immk", bb.get(0).getTitle());
 		
 //		Controller ctr = new Controller();
+//		ArrayList<String> aa = ctr.GetTodoList("me");
+//		ArrayList<String> bb = ctr.GetTodoList("helper");
+//		ArrayList<String> cc = ctr.GetTodoList("all");
+//		int i = 0 ;
 //		ArrayList<String> aa = ctr.GetHelperList("113852212089571");
 //		ArrayList<String> bb = ctr.GetCheckList("15649845");
 //		ArrayList<String> cc = ctr.GetProjectStatus(3);

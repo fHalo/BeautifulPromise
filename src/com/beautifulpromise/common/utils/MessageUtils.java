@@ -16,4 +16,5 @@ public class MessageUtils {
 	public static String GET_TODO_CHECK_LIST = "get_todo_check.php";
 	public static String GET_TODO_HELPER_LIST = "get_todo_helper_list.php";
 	public static String GET_PROJECT_STATUS = "get_project_status.php";
+	public static String GET_TODO_LIST = "get_todo_list.php";
 }

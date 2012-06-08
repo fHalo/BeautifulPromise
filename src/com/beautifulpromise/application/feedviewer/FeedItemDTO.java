@@ -15,7 +15,8 @@ public class FeedItemDTO {
 	
 	private String id;
 	private String profileImagePath;
-	private String name;
+	private String fromName;
+	private String fromId;
 	private String date;
 	private String photoImagePath;
 	private String feed;
@@ -33,7 +34,8 @@ public class FeedItemDTO {
 	public FeedItemDTO(Post post) {
 		id = post.getId();
 		
-		name = post.getFrom().getName();
+		fromName = post.getFrom().getName();
+		fromId= post.getFrom().getId();
 		
 		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd aa hh:mm");
 		date = df.format(post.getCreatedTime());
@@ -71,12 +73,6 @@ public class FeedItemDTO {
 	}
 	public final void setProfileImagePath(String profileImagePath) {
 		this.profileImagePath = profileImagePath;
-	}
-	public final String getName() {
-		return name;
-	}
-	public final void setName(String name) {
-		this.name = name;
 	}
 	public final String getDate() {
 		return date;
@@ -137,6 +133,22 @@ public class FeedItemDTO {
 
 	public final void setLike(Likes like) {
 		this.like = like;
+	}
+
+	public final String getFromName() {
+		return fromName;
+	}
+
+	public final void setFromName(String fromName) {
+		this.fromName = fromName;
+	}
+
+	public final String getFromId() {
+		return fromId;
+	}
+
+	public final void setFromId(String fromId) {
+		this.fromId = fromId;
 	}
 
 
