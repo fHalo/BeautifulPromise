@@ -1,6 +1,5 @@
 package com.beautifulpromise.application;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -10,6 +9,7 @@ import com.beautifulpromise.application.checkpromise.EtcCheckActivity;
 import com.beautifulpromise.application.checkpromise.WorkCheckActivity;
 import com.beautifulpromise.common.alarm.Alarm;
 import com.beautifulpromise.common.dto.AddPromiseDTO;
+import com.beautifulpromise.database.CheckDAO;
 import com.beautifulpromise.database.CheckDBHelper;
 import com.beautifulpromise.database.DatabaseHelper;
 import com.beautifulpromise.database.GoalsDAO;
@@ -17,7 +17,6 @@ import com.beautifulpromise.database.GoalsDAO;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -34,38 +33,28 @@ import android.widget.TextView;
 
 public class HomeActivity extends BeautifulPromiseActivity {
 	/** Called when the activity is first created. */
-
-	CheckDBHelper checkDBHelper;
-	SQLiteDatabase db;
+//
+//	CheckDBHelper checkDBHelper;
+//	SQLiteDatabase db;
 
 	ListView PromiseListView;
 	MyListAdapter MyAdapter;
 	ArrayList<AddPromiseDTO> promisedto;
+	
+	CheckDAO checkDAO;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		LinearLayout layout = (LinearLayout) View.inflate(this,
-				R.layout.homeactivity, null);
+		LinearLayout layout = (LinearLayout) View.inflate(this, R.layout.homeactivity, null);
 		setActivityLayout(layout);
 
-		// DB에 임시 데이터 삽입
-//		checkDBHelper = new CheckDBHelper(this);
-//		db = checkDBHelper.getWritableDatabase();
-//
-//		db.delete("feed", null, null);
-//
-//		ContentValues row;
-//		row = new ContentValues();
-//
-//		for (AddPromiseDTO temppromise : promisedto) {
-//			row.clear();
-//			row.put("promiseid", temppromise.getId());
-//			row.put("check", 0);
-//			db.insert("feed", null, row);
-//		}
-
 		PromiseListView = (ListView) findViewById(R.id.list);
+		
+		CheckDBHelper checkDBHelper = new CheckDBHelper(this);
+		checkDAO = new CheckDAO(checkDBHelper);
+		
+//		checkDAO.feedcheckinit(promisedto);
 		// 알람
 		Alarm alarm = new Alarm();
 		alarm.SetAlarm(this, 1);
@@ -112,31 +101,27 @@ public class HomeActivity extends BeautifulPromiseActivity {
 					.findViewById(R.id.home_check);
 
 			promisenametxt.setText(arSrc.get(position).getTitle());
-			// Cursor cursor =
-			// db.rawQuery("SELECT check FROM feed WHERE promiseid=" +
-			// arSrc.get(position).getId(), null);
-			// cursor.moveToNext();
-			// int check = cursor.getInt(0);
+			
+			int check = checkDAO.feedcheckdo(arSrc.get(position).getId());
+			
 			// D-Day, D-day가 지나서 평가를 해야되는 약속들
-			if (arSrc.get(position).getResult() == 0
-					&& arSrc.get(position).getD_day() < 1) {
+			if (arSrc.get(position).getResult() == 0 && arSrc.get(position).getD_day() < 1) {
 				d_daytxt.setText("D-Day");
 				d_daytxt.setTextColor(Color.RED);
 			}
 			// 오늘 피드를 올린 약속
-			else // if(check == 1)
+			else if(check == 1)
 			{
-				d_daytxt.setText("D-"
-						+ String.valueOf(arSrc.get(position).getD_day()));
+				d_daytxt.setText("D-"+ String.valueOf(arSrc.get(position).getD_day()));
 				checkimg.setImageResource(R.drawable.ico_assessment);
 			}
-			// 오늘 피드를 올리지 않은 약속
-			// else
-			// {
-			// d_daytxt.setText("D-" +
-			// String.valueOf(arSrc.get(position).getD_day()));
-			// }
-			//
+			//오늘 피드를 올리지 않은 약속
+			else
+			{
+				d_daytxt.setText("D-" + String.valueOf(arSrc.get(position).getD_day()));
+				checkimg.setImageResource(R.drawable.ico_clear);
+			}
+			
 
 			convertView.setTag(position);
 			convertView.setOnClickListener(this);
@@ -176,10 +161,10 @@ public class HomeActivity extends BeautifulPromiseActivity {
 
 		Calendar oCalendar = Calendar.getInstance();
 		DatabaseHelper databaseHelper = new DatabaseHelper(this);
-		GoalsDAO dao = new GoalsDAO(databaseHelper);
+		GoalsDAO goalsDAO = new GoalsDAO(databaseHelper);
 
-		promisedto = dao.getGoalList(oCalendar.get(Calendar.DAY_OF_WEEK));
-
+		promisedto = goalsDAO.getGoalList(oCalendar.get(Calendar.DAY_OF_WEEK));
+		
 		// D-dat계산해서 객체에 값넣음
 		for (int i = 0; i < promisedto.size(); i++) {
 			promisedto.get(i).setD_day(promisedto.get(i).getEndDate());

@@ -126,4 +126,27 @@ public class Controller {
 		}
 		return list;
 	}
+	
+
+	/**
+	 * @description Todo List 가져오기
+	 * @param mode(=me, helper, all)
+	 * @return
+	 */
+	@SuppressWarnings({"unchecked", "rawtypes"})
+	public ArrayList<String> GetTodoList (String mode) {
+		ArrayList<String> list = new ArrayList<String>();
+		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("mode", mode));
+		if(!mode.equals("all"))
+			params.add(new BasicNameValuePair("fb_key", Repository.getInstance().getUserId()));
+		String data = client.getUrlToJson(MessageUtils.GET_TODO_LIST, params);
+		if(data != null){
+			ArrayList<HashMap> rows = client.getResultList(data);
+			for(HashMap row : rows){
+				list.add((String) row.get("td_article_id"));
+			}
+		}
+		return list;
+	}
 }

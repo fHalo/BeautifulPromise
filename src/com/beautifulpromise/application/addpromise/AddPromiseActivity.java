@@ -171,13 +171,17 @@ public class AddPromiseActivity extends MapActivity {
 		promiseDTO = new AddPromiseDTO();
 		promiseDTO.setDayPeriod(new boolean[]{false, false, false, false, false, false, false});
 		
-		DatabaseHelper databaseHelper = new DatabaseHelper(this);
-		GoalsDAO dao = new GoalsDAO(databaseHelper);
-		ArrayList<AddPromiseDTO> aa = dao.getList();
-		ArrayList<AddPromiseDTO> bb = dao.getGoalList(2);
-		Log.i("immk", bb.get(0).getTitle());
+//		DatabaseHelper databaseHelper = new DatabaseHelper(this);
+//		GoalsDAO dao = new GoalsDAO(databaseHelper);
+//		ArrayList<AddPromiseDTO> aa = dao.getList();
+//		ArrayList<AddPromiseDTO> bb = dao.getGoalList(2);
+//		Log.i("immk", bb.get(0).getTitle());
 		
 //		Controller ctr = new Controller();
+//		ArrayList<String> aa = ctr.GetTodoList("me");
+//		ArrayList<String> bb = ctr.GetTodoList("helper");
+//		ArrayList<String> cc = ctr.GetTodoList("all");
+//		int i = 0 ;
 //		ArrayList<String> aa = ctr.GetHelperList("113852212089571");
 //		ArrayList<String> bb = ctr.GetCheckList("15649845");
 //		ArrayList<String> cc = ctr.GetProjectStatus(3);

@@ -21,8 +21,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.beautifulpromise.R;
+import com.beautifulpromise.application.HomeActivity;
 import com.beautifulpromise.common.dto.AddPromiseDTO;
 import com.beautifulpromise.common.utils.ImageUtils;
+import com.beautifulpromise.database.CheckDAO;
 import com.beautifulpromise.database.CheckDBHelper;
 import com.facebook.halo.application.types.connection.Friends;
 import com.facebook.halo.framework.core.Connection;
@@ -139,7 +141,15 @@ public class CycleCheckActivity extends MapActivity {
 			switch (v.getId()) {
 
 			case R.id.checkpromise_cyclecheck_post_btn:
+				
+				//포스트체크
+				CheckDBHelper checkDBHelper = new CheckDBHelper(CycleCheckActivity.this);
+				CheckDAO checkDAO = new CheckDAO(checkDBHelper);
+				checkDAO.feedcheckinsert(promiseobject.getId());
+				
 
+				Intent intent = new Intent(CycleCheckActivity.this, HomeActivity.class);
+				startActivity(intent);
 				break;
 
 			case R.id.checkpromise_cycle_camera_btn:
