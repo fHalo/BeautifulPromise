@@ -1,6 +1,8 @@
 package com.beautifulpromise.application;
 
 import android.app.Activity;
+import android.content.ContentProvider;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,11 +14,13 @@ import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 
 import com.beautifulpromise.R;
 import com.beautifulpromise.application.addpromise.AddPromiseActivity;
 import com.beautifulpromise.application.feedviewer.PromiseFeedList;
 import com.beautifulpromise.common.Var;
+import com.beautifulpromise.database.NotificationProvider;
 import com.beautifulpromise.facebooklibrary.Facebook;
 
 public class BeautifulPromiseActivity extends Activity{
@@ -33,6 +37,7 @@ public class BeautifulPromiseActivity extends Activity{
 	Button friendPromiseBtn;
 	Button pointShopBtn;
 	Button settingBtn;
+	ListView notificationListView;
 	
 	LinearLayout observerLayout;
 	LinearLayout notificationLayout;
@@ -41,7 +46,7 @@ public class BeautifulPromiseActivity extends Activity{
 	
 	HorizontalScrollView hscroll;
 	private int leftWidth = Var.LEFT_MENUBAR_WIDTH;
-	
+		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -60,7 +65,8 @@ public class BeautifulPromiseActivity extends Activity{
 		settingBtn = (Button) findViewById(R.id.setting_btn);
 		
 		observerLayout = (LinearLayout) findViewById(R.id.observer_image);
-		notificationLayout  = (LinearLayout) findViewById(R.id.notification_image);
+		notificationLayout  = (LinearLayout) findViewById(R.id.notification_layout);
+		notificationListView = (ListView) findViewById(R.id.notification_listview);
 		leftMenuLayout = (LinearLayout) findViewById(R.id.menu_layout);
 		activityLayout = (LinearLayout) findViewById(R.id.activity_layout);
 		
@@ -78,6 +84,11 @@ public class BeautifulPromiseActivity extends Activity{
 		hscroll = (HorizontalScrollView) findViewById(R.id.horizontal_scrollview);
 		mySmoothScrollTo(leftWidth, 0);
 		hscroll.setOnTouchListener(hscrollTouchListener);
+		
+		
+		//TODO Test
+//		ContentResolver cr = getContentResolver();
+//		cr.query(NotificationProvider.CONTENT_URI, null, null, null, null);
 	} 
 	
 	View.OnClickListener buttonClickLisetner = new View.OnClickListener() {

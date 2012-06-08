@@ -58,6 +58,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		buffer.append("min INT");
 		buffer.append(")");
 		db.execSQL(buffer.toString());
+		
+		buffer.setLength(0);
+		buffer.append("CREATE TABLE Notifications (");
+		buffer.append("_id INTEGER PRIMARY KEY AUTOINCREMENT,");
+		buffer.append("title TEXT,");
+		buffer.append("send_user_id TEXT,");
+		buffer.append("fb_id TEXT");
+		buffer.append(")");
+		db.execSQL(buffer.toString());
 
 	}
 
@@ -67,6 +76,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 //		db.execSQL("DROP TABLE IF EXISTS Helpers");
 		db.execSQL("DROP TABLE IF EXISTS Locations");
 		db.execSQL("DROP TABLE IF EXISTS Alarms");
+		db.execSQL("DROP TABLE IF EXISTS Notifications");
 		onCreate(db);
 	}
 }

@@ -59,35 +59,32 @@
         <activity 
             android:name=".application.checkpromise.CycleCheckActivity"
             android:screenOrientation="portrait">
-            
         </activity>
-        
         
         <activity 
             android:name=".application.checkpromise.EtcCheckActivity"
             android:screenOrientation="portrait">
-            
         </activity>
         <activity 
             android:name=".application.HomeActivity"
             android:screenOrientation="portrait">
-            
         </activity>
         <activity 
             android:name=".application.BeautifulPromiseActivity"
             android:screenOrientation="portrait">
-            
         </activity>
         <activity 
             android:name=".application.checkpromise.WorkCheckActivity"
             android:screenOrientation="portrait">
-            
         </activity>
         <activity 
             android:name=".application.checkpromise.WorkCheckFeedActivity"
             android:screenOrientation="portrait">
-            
         </activity>
+        
+        <provider 
+            android:name="com.beautifulpromise.database.NotificationProvider"
+            android:authorities="com.beautifulpromise.database"></provider>
     </application>
 
 </manifest>
