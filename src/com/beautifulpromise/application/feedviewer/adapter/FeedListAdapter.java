@@ -34,16 +34,27 @@ public class FeedListAdapter extends BaseAdapter {
 	String url;
 	User user;
 	boolean isFriendFeed = false;
+	boolean isMine;
 	Connection<Friends> friends;
 	
-	public FeedListAdapter(Context context, int layout, ArrayList<FeedItemDTO> arrayListFeedItem) {
+	
+	public FeedListAdapter(Context context, int layout, ArrayList<FeedItemDTO> arrayListFeedItem, String mode) {
 		this.context = context;
 		this.inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		this.layout = layout;
 		this.arrayListFeedItem = arrayListFeedItem;
-		//친구리스트 받아오기
-		user = Repository.getInstance().getUser();
-		friends = user.friends();
+		
+		//자신의 피드리스트 보기 일경우
+		if(mode.equals("me")) {
+			isMine = true;
+			
+			//친구리스트 받아오기
+			user = Repository.getInstance().getUser();
+			friends = user.friends();
+		} else {
+			isMine = false;
+		}
+			
 	}
 
 	@Override
@@ -72,11 +83,16 @@ public class FeedListAdapter extends BaseAdapter {
 			convertView = inflater.inflate(layout, parent, false);
 		}
 		
-        //친구 리스트 가져와서 해당 feed가 친구의 글인지 검사
-        if(isFriendFeed(arrayListFeedItem.get(position).getFromId()))
-        	isFriendFeed = true;
-        else 
-        	isFriendFeed = false;
+		//자신의 피드리스트 일경우
+		if(isMine) {
+			isFriendFeed = true;
+		} else {
+			//친구 리스트 가져와서 해당 feed가 친구의 글인지 검사 
+		    if(isFriendFeed(arrayListFeedItem.get(position).getFromId()))
+	        	isFriendFeed = true;
+	        else 
+	        	isFriendFeed = false;
+		}
         
 		//name setting
 		TextView name = (TextView)convertView.findViewById(R.id.nameText);
