@@ -24,7 +24,7 @@ public class CheckDBHelper extends SQLiteOpenHelper {
 		buffer.setLength(0);
 		buffer.append("CREATE TABLE feed (");
 		buffer.append("id INTEGER PRIMARY KEY AUTOINCREMENT,");
-		buffer.append("promiseid INTEGER,");
+		buffer.append("promiseid TEXT,");
 		buffer.append("feedcheck INTEGER");
 		buffer.append(")");
 		db.execSQL(buffer.toString());

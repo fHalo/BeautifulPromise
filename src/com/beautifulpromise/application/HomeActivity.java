@@ -21,6 +21,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,15 +34,10 @@ import android.widget.TextView;
 
 public class HomeActivity extends BeautifulPromiseActivity {
 	/** Called when the activity is first created. */
-//
-//	CheckDBHelper checkDBHelper;
-//	SQLiteDatabase db;
 
 	ListView PromiseListView;
 	MyListAdapter MyAdapter;
 	ArrayList<AddPromiseDTO> promisedto;
-	
-	CheckDAO checkDAO;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -51,14 +47,9 @@ public class HomeActivity extends BeautifulPromiseActivity {
 
 		PromiseListView = (ListView) findViewById(R.id.list);
 		
-		CheckDBHelper checkDBHelper = new CheckDBHelper(this);
-		checkDAO = new CheckDAO(checkDBHelper);
-		
-//		checkDAO.feedcheckinit(promisedto);
 		// 알람
 		Alarm alarm = new Alarm();
 		alarm.SetAlarm(this, 1);
-
 	}
 
 	class MyListAdapter extends BaseAdapter implements OnClickListener {
@@ -101,8 +92,12 @@ public class HomeActivity extends BeautifulPromiseActivity {
 					.findViewById(R.id.home_check);
 
 			promisenametxt.setText(arSrc.get(position).getTitle());
+			int check = 0;
 			
-			int check = checkDAO.feedcheckdo(arSrc.get(position).getId());
+			CheckDBHelper checkDBHelper = new CheckDBHelper(HomeActivity.this);
+			CheckDAO checkDAO = new CheckDAO(checkDBHelper);
+			
+			check = checkDAO.feedcheckdo(arSrc.get(position).getPostId());
 			
 			// D-Day, D-day가 지나서 평가를 해야되는 약속들
 			if (arSrc.get(position).getResult() == 0 && arSrc.get(position).getD_day() < 1) {
@@ -158,14 +153,18 @@ public class HomeActivity extends BeautifulPromiseActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-
+		
 		Calendar oCalendar = Calendar.getInstance();
 		DatabaseHelper databaseHelper = new DatabaseHelper(this);
 		GoalsDAO goalsDAO = new GoalsDAO(databaseHelper);
-
+		
 		promisedto = goalsDAO.getGoalList(oCalendar.get(Calendar.DAY_OF_WEEK));
 		
-		// D-dat계산해서 객체에 값넣음
+		CheckDBHelper checkDBHelper = new CheckDBHelper(this);
+		CheckDAO checkDAO = new CheckDAO(checkDBHelper);
+//		checkDAO.feedcheckinit(promisedto);
+		checkDAO.feedtest();
+		// D-day계산해서 객체에 값넣음
 		for (int i = 0; i < promisedto.size(); i++) {
 			promisedto.get(i).setD_day(promisedto.get(i).getEndDate());
 		}

@@ -23,10 +23,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.beautifulpromise.R;
+import com.beautifulpromise.application.HomeActivity;
 import com.beautifulpromise.common.dto.AddPromiseDTO;
 import com.beautifulpromise.common.repository.Repository;
 import com.beautifulpromise.common.utils.DateUtils;
 import com.beautifulpromise.common.utils.ImageUtils;
+import com.beautifulpromise.database.CheckDAO;
+import com.beautifulpromise.database.CheckDBHelper;
 import com.beautifulpromise.database.DatabaseHelper;
 import com.beautifulpromise.database.GoalsDAO;
 import com.facebook.halo.application.types.Album;
