@@ -41,7 +41,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="8dp"
         android:clickable="false"
-        android:focusable="false"/>
+        android:focusable="false" android:layout_marginLeft="16dp" android:layout_marginRight="16dp"/>
 
     <TextView
         android:id="@+id/feedText"
@@ -86,7 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/replyText"
-            android:src="@drawable/reply" />
+            android:src="@drawable/reply" android:layout_marginRight="3dp"/>
 
         <TextView
             android:id="@+id/likeText"
@@ -104,7 +104,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/likeText"
-            android:src="@drawable/like" />
+            android:src="@drawable/like" android:layout_marginRight="3dp"/>
         
 		<ImageView
             android:id="@+id/addFreindImage"

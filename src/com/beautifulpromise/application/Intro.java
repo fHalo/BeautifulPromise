@@ -8,13 +8,11 @@ import org.apache.http.message.BasicNameValuePair;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.beautifulpromise.R;
-import com.beautifulpromise.application.feedviewer.PromiseFeedList;
 import com.beautifulpromise.common.Var;
 import com.beautifulpromise.common.repository.Repository;
 import com.beautifulpromise.common.utils.MessageUtils;
@@ -31,7 +29,7 @@ public class Intro extends Activity {
 	
 	Facebook mFacebook;
 	
-	ImageButton loginButton;
+	Button loginButton;
 
 	
 	@Override
@@ -55,7 +53,7 @@ public class Intro extends Activity {
 		setContentView(R.layout.intro);
 		
 		//Login Button
-		loginButton = (ImageButton) findViewById(R.id.loginButton);
+		loginButton = (Button) findViewById(R.id.loginButton);
 		loginButton.setOnClickListener(buttonClickListener);
 	}
 

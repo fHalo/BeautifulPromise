@@ -62,8 +62,8 @@ public class ImageUtils {
 		StringBuffer sb = new StringBuffer("<HTML>");
 		sb.append("<HEAD>");
 		sb.append("<META http-equiv=Content-Type content=\"text/html; charset=utf-8\">");
-		sb.append("<META content=\"TAGFREE Active Designer v3.0\" name=GENERATOR>");
-		sb.append("<META name=\"viewport\" content=\"user-scalable=yes, initial-scale=0.1, maximum-scale=0.0, minimum-scale=0.0");
+//		sb.append("<META content=\"TAGFREE Active Designer v3.0\" name=GENERATOR>");
+//		sb.append("<META name=\"viewport\" content=\"user-scalable=yes, initial-scale=0.1, maximum-scale=0.0, minimum-scale=0.0");
 		sb.append("</HEAD>");
 		sb.append("<BODY style=\"margin:0;padding:0\">");  //  style=\"FONT-SIZE: 9pt; FONT-FAMILY: gulim \">");
 		//sb.append("<OBJECT width=100% data=\"http://211.189.20.139/images/noImage.png\">");		
