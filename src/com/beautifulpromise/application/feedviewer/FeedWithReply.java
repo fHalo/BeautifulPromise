@@ -6,6 +6,7 @@ import java.util.List;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
@@ -28,6 +29,7 @@ import com.facebook.halo.application.types.Post;
 import com.facebook.halo.application.types.Post.Comments;
 import com.facebook.halo.application.types.Post.Likes;
 import com.facebook.halo.application.types.User;
+import com.facebook.halo.application.types.connection.Friends;
 import com.facebook.halo.application.types.infra.FacebookType;
 import com.facebook.halo.framework.core.Connection;
 
@@ -61,6 +63,7 @@ public class FeedWithReply extends BeautifulPromiseActivity{
 		//arrayComment 객체생성
 		arrayComment = new ArrayList<Comment>();
 		
+		//top & left menu 액티비티 추가
         LinearLayout replyListLayout = (LinearLayout)View.inflate(this, R.layout.feedviewer_reply_list, null);
         setActivityLayout(replyListLayout);
         
@@ -102,7 +105,6 @@ public class FeedWithReply extends BeautifulPromiseActivity{
 		submitButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				FacebookType commentId = feed.publishComment(replyText.getText().toString());
 				
 				//추가된 댓글 listview에 바로 추가
@@ -142,7 +144,7 @@ public class FeedWithReply extends BeautifulPromiseActivity{
         
 		//name setting
 		TextView name = (TextView)findViewById(R.id.nameText2);
-		name.setText(feedItem.getName());
+		name.setText(feedItem.getFromName());
 		
 		//date setting
 		TextView date = (TextView)findViewById(R.id.dateText2);
@@ -209,6 +211,7 @@ public class FeedWithReply extends BeautifulPromiseActivity{
 		}
 		return false;
 	}
+
 	
 
 }
