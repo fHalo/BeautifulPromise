@@ -7,8 +7,10 @@ import java.util.List;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -22,9 +24,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.beautifulpromise.R;
+import com.beautifulpromise.application.HomeActivity;
 import com.beautifulpromise.common.dto.AddPromiseDTO;
 import com.beautifulpromise.common.repository.Repository;
 import com.beautifulpromise.common.utils.ImageUtils;
+import com.beautifulpromise.database.CheckDAO;
+import com.beautifulpromise.database.CheckDBHelper;
 import com.facebook.halo.application.types.Album;
 import com.facebook.halo.application.types.Tags;
 import com.facebook.halo.application.types.User;
@@ -143,8 +148,7 @@ public class EtcCheckActivity extends Activity {
 //					Tags tag = new Tags();
 //					tag.setTagUid(friends.getId());
 //					tags.add(tag);
-//					
-//				}ArrayList<Tags> tags = new ArrayList<Tags>();
+//				}
 
 				Tags tag = new Tags();
 				tag.setTagUid("100001428910089");
@@ -154,9 +158,16 @@ public class EtcCheckActivity extends Activity {
 				tags.add(taga);
 
 				boolean result = user.publishTagsAtPhoto(type.getId(), tags);
+				
 				if (result) {
-					Toast.makeText(EtcCheckActivity.this, "성공",
-							Toast.LENGTH_SHORT).show();
+					Toast.makeText(EtcCheckActivity.this, "성공", Toast.LENGTH_SHORT).show();
+
+					CheckDBHelper checkDBHelper = new CheckDBHelper(EtcCheckActivity.this);
+					CheckDAO checkDAO = new CheckDAO(checkDBHelper);
+					checkDAO.feedcheckinsert(promiseobject.getId());
+					
+					Intent intent = new Intent(EtcCheckActivity.this, HomeActivity.class);
+					startActivity(intent);
 				} else {
 					Toast.makeText(EtcCheckActivity.this, "Upload에 실패하였습니다.",
 							Toast.LENGTH_SHORT).show();
@@ -193,8 +204,6 @@ public class EtcCheckActivity extends Activity {
 					Bitmap photo = extras.getParcelable("data");
 					Upload_ImageView.setImageBitmap(photo);
 				}
-	
-	
 				break;
 			}
 			

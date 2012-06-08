@@ -24,9 +24,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.beautifulpromise.R;
+import com.beautifulpromise.application.HomeActivity;
 import com.beautifulpromise.common.dto.AddPromiseDTO;
 import com.beautifulpromise.common.repository.Repository;
 import com.beautifulpromise.common.utils.ImageUtils;
+import com.beautifulpromise.database.CheckDAO;
+import com.beautifulpromise.database.CheckDBHelper;
 import com.facebook.halo.application.types.Album;
 import com.facebook.halo.application.types.Tags;
 import com.facebook.halo.application.types.User;
@@ -163,6 +166,14 @@ public class WorkCheckFeedActivity extends Activity{
 
 				boolean result = user.publishTagsAtPhoto(type.getId(), tags);
 				if (result) {
+					
+					CheckDBHelper checkDBHelper = new CheckDBHelper(WorkCheckFeedActivity.this);
+					CheckDAO checkDAO = new CheckDAO(checkDBHelper);
+					checkDAO.feedcheckinsert(promiseobject.getId());
+					
+					Intent intent = new Intent(WorkCheckFeedActivity.this, HomeActivity.class);
+					startActivity(intent);
+					
 					Toast.makeText(WorkCheckFeedActivity.this, "성공",
 							Toast.LENGTH_SHORT).show();
 				} else {
