@@ -7,7 +7,7 @@
     <ListView
         android:id="@+id/feedList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content" android:divider="@drawable/feed_white_divider">
     </ListView>
 
 </LinearLayout>
