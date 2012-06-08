@@ -1,6 +1,7 @@
 package com.beautifulpromise.application.feedviewer.adapter;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -21,19 +22,17 @@ import com.facebook.halo.application.types.User;
 
 public class ReplyListAdapter extends BaseAdapter{
 	
-	Comments comments;
-//	ArrayList<Comment> arrayComment;
+	ArrayList<Comment> arrayComment;
 	Context context;
 	LayoutInflater inflater;
 	int layout;
 	User user;
 
-	public ReplyListAdapter(Context context, int layout, Comments comments) {
+	public ReplyListAdapter(Context context, int layout, ArrayList<Comment> arrayComment) {
 		this.context = context;
 		this.inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		this.layout = layout;
-		this.comments = comments;
-//		this.arrayComment = arrayComment;
+		this.arrayComment = arrayComment;
 		user = Repository.getInstance().getUser();
 	}
 
@@ -54,26 +53,26 @@ public class ReplyListAdapter extends BaseAdapter{
 		
 		//name setting
 		final TextView name = (TextView)convertView.findViewById(R.id.replyNameText);
-		name.setText(comments.getData().get(position).getFrom().getName());
+		name.setText(arrayComment.get(position).getFrom().getName());
 
 		//feed setting
 		TextView feed = (TextView)convertView.findViewById(R.id.replyFeedText);
-		feed.setText(comments.getData().get(position).getMessage());
+		feed.setText(arrayComment.get(position).getMessage());
 		
 		//reply profile image setting
 		WebView profileImage = (WebView)convertView.findViewById(R.id.replyProfileImage);
 		profileImage.setWebViewClient(new WebViewManager());
 		profileImage.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
-		profileImage.loadUrl(comments.getData().get(position).getFrom().getPicture());
+		profileImage.loadUrl(arrayComment.get(position).getFrom().getPicture());
 		
 		//date setting
 		final TextView date = (TextView)convertView.findViewById(R.id.replyDateText);
 		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd aa hh:mm");
-		date.setText("" + df.format(comments.getData().get(position).getCreatedTime()));
+		date.setText("" + df.format(arrayComment.get(position).getCreatedTime()));
 		
 		//좋아요
 		final TextView like = (TextView)convertView.findViewById(R.id.replyLikeText);
-		if(comments.getData().get(position).getUserLikes()) { //사용자가 좋아한 댓글인지 아닌지 체크
+		if(arrayComment.get(position).getUserLikes()) { //사용자가 좋아한 댓글인지 아닌지 체크
 			like.setText("좋아요 취소");
 		}
 		like.setOnClickListener(new OnClickListener() {
@@ -82,11 +81,11 @@ public class ReplyListAdapter extends BaseAdapter{
 			public void onClick(View v) {
 				if(like.getText().equals("좋아요")) { //좋아요하기
 					like.setText("좋아요 취소");
-					user.publishLikes(comments.getData().get(position).getId());
+					user.publishLikes(arrayComment.get(position).getId());
 				}
 				else { //좋아요 취소하기
 					like.setText("좋아요");
-					user.publishUndoLikes(comments.getData().get(position).getId());
+					user.publishUndoLikes(arrayComment.get(position).getId());
 				}
 				
 			}
@@ -98,18 +97,13 @@ public class ReplyListAdapter extends BaseAdapter{
 
 	@Override
 	public int getCount() {
-		String count = null;
-		if(comments == null) //comment null 일때
-			count = "0";
-		else //comment 있을때
-			count = "" + comments.getData().size();
-		
-		return Integer.parseInt(count);
+		return arrayComment.size();
+
 	}
 
 	@Override
 	public Comment getItem(int position) {
-		return null;
+		return arrayComment.get(position);
 	}
 
 	@Override
