@@ -102,25 +102,25 @@ public class HomeActivity extends BeautifulPromiseActivity {
 
 			promisenametxt.setText(arSrc.get(position).getTitle());
 			
-			int check = checkDAO.feedcheckdo(arSrc.get(position).getId());
-			
-			// D-Day, D-day가 지나서 평가를 해야되는 약속들
-			if (arSrc.get(position).getResult() == 0 && arSrc.get(position).getD_day() < 1) {
-				d_daytxt.setText("D-Day");
-				d_daytxt.setTextColor(Color.RED);
-			}
-			// 오늘 피드를 올린 약속
-			else if(check == 1)
-			{
-				d_daytxt.setText("D-"+ String.valueOf(arSrc.get(position).getD_day()));
-				checkimg.setImageResource(R.drawable.ico_assessment);
-			}
-			//오늘 피드를 올리지 않은 약속
-			else
-			{
-				d_daytxt.setText("D-" + String.valueOf(arSrc.get(position).getD_day()));
-				checkimg.setImageResource(R.drawable.ico_clear);
-			}
+//			int check = checkDAO.feedcheckdo(arSrc.get(position).getId());
+//			
+//			// D-Day, D-day가 지나서 평가를 해야되는 약속들
+//			if (arSrc.get(position).getResult() == 0 && arSrc.get(position).getD_day() < 1) {
+//				d_daytxt.setText("D-Day");
+//				d_daytxt.setTextColor(Color.RED);
+//			}
+//			// 오늘 피드를 올린 약속
+//			else if(check == 1)
+//			{
+//				d_daytxt.setText("D-"+ String.valueOf(arSrc.get(position).getD_day()));
+//				checkimg.setImageResource(R.drawable.ico_assessment);
+//			}
+//			//오늘 피드를 올리지 않은 약속
+//			else
+//			{
+//				d_daytxt.setText("D-" + String.valueOf(arSrc.get(position).getD_day()));
+//				checkimg.setImageResource(R.drawable.ico_clear);
+//			}
 			
 
 			convertView.setTag(position);

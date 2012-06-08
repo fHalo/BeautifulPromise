@@ -63,7 +63,7 @@ public class LogListAdapter extends BaseAdapter{
 		
 		//name setting
 		TextView name = (TextView)convertView.findViewById(R.id.nameText);
-		name.setText(arrayListFeedItem.get(position).getName());
+		name.setText(arrayListFeedItem.get(position).getFromName());
 		
 		//date setting
 		TextView date = (TextView)convertView.findViewById(R.id.dateText);

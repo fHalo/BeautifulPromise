@@ -1,11 +1,11 @@
 package com.beautifulpromise.application.feedviewer;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,11 +29,11 @@ import com.facebook.halo.application.types.Post;
 import com.facebook.halo.application.types.Post.Comments;
 import com.facebook.halo.application.types.Post.Likes;
 import com.facebook.halo.application.types.User;
+import com.facebook.halo.application.types.connection.Friends;
 import com.facebook.halo.application.types.infra.FacebookType;
+import com.facebook.halo.framework.core.Connection;
 
 public class FeedWithReply extends BeautifulPromiseActivity{
-	//handler
-	Handler mHandler;
 	
 	//comment 들을 담고있는 array
 	ArrayList<Comment> arrayComment;
@@ -63,6 +63,7 @@ public class FeedWithReply extends BeautifulPromiseActivity{
 		//arrayComment 객체생성
 		arrayComment = new ArrayList<Comment>();
 		
+		//top & left menu 액티비티 추가
         LinearLayout replyListLayout = (LinearLayout)View.inflate(this, R.layout.feedviewer_reply_list, null);
         setActivityLayout(replyListLayout);
         
@@ -83,16 +84,14 @@ public class FeedWithReply extends BeautifulPromiseActivity{
         //Reply header feed에 각 view 값 setting
         setHeaderFeedView(feedItem);
         
-        comments = feedItem.getComment();
-        
         //feed의 댓글들 comment list에 삽입
-//        Connection<Comment> comments = feed.comments();
-//        for(List<Comment> commentList: comments)
-//        	for(Comment c : commentList) 
-//        		arrayComment.add(c);
+        Connection<Comment> comments = feed.comments();
+        for(List<Comment> commentList: comments)
+        	for(Comment c : commentList) 
+        		arrayComment.add(c);
         
 		//adapter 생성 후 레이아웃&데이터 세팅
-		replyListAdapter = new ReplyListAdapter(this, R.layout.feedviewer_reply_item, comments);
+		replyListAdapter = new ReplyListAdapter(this, R.layout.feedviewer_reply_item, arrayComment);
 		
 		//list view 생성
 		feedList = (ListView)findViewById(R.id.replyList);
@@ -106,14 +105,12 @@ public class FeedWithReply extends BeautifulPromiseActivity{
 		submitButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				FacebookType commentId = feed.publishComment(replyText.getText().toString());
 				
 				//추가된 댓글 listview에 바로 추가
 				comment = new Comment();
 				comment = comment.createInstance(commentId.getId());
-				comments.getData().add(comment);
-//				arrayComment.add(comment);
+				arrayComment.add(comment);
 				replyListAdapter.notifyDataSetChanged();
 				
 				//edit Text clear
@@ -123,6 +120,9 @@ public class FeedWithReply extends BeautifulPromiseActivity{
 				//keyboard hide
 				InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 				imm.hideSoftInputFromWindow(replyText.getWindowToken(), 0); 
+				
+				//맨 밑으로 focusing
+				feedList.setSelection(arrayComment.size());
 			}
 		});
 	}
@@ -144,7 +144,7 @@ public class FeedWithReply extends BeautifulPromiseActivity{
         
 		//name setting
 		TextView name = (TextView)findViewById(R.id.nameText2);
-		name.setText(feedItem.getName());
+		name.setText(feedItem.getFromName());
 		
 		//date setting
 		TextView date = (TextView)findViewById(R.id.dateText2);
@@ -176,6 +176,8 @@ public class FeedWithReply extends BeautifulPromiseActivity{
 		if(isUserLiked(feedItem.getLike())) { 
 			like.setText("좋아요 취소");
 		}
+		
+		//좋아요 버튼 클릭
 		like.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -185,7 +187,6 @@ public class FeedWithReply extends BeautifulPromiseActivity{
 					//좋아요 명수 한명 늘리기
 					likeCount.setText("" + (Integer.parseInt(likeCount.getText().toString())+1));
 					like.setText("좋아요 취소");
-					Log.e("ADSF",feedItem.getId());
 					user.publishLikes(feedItem.getId());
 				}
 				else { //좋아요 취소하기
@@ -202,15 +203,6 @@ public class FeedWithReply extends BeautifulPromiseActivity{
 	 * @param feedItem
 	 * @return 좋아요했을시 true
 	 */
-//	private boolean isUserLiked(FeedItemDTO feedItem) {
-//		//좋아요한 id들과 자신의 id 를 비교
-//		for(int i = 0; i < feedItem.getLikeCount(); i++) {
-//			if(feedItem.getLikePeople().getData().get(i).getId().equals(user.getId()))
-//				return true;
-//		}
-//		return false;
-//	}
-	
 	private boolean isUserLiked(Likes likes) {
 		//좋아요한 id들과 자신의 id 를 비교
 		for(int i = 0; i < feedItem.getLikeCount(); i++) {
@@ -219,6 +211,7 @@ public class FeedWithReply extends BeautifulPromiseActivity{
 		}
 		return false;
 	}
+
 	
 
 }
