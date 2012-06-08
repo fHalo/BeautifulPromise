@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="45dp"
+    android:orientation="horizontal" 
+    android:background="@drawable/popup_create_box1_nonselection">
+    
+    <WebView 
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:id="@+id/user_image"
+        android:layout_marginLeft="3dp"/>
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:gravity="center_vertical">
+        
+        <TextView 
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/noti_title_textview"
+            android:textColor="#FF000000"
+            android:textSize="10dp"/>
+
+    </LinearLayout>
+    
+
+</LinearLayout>
