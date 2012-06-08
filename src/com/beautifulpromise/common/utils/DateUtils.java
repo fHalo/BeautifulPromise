@@ -80,7 +80,7 @@ public class DateUtils {
 		Date date = null;
 		try {
 			date = (Date) formatter.parse(dateStr);
-			Log.i("immk", ""+date.toString());
+//			Log.i("immk", ""+date.toString());
 			formatter = new SimpleDateFormat ("yyyyMMdd");
 			return formatter.format(date);
 		} catch (ParseException e) {

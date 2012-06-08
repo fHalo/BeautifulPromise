@@ -6,6 +6,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+import android.util.Log;
 
 public class NotificationProvider extends ContentProvider {
 
@@ -33,11 +34,12 @@ public class NotificationProvider extends ContentProvider {
 
 	@Override
 	public Uri insert(Uri uri, ContentValues values) {
-		long row = db.insert(TABLE, null, values);
-		if(row > 0){
-			Uri notiUri = ContentUris.withAppendedId(CONTENT_URI, row);
+		long id = db.insert(TABLE, null, values);
+		if(id > 0){
+			Uri notiUri = ContentUris.withAppendedId(CONTENT_URI, id);
 			getContext().getContentResolver().notifyChange(notiUri, null);
-			return notiUri;
+			Log.i("immk", "notifyChange");
+			return uri;
 		}
 		return null;
 	}
@@ -46,7 +48,7 @@ public class NotificationProvider extends ContentProvider {
 	@Override
 	public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
 		String sql;
-		sql = "SELECT * FROM " + TABLE + " WHERE _id="+uri.getPathSegments().get(1);
+		sql = "SELECT * FROM " + TABLE ;  // " WHERE _id="+uri.getPathSegments().get(1)
 		Cursor cursor = db.rawQuery(sql, null);
 		return cursor;
 	}
