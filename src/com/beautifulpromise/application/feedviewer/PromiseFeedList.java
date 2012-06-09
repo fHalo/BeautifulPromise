@@ -26,9 +26,6 @@ public class PromiseFeedList extends BeautifulPromiseActivity{
 	//서버에서 받아올 feed item list
 	ArrayList<String> toDoList;
 	
-	//handler
-	Handler mHandler;
-
 	//feed item 객체
 	FeedItemDTO feedItem;
 	
@@ -58,7 +55,7 @@ public class PromiseFeedList extends BeautifulPromiseActivity{
 		feedListLayout = (LinearLayout)View.inflate(this, R.layout.feedviewer_feed_list, null);
 		setActivityLayout(feedListLayout);
 		
-		//variable setting
+		//variable setting -> setContentView 다음에 나와야함
 		setVariable();
 		
 		FeedLoadAsyncTask task = new FeedLoadAsyncTask();

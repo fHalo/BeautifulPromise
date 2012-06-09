@@ -1,10 +1,12 @@
 package com.beautifulpromise.application.feedviewer;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -44,65 +46,49 @@ public class FeedWithReply extends BeautifulPromiseActivity{
 	//user 객체
 	User user;
 	
-	EditText replyText;
-	Button submitButton;
-	ListView replyList;
 	LinearLayout replyHeaderLayout;
-	Intent intent;
-	String feedId;
-	Post feed;
+	LinearLayout replyProgressLayout;
+	
 	ReplyListAdapter replyListAdapter;
+	
+	Button submitButton;
+	
+	EditText replyText;
+	
+	Intent intent;
+	
+	String feedId;
+	
+	Post feed;
+
 	ListView feedList;
+	ListView replyList;
+	
 	Comment comment;
 	Comments comments;
+	
 	FacebookType commentId;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
- 		
-		//arrayComment 객체생성
-		arrayComment = new ArrayList<Comment>();
-		
+
 		//top & left menu 액티비티 추가
         LinearLayout replyListLayout = (LinearLayout)View.inflate(this, R.layout.feedviewer_reply_list, null);
         setActivityLayout(replyListLayout);
+        
+        //variable setting -> setContentView 다음에 나와야함
+        setVariables();
         
         //reply 위에 feed와 ,아래 댓글달기 합치기
 		replyList = (ListView)findViewById(R.id.replyList);
         replyHeaderLayout = (LinearLayout)View.inflate(this, R.layout.feedviewer_reply_header_feed, null);
         replyList.addHeaderView(replyHeaderLayout);
         
-        //feed id setting
-        intent = getIntent();
-        feedId = intent.getStringExtra("feedId");
+        FeedLoadAsyncTask task = new FeedLoadAsyncTask();
+        task.execute();
         
-        //feed data 가져오기 -> performance issue 있음 (전 액티비티에서 feed객체 넘겨받아야함)
-        feed = new Post();
-        feed = feed.createInstance(feedId);
-        feedItem = new FeedItemDTO(feed);
-        
-        //Reply header feed에 각 view 값 setting
-        setHeaderFeedView(feedItem);
-        
-        //feed의 댓글들 comment list에 삽입
-        Connection<Comment> comments = feed.comments();
-        for(List<Comment> commentList: comments)
-        	for(Comment c : commentList) 
-        		arrayComment.add(c);
-        
-		//adapter 생성 후 레이아웃&데이터 세팅
-		replyListAdapter = new ReplyListAdapter(this, R.layout.feedviewer_reply_item, arrayComment);
-		
-		//list view 생성
-		feedList = (ListView)findViewById(R.id.replyList);
-		
-		//list view 와 adapter 연결
-		feedList.setAdapter(replyListAdapter);
-		
 		//댓글달기 
-		replyText = (EditText)findViewById(R.id.replyEditText);
-		submitButton = (Button)findViewById(R.id.replySubmitButton);
 		submitButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -111,24 +97,96 @@ public class FeedWithReply extends BeautifulPromiseActivity{
 				if(!reply.equals(""))
 					commentId = feed.publishComment(reply);
 				
-				//추가된 댓글 listview에 바로 추가
-				comment = new Comment();
-				comment = comment.createInstance(commentId.getId());
-				arrayComment.add(comment);
-				replyListAdapter.notifyDataSetChanged();
-				
-				//edit Text clear
-				replyText.setText("");
-				replyText.clearFocus();
-				
-				//keyboard hide
-				InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-				imm.hideSoftInputFromWindow(replyText.getWindowToken(), 0); 
-				
-				//맨 밑으로 focusing
-				feedList.setSelection(arrayComment.size());
+				//댓글 단 후 list refresh
+				refreshReplyList();
 			}
 		});
+	}
+	
+	/**
+	 * 각종 변수 init
+	 */
+	private void setVariables() {
+		replyText = (EditText)findViewById(R.id.replyEditText);
+		submitButton = (Button)findViewById(R.id.replySubmitButton);
+		
+		//list view 생성
+		feedList = (ListView)findViewById(R.id.replyList);
+		
+		//progress bar
+		replyProgressLayout = (LinearLayout) findViewById(R.id.replyProgressLayout);
+		
+		//arrayComment 객체생성
+		arrayComment = new ArrayList<Comment>();
+		
+        //feed id setting
+        intent = getIntent();
+        feedId = intent.getStringExtra("feedId");
+	}
+	
+	/**
+	 * 댓글 추가후 댓글 리스트 refresh
+	 */
+	private void refreshReplyList() {
+		//추가된 댓글 listview에 바로 추가
+		comment = new Comment();
+		comment = comment.createInstance(commentId.getId());
+		arrayComment.add(comment);
+		replyListAdapter.notifyDataSetChanged();
+		
+		//edit Text clear
+		replyText.setText("");
+		replyText.clearFocus();
+		
+		//keyboard hide
+		InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.hideSoftInputFromWindow(replyText.getWindowToken(), 0); 
+		
+		//맨 밑으로 focusing
+		feedList.setSelection(arrayComment.size());
+	}
+	
+	/**
+	 * feed 불러오는 동안 프로그래스바 처리
+	 * @author JM
+	 *
+	 */
+	private class FeedLoadAsyncTask extends AsyncTask<URL, Integer, Long> {
+
+		@Override
+		protected Long doInBackground(URL... params) {
+	        //feed data 가져오기 -> performance issue 있음 (전 액티비티에서 feed객체 넘겨받아야함)
+	        feed = new Post();
+	        feed = feed.createInstance(feedId);
+	        feedItem = new FeedItemDTO(feed);
+	        
+	        //feed의 댓글들 comment list에 삽입
+	        Connection<Comment> comments = feed.comments();
+	        for(List<Comment> commentList: comments)
+	        	for(Comment c : commentList) 
+	        		arrayComment.add(c);
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Long result) {
+			//progress bar 없에고, 받아온 데이터 띄워줌
+			replyProgressLayout.setVisibility(View.GONE);
+			feedList.setVisibility(View.VISIBLE);
+			
+	        //Reply header feed에 각 view 값 setting
+	        setHeaderFeedView(feedItem);
+	        
+			//adapter 생성 후 레이아웃&데이터 세팅
+			replyListAdapter = new ReplyListAdapter(getApplicationContext(), R.layout.feedviewer_reply_item, arrayComment);
+			
+			//list view 와 adapter 연결
+			feedList.setAdapter(replyListAdapter);
+			
+			super.onPostExecute(result);
+		}
+	
+		
 	}
 	
 	/**

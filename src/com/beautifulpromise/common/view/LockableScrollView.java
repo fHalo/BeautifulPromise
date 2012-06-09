@@ -40,10 +40,13 @@ public class LockableScrollView extends HorizontalScrollView {
     
 	@Override
 	public boolean onInterceptTouchEvent(MotionEvent ev) {
-		
 		if (Var.menuShowFlag) { // 메뉴바 show 상태
-			if (ev.getX() > Var.LEFT_MENUBAR_CLOSE_RANGE) { // 메뉴바 넓이넘게 터치하면 touch event 뺐음
+			if (ev.getX() > Var.LEFT_MENUBAR_CLOSE_RANGE) { // 메뉴바 넓이넘게 터치하면 touch event 뺐음 + 횡스크롤 lock
 				mScrollable = true;
+				
+				if(ev.getY() < Var.LEFT_MENUBAR_HEIGHT) //메뉴바 높이 안쪽으로 터치하면 touch event 준다.
+					return false;
+				
 				return true;
 			} else { // 메뉴바 범위내에서 터치하면 터치이벤트 뺏지않음
 				mScrollable = true;

@@ -153,7 +153,7 @@ public class BeautifulPromiseActivity extends Activity{
 						mySmoothScrollTo(0, 0);
 						Var.menuShowFlag = true;
 					}else{
-						mySmoothScrollTo(300, 0);
+						mySmoothScrollTo(leftWidth, 0);
 						Var.menuShowFlag = false;
 					}
 				break;
