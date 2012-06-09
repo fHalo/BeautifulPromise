@@ -25,10 +25,11 @@ public class CheckDAO {
 		return false;
 		
 	}
-	
-	public boolean gpsinsert(Double Latitude,Double Longitude){
+
+	public boolean gpsinsert(String id, Double Latitude,Double Longitude){
 		ContentValues row;
 		row = new ContentValues();
+		row.put("promiseid", Latitude);
 		row.put("latitude", Latitude);
 		row.put("longitude", Longitude);
 		db.insert("gps", null, row);
@@ -36,12 +37,12 @@ public class CheckDAO {
 		
 	}
 	
-	public boolean gpssampleinsert(){
+	public boolean findgpsid(Double findLatitude){
+//		Cursor cursor = db.rawQuery("SELECT promiseid FROM gps WHERE latitude=" + findLatitude , null);
 		return false;
 	}
-	
+
 	//feedcheck메소드
-	
 	public boolean feedcheckupdate(String id, int check){
 		try {
 			ContentValues row;
