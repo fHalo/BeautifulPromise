@@ -13,14 +13,14 @@
 	            android:id="@+id/left_menu_button"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:layout_marginLeft="5dp"
+	            android:layout_marginLeft="10dp"
 	            android:layout_marginTop="5dp" android:background="@drawable/top_menu_bar_switch_selector" android:layout_marginBottom="5dp"/>
 	
 	        <ImageButton
 	            android:id="@+id/home_button"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:layout_marginLeft="160dp"
+	            android:layout_marginLeft="155dp"
 	            android:layout_marginTop="5dp"
 	            android:background="@drawable/top_menu_bar_home_selector" android:layout_marginBottom="5dp"/>
 	
