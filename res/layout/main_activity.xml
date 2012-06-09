@@ -22,6 +22,7 @@
                 layout="@layout/left_menu_bar" />
             
 			<FrameLayout
+			    android:id = "@+id/mainFrameLayout"
 	            android:layout_width="320dp"
 	            android:layout_height="match_parent" 
 	            android:orientation="vertical">
@@ -30,7 +31,7 @@
 	                android:layout_width="fill_parent"
 	                android:paddingTop="55dp"
 	                android:id = "@+id/activity_layout"
-	                android:background="#FF111111" android:layout_height="wrap_content"/>
+	                android:layout_height="wrap_content"/>
 				    			    
 	            <include
 	                android:layout_width="fill_parent"

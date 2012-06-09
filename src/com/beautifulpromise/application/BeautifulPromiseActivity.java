@@ -1,22 +1,21 @@
 package com.beautifulpromise.application;
 
-import java.util.Timer;
 import java.util.TimerTask;
 
 import android.app.Activity;
-import android.content.ContentProvider;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.ContentObserver;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
-import android.widget.Button;
+import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -28,7 +27,6 @@ import com.beautifulpromise.R;
 import com.beautifulpromise.application.addpromise.AddPromiseActivity;
 import com.beautifulpromise.application.feedviewer.PromiseFeedList;
 import com.beautifulpromise.common.Var;
-import com.beautifulpromise.database.DatabaseHelper;
 import com.beautifulpromise.database.NotificationProvider;
 import com.beautifulpromise.facebooklibrary.Facebook;
 
@@ -40,17 +38,19 @@ public class BeautifulPromiseActivity extends Activity{
 	ImageButton homeBtn;
 	ImageButton notificationBtn;
 	
-	Button addPromiseBtn;
-	Button myPromiseBtn;
-	Button helperPromiseBtn;
-	Button friendPromiseBtn;
-	Button pointShopBtn;
-	Button settingBtn;
 	ListView notificationListView;
 	
 	LinearLayout notificationLayout;
 	LinearLayout leftMenuLayout;
 	LinearLayout activityLayout;
+	
+	LinearLayout addPromiseBtn;
+	LinearLayout myPromiseBtn;
+	LinearLayout helperPromiseBtn;
+	LinearLayout friendPromiseBtn;
+	LinearLayout pointShopBtn;
+	LinearLayout settingBtn;
+	FrameLayout frameLayout;
 	
 	HorizontalScrollView hscroll;
 	private int leftWidth = Var.LEFT_MENUBAR_WIDTH;
@@ -69,28 +69,29 @@ public class BeautifulPromiseActivity extends Activity{
 		homeBtn = (ImageButton) findViewById(R.id.home_button);
 		notificationBtn = (ImageButton) findViewById(R.id.notification_button);
 		
-		addPromiseBtn = (Button) findViewById(R.id.add_promise_btn);
-		myPromiseBtn = (Button) findViewById(R.id.my_promise_btn);
-		helperPromiseBtn = (Button) findViewById(R.id.helper_promise_btn);
-		friendPromiseBtn = (Button) findViewById(R.id.friend_promise_btn);
-		pointShopBtn = (Button) findViewById(R.id.pointshop_btn);
-		settingBtn = (Button) findViewById(R.id.setting_btn);
+		addPromiseBtn = (LinearLayout) findViewById(R.id.addPromiseLayout);
+		myPromiseBtn = (LinearLayout) findViewById(R.id.myPromiseLayout);
+		helperPromiseBtn = (LinearLayout) findViewById(R.id.helperPromiseLayout);
+		friendPromiseBtn = (LinearLayout) findViewById(R.id.friendPromiseLayout);
+		pointShopBtn = (LinearLayout) findViewById(R.id.pointShopLayout);
+		settingBtn = (LinearLayout) findViewById(R.id.accountLayout);
 		
 		notificationLayout  = (LinearLayout) findViewById(R.id.notification_layout);
 		notificationListView = (ListView) findViewById(R.id.notification_listview);
 		leftMenuLayout = (LinearLayout) findViewById(R.id.menu_layout);
 		activityLayout = (LinearLayout) findViewById(R.id.activity_layout);
+		frameLayout = (FrameLayout) findViewById(R.id.mainFrameLayout);
 		
-		leftMenuBtn.setOnClickListener(buttonClickLisetner);
-		homeBtn.setOnClickListener(buttonClickLisetner);
-		notificationBtn.setOnClickListener(buttonClickLisetner);
+		leftMenuBtn.setOnClickListener(clickLisetner);
+		homeBtn.setOnClickListener(clickLisetner);
+		notificationBtn.setOnClickListener(clickLisetner);
 		
-		addPromiseBtn.setOnClickListener(buttonClickLisetner);
-		myPromiseBtn.setOnClickListener(buttonClickLisetner);
-		helperPromiseBtn.setOnClickListener(buttonClickLisetner);
-		friendPromiseBtn.setOnClickListener(buttonClickLisetner);
-		pointShopBtn.setOnClickListener(buttonClickLisetner);
-		settingBtn.setOnClickListener(buttonClickLisetner);
+		addPromiseBtn.setOnClickListener(clickLisetner);
+		myPromiseBtn.setOnClickListener(clickLisetner);
+		helperPromiseBtn.setOnClickListener(clickLisetner);
+		friendPromiseBtn.setOnClickListener(clickLisetner);
+		pointShopBtn.setOnClickListener(clickLisetner);
+		settingBtn.setOnClickListener(clickLisetner);
 		
 		hscroll = (HorizontalScrollView) findViewById(R.id.horizontal_scrollview);
 		mySmoothScrollTo(leftWidth, 0);
@@ -142,7 +143,7 @@ public class BeautifulPromiseActivity extends Activity{
 //		}
 	} 
 	
-	View.OnClickListener buttonClickLisetner = new View.OnClickListener() {
+	View.OnClickListener clickLisetner = new View.OnClickListener() {
 		Intent intent;
 		@Override
 		public void onClick(View v) {
@@ -177,36 +178,36 @@ public class BeautifulPromiseActivity extends Activity{
 				
 				break;	
 				
-			case R.id.add_promise_btn:
+			case R.id.addPromiseLayout:
 				mySmoothScrollTo(leftWidth, 0);
 				Var.menuShowFlag = false;
 				intent = new Intent(BeautifulPromiseActivity.this, AddPromiseActivity.class);
 				startActivity(intent);
 				break;
 
-			case R.id.my_promise_btn:
+			case R.id.myPromiseLayout:
 				intent = new Intent(BeautifulPromiseActivity.this, PromiseFeedList.class);
 				Var.menuShowFlag = false;
 				startActivity(intent);
 				break;
 				
-			case R.id.helper_promise_btn:
+			case R.id.helperPromiseLayout:
 				intent = new Intent(BeautifulPromiseActivity.this, PromiseFeedList.class);
 				Var.menuShowFlag = false;
 				startActivity(intent);
 				break;
 				
-			case R.id.friend_promise_btn:
+			case R.id.friendPromiseLayout:
 				intent = new Intent(BeautifulPromiseActivity.this, PromiseFeedList.class);
 				Var.menuShowFlag = false;
 				startActivity(intent);
 				break;
 				
-			case R.id.pointshop_btn:
+			case R.id.pointShopLayout:
 				Var.menuShowFlag = false;
 				break;
 				
-			case R.id.setting_btn:
+			case R.id.accountLayout:
 				Var.menuShowFlag = false;
 				break;
 			default:
