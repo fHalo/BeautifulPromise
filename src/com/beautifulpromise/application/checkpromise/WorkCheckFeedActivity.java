@@ -30,6 +30,7 @@ import com.beautifulpromise.common.repository.Repository;
 import com.beautifulpromise.common.utils.ImageUtils;
 import com.beautifulpromise.database.CheckDAO;
 import com.beautifulpromise.database.CheckDBHelper;
+import com.beautifulpromise.parser.Controller;
 import com.facebook.halo.application.types.Album;
 import com.facebook.halo.application.types.Tags;
 import com.facebook.halo.application.types.User;
@@ -96,6 +97,8 @@ public class WorkCheckFeedActivity extends Activity{
 			switch (v.getId()) {
 
 			case R.id.checkpromise_workcheckfeed_post_btn:
+				
+				boolean result;
 				Upload_ImageView.buildDrawingCache();
 				Bitmap captureBitmap = Upload_ImageView.getDrawingCache();
 				FileOutputStream fos;
@@ -147,29 +150,28 @@ public class WorkCheckFeedActivity extends Activity{
 				FacebookType type = user.publishPhotos(albumId, photos);
 
 				
-//				ArrayList<Friends> HelperList = promiseobject.getHelperList();
-				ArrayList<Tags> tags = new ArrayList<Tags>();
-//				for (Friends friends : HelperList) {
-//					Tags tag = new Tags();
-//					tag.setTagUid(friends.getId());
-//					tags.add(tag);
-//					
-//				}
+				Controller ctr = new Controller();
+				ArrayList<String> HelperList = ctr.GetHelperList(promiseobject.getPostId());
+				if(HelperList.size() != 0)
+				{
+					ArrayList<Tags> tags = new ArrayList<Tags>();
+					for (String helper : HelperList) {
+						Tags tag = new Tags();
+						tag.setTagUid(helper);
+						tags.add(tag);
+					}
+					result = user.publishTagsAtPhoto(type.getId(), tags);
+				}
+				else
+				{
+					result = true;
+				}
 				
-
-				Tags tag = new Tags();
-				tag.setTagUid("100001428910089");
-				tags.add(tag);
-				Tags taga = new Tags();
-				taga.setTagUid("100001066448386");
-				tags.add(taga);
-
-				boolean result = user.publishTagsAtPhoto(type.getId(), tags);
 				if (result) {
 					
 					CheckDBHelper checkDBHelper = new CheckDBHelper(WorkCheckFeedActivity.this);
 					CheckDAO checkDAO = new CheckDAO(checkDBHelper);
-					checkDAO.feedcheckinsert(promiseobject.getPostId(), 1);
+					checkDAO.feedcheckupdate(promiseobject.getPostId(), 1);
 					
 					Intent intent = new Intent(WorkCheckFeedActivity.this, HomeActivity.class);
 					startActivity(intent);

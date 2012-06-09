@@ -45,8 +45,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.70"
+            android:layout_height="match_parent"
             android:background="@drawable/popup_bg_gray_plate"
             android:orientation="vertical" >
 
@@ -64,7 +63,7 @@
                 android:text="수영 빠지지 않기"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#000000" />
-
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -115,30 +114,25 @@
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="10dp"
                 android:layout_marginLeft="30dp"
                 android:text="에 있었습니다."
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#000000" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.50"
-            android:gravity="center"
-            android:orientation="vertical" >
 
-            <ImageView
-                android:id="@+id/checkpromise_cyclecheck_uploadimage_img"
+            <EditText
+                android:id="@+id/checkpromise_cyclecheck_content_edit"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:layout_weight="0.83"
-                android:src="@drawable/uploadphoto" />
-        </LinearLayout>
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:ems="10"
+                android:inputType="textMultiLine" >
 
+                <requestFocus />
+            </EditText>
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout

@@ -15,7 +15,7 @@ public class CheckDBHelper extends SQLiteOpenHelper {
 		buffer.setLength(0);
 		buffer.append("CREATE TABLE gps (");
 		buffer.append("id INTEGER PRIMARY KEY AUTOINCREMENT,");
-		buffer.append("promiseid INTEGER,");
+		buffer.append("promiseid TEXT,");
 		buffer.append("latitude DOUBLE,");
 		buffer.append("longitude DOUBLE");
 		buffer.append(")");

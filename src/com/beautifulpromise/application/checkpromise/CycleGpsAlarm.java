@@ -1,5 +1,7 @@
 package com.beautifulpromise.application.checkpromise;
 
+import com.beautifulpromise.application.HomeActivity;
+import com.beautifulpromise.database.CheckDAO;
 import com.beautifulpromise.database.CheckDBHelper;
 
 import android.content.BroadcastReceiver;
@@ -20,32 +22,31 @@ public class CycleGpsAlarm extends BroadcastReceiver{
 	LocationManager lm;
 	CheckDBHelper gps_DBHelper;
 	Context context;
+	CheckDAO checkDAO;
 	
 	public void onReceive(Context context, Intent intent) {
 		
 		this.context = context;
-		gps_DBHelper = new CheckDBHelper(context);
+		CheckDBHelper checkDBHelper = new CheckDBHelper(this.context);
+		checkDAO = new CheckDAO(checkDBHelper);
 		
 		lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
 		
  		mLocationListener = new LocationListener() {
 			public void onLocationChanged(Location location) {
 				if (location != null) {
-					SQLiteDatabase db;
-					ContentValues row;
-					
-					db= gps_DBHelper.getWritableDatabase();
 					
 					Double Latitude = location.getLatitude();
 					Double Longitude = location.getLongitude();
 					
-					db.delete("gps", null, null);
-					row = new ContentValues();
-					row.put("latitude", Latitude);
-					row.put("longitude", Longitude);
-					db.insert("gps", null, row);
-					Toast.makeText(CycleGpsAlarm.this.context, "알람알람",
-							Toast.LENGTH_SHORT).show();
+					ContentValues row;
+//					
+//					db.delete("gps", null, null);
+//					row = new ContentValues();
+//					row.put("latitude", Latitude);
+//					row.put("longitude", Longitude);
+//					db.insert("gps", null, row);
+					Toast.makeText(CycleGpsAlarm.this.context, "알람알람", Toast.LENGTH_SHORT).show();
 					lm.removeUpdates(mLocationListener);
 				}
 			}
