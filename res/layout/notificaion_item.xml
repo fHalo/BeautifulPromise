@@ -5,11 +5,11 @@
     android:orientation="horizontal" 
     android:background="@drawable/popup_create_box1_nonselection">
     
-    <WebView 
+  <WebView 
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:id="@+id/user_image"
-        android:layout_marginLeft="3dp"/>
+        android:layout_marginLeft="3dp"/> 
     
     <LinearLayout
         android:layout_width="fill_parent"

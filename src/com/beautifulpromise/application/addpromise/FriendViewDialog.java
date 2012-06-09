@@ -52,13 +52,13 @@ public class FriendViewDialog extends Dialog{
         public FriendViewDialog create() {
         	        	
         	LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        	dialog = new FriendViewDialog(context, R.style.Dialog);
+        	dialog = new FriendViewDialog(context, R.style.Theme_Dialog);
             view = inflater.inflate(R.layout.addpromise_friend_list_dialog, null);
             
             friendList = (ListView) view.findViewById(R.id.friend_listview);
             
 //            FriendViewAdapter adapter = new FriendViewAdapter(context, friends);
-            FriendsAdapter<Friends> adapter = new FriendsAdapter<Friends>(context, android.R.layout.simple_list_item_multiple_choice, friends);
+            FriendsAdapter<Friends> adapter = new FriendsAdapter<Friends>(context, R.layout.simple_list_item_multiple_choice, friends);
 
             friendList.setItemsCanFocus(true);
             friendList.setAdapter(adapter);

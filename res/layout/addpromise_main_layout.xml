@@ -41,6 +41,7 @@
 
                     <Button
                         android:id="@+id/create_button"
+                        android:background="@drawable/btn_topbar"
                         android:layout_width="wrap_content"
                         android:layout_height="35dp"
                         android:layout_marginRight="15dp"
@@ -51,24 +52,25 @@
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/popup_bg_gray_plate"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/gray_background"
                 android:orientation="vertical"
-                android:paddingBottom="20dp"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
-                android:paddingTop="20dp" >
+                android:paddingBottom="5dp"
+                android:paddingTop="10dp" >
 
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
                     android:orientation="horizontal" >
 
                     <Spinner
                         android:id="@+id/goal_spinner"
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30dp"
                         android:layout_gravity="center"
                         android:background="@drawable/box_green"
                         android:gravity="center"
@@ -79,27 +81,35 @@
                 <!-- 목표 제목 입력 -->
 
                 <LinearLayout
-                    android:layout_width="fill_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
                     android:layout_marginTop="10dp"
+                    android:background="@drawable/edittext_bar_s_nonselect"
                     android:gravity="center_vertical"
                     android:orientation="horizontal" >
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="48dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="20dp"
-                        android:text="목표 : " />
+                        android:gravity="center_horizontal"
+                        android:text="목표"
+                        android:textColor="#FF1C3A12"
+                        android:textSize="12dp" />
 
                     <EditText
                         android:id="@+id/goal_title_edit"
-                        android:layout_width="fill_parent"
-                        android:layout_height="30dp"
+                        android:layout_width="240dp"
+                        android:layout_height="25dp"
                         android:layout_gravity="center_vertical"
                         android:layout_marginRight="10dp"
+                        android:background="#00000000"
                         android:gravity="center_vertical"
-                        android:textSize="10dp" />
+                        android:maxLength="10"
+                        android:paddingLeft="15dp"
+                        android:textColor="#FF888888"
+                        android:textSize="12dp" />
                 </LinearLayout>
 
                 <!-- 시작/정료일 선택 -->
@@ -109,29 +119,37 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
                     android:layout_marginTop="5dp"
+                    android:background="@drawable/edittext_bar_m"
                     android:orientation="vertical" >
 
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="8dp"
                         android:orientation="horizontal" >
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="48dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="20dp"
-                            android:text="시작일 : " />
+                            android:gravity="center_horizontal"
+                            android:text="시작일"
+                            android:textColor="#FF1C3A12"
+                            android:textSize="12dp" />
 
                         <TextView
                             android:id="@+id/start_date_text"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="10dp" />
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginRight="10dp"
+                            android:paddingLeft="15dp"
+                            android:textColor="#FF888888"
+                            android:textSize="12dp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -142,18 +160,23 @@
                         android:orientation="horizontal" >
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="48dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="20dp"
-                            android:text="종료일 : " />
+                            android:gravity="center_horizontal"
+                            android:text="종료일"
+                            android:textColor="#FF1C3A12"
+                            android:textSize="12dp" />
 
                         <TextView
                             android:id="@+id/end_date_text"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="10dp" />
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginRight="10dp"
+                            android:paddingLeft="15dp"
+                            android:textColor="#FF888888"
+                            android:textSize="12dp" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -162,47 +185,64 @@
                 <LinearLayout
                     android:id="@+id/day_repeat_layout"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:background="@drawable/edittext_bar_s"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal" >
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="48dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="20dp"
-                        android:text="반복 : " />
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_horizontal"
+                        android:text="반복"
+                        android:textColor="#FF1C3A12"
+                        android:textSize="12dp" />
 
                     <TextView
                         android:id="@+id/day_repeat_text"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp" />
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="10dp"
+                        android:paddingLeft="15dp"
+                        android:textColor="#FF888888"
+                        android:textSize="12dp" />
                 </LinearLayout>
 
                 <!-- 알람 시간 선택 -->
 
                 <LinearLayout
                     android:id="@+id/alarm_time_layout"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/edittext_bar_s"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal" >
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="48dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="20dp"
-                        android:text="알람: " />
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_horizontal"
+                        android:text="알람"
+                        android:textColor="#FF1C3A12"
+                        android:textSize="12dp" />
 
                     <TextView
                         android:id="@+id/alarm_time_text"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp" />
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="10dp"
+                        android:paddingLeft="15dp"
+                        android:textColor="#FF888888"
+                        android:textSize="12dp" />
                 </LinearLayout>
 
                 <!-- 내용 입력 -->
@@ -210,51 +250,61 @@
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/edittext_bar_l"
                     android:orientation="horizontal" >
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="20dp"
-                        android:text="내용 : " />
+                        android:layout_width="48dp"
+                        android:layout_height="fill_parent"
+                        android:gravity="center_horizontal"
+                        android:paddingTop="10dp"
+                        android:text="내용"
+                        android:textColor="#FF1C3A12"
+                        android:textSize="12dp" />
 
                     <EditText
                         android:id="@+id/content_edit"
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
+                        android:layout_height="fill_parent"
+                        android:background="#00000000"
+                        android:gravity="top"
                         android:maxHeight="100dp"
-                        android:minHeight="100dp" />
+                        android:maxLines="9"
+                        android:minHeight="100dp"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="15dp"
+                        android:paddingTop="10dp"
+                        android:textColor="#FF888888"
+                        android:textSize="12dp" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="70dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="10dp"
-                    android:orientation="vertical" >
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/edittext_bar_m"
+                    android:orientation="horizontal" >
 
                     <TextView
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:text="도움주실 분 "
-                        android:textColor="#FF228b22"
-                        android:textSize="10dp" />
+                        android:layout_width="48dp"
+                        android:layout_height="fill_parent"
+                        android:gravity="center_horizontal"
+                        android:paddingTop="10dp"
+                        android:text="도우미"
+                        android:textColor="#FF1C3A12"
+                        android:textSize="12dp" />
 
-                    <LinearLayout
+                    <GridView
+                        android:id="@+id/friend_image_gridview"
                         android:layout_width="wrap_content"
                         android:layout_height="60dp"
-                        android:orientation="horizontal" >
-
-                        <GridView
-                            android:id="@+id/friend_image_gridview"
-                            android:layout_width="wrap_content"
-                            android:layout_height="60dp"
-                            android:numColumns="5" />
-                    </LinearLayout>
+                        android:numColumns="5" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -308,12 +358,13 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/progressLayout"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:background="#55000000"
+        android:gravity="center"
         android:orientation="vertical"
-        android:id ="@+id/progressLayout"
-        android:gravity="center" >
+        android:visibility="gone" >
 
         <ProgressBar
             android:id="@+id/progressBar3"
