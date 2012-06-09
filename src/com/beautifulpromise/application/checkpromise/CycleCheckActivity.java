@@ -22,6 +22,7 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,9 +65,11 @@ public class CycleCheckActivity extends MapActivity {
 	
 	TextView PromiseName_TextView;
 	TextView Period_TextView;
+	TextView MapHour_TextView;
 	EditText Feed_EditBox;
 	Button Post_Btn;
 	Button Camera_Btn;
+	LinearLayout MapView_LinearLayout;
 
 	Double Latitude;
 	Double Longitude;
@@ -77,12 +80,15 @@ public class CycleCheckActivity extends MapActivity {
 
 		PromiseName_TextView = (TextView) findViewById(R.id.checkpromise_cyclecheck_promisename_text);
 		Period_TextView = (TextView) findViewById(R.id.checkpromise_cyclecheck_period_text);
+		MapHour_TextView= (TextView) findViewById(R.id.checkpromise_cyclecheck_maphour_text);
 		Feed_EditBox = (EditText) findViewById(R.id.checkpromise_cyclecheck_content_edit);
 		Post_Btn = (Button) findViewById(R.id.checkpromise_cyclecheck_post_btn);
 		Camera_Btn = (Button) findViewById(R.id.checkpromise_cycle_camera_btn);
-
+		MapView_LinearLayout = (LinearLayout) findViewById(R.id.checkpromise_cyclecheck_mapview_layout);
+		
 		Post_Btn.setOnClickListener(buttonClickListener);
 		Camera_Btn.setOnClickListener(buttonClickListener);
+		
 		
 		//home에서 객체 받아오기
 		Object tempobject = getIntent().getExtras().get("PromiseDTO");
@@ -99,6 +105,26 @@ public class CycleCheckActivity extends MapActivity {
 		EndTime = EndTime.substring(0, 4) + "." + EndTime.substring(4, 6)+ "." + EndTime.substring(6, 8);
 		
 		Period_TextView.setText(StartTime + " ~ " + EndTime);
+		
+		//mapview 텍스트 설정
+		int hour;
+		//오전
+		if(promiseobject.getTime() < 12)
+		{
+			hour = promiseobject.getTime();
+			if(promiseobject.getTime()==0)
+				hour=12;
+			MapHour_TextView.setText("오전 " + hour + "시 " +promiseobject.getMin()+"분에");
+		}
+		//오후
+		else
+		{
+			hour = promiseobject.getTime()-12;
+			if(promiseobject.getTime()==0)
+				hour=12;
+			MapHour_TextView.setText("오후 " + hour + "시 " +promiseobject.getMin()+"분에");
+		}
+		
 
 		mapview = (MapView) findViewById(R.id.checkpromise_cyclecheck_mapview);
 		mapview.setBuiltInZoomControls(true);
@@ -158,8 +184,8 @@ public class CycleCheckActivity extends MapActivity {
 			case R.id.checkpromise_cyclecheck_post_btn:
 
 				boolean result;
-				mapview.buildDrawingCache();
-				Bitmap captureBitmap = mapview.getDrawingCache();
+				MapView_LinearLayout.buildDrawingCache();
+				Bitmap captureBitmap = MapView_LinearLayout.getDrawingCache();
 				FileOutputStream fos;
 				try {
 					fos = new FileOutputStream(Environment
@@ -168,7 +194,7 @@ public class CycleCheckActivity extends MapActivity {
 					captureBitmap
 							.compress(Bitmap.CompressFormat.JPEG, 100, fos);
 					captureBitmap = Bitmap.createScaledBitmap(captureBitmap,
-							mapview.getWidth(), mapview.getHeight(),
+							MapView_LinearLayout.getWidth(), MapView_LinearLayout.getHeight(),
 							true);
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();

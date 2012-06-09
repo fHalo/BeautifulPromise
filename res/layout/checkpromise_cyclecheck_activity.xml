@@ -33,6 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
                 android:layout_marginRight="15dp"
+                android:background="@drawable/btn_topbar"
                 android:text="게시" />
         </LinearLayout>
     </LinearLayout>
@@ -86,39 +87,46 @@
                     android:textColor="#000000" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/checkpromise_cyclecheck_maphour_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="10dp"
-                android:text="오늘 9시에"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="#000000" />
-
-            <com.google.android.maps.MapView
-                android:id="@+id/checkpromise_cyclecheck_mapview"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_gravity="center"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="5dp"
-                android:apiKey="0FDnce8xZcZVT9wCiud0Pjs-Gr2wYKUtF6MRKzQ"
-                android:clickable="true"
-                android:ems="10" >
-            </com.google.android.maps.MapView>
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="30dp"
-                android:text="에 있었습니다."
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="#000000" />
+                android:orientation="vertical"
+                android:id="@+id/checkpromise_cyclecheck_mapview_layout" >
+
+                <TextView
+                    android:id="@+id/checkpromise_cyclecheck_maphour_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="10dp"
+                    android:text="오늘 9시에"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#000000" />
+
+                <com.google.android.maps.MapView
+                    android:id="@+id/checkpromise_cyclecheck_mapview"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="5dp"
+                    android:apiKey="0FDnce8xZcZVT9wCiud0Pjs-Gr2wYKUtF6MRKzQ"
+                    android:clickable="true"
+                    android:ems="10" >
+                </com.google.android.maps.MapView>
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="30dp"
+                    android:text="에 있었습니다."
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#000000" />
+
+            </LinearLayout>
 
             <EditText
                 android:id="@+id/checkpromise_cyclecheck_content_edit"
@@ -147,7 +155,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:background="@drawable/ico_camera"
+            android:background="@drawable/ico_take_photo"
             android:gravity="center_vertical" />
     </LinearLayout>
 
