@@ -231,6 +231,7 @@ public class CycleCheckActivity extends MapActivity {
 					CheckDBHelper checkDBHelper = new CheckDBHelper(CycleCheckActivity.this);
 					CheckDAO checkDAO = new CheckDAO(checkDBHelper);
 					checkDAO.feedcheckupdate(promiseobject.getPostId(), 1);
+					checkDAO.close();
 					
 					Intent intent = new Intent(CycleCheckActivity.this, HomeActivity.class);
 					startActivity(intent);

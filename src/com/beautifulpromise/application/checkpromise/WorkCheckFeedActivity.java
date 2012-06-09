@@ -172,6 +172,7 @@ public class WorkCheckFeedActivity extends Activity{
 					CheckDBHelper checkDBHelper = new CheckDBHelper(WorkCheckFeedActivity.this);
 					CheckDAO checkDAO = new CheckDAO(checkDBHelper);
 					checkDAO.feedcheckupdate(promiseobject.getPostId(), 1);
+					checkDAO.close();
 					
 					Intent intent = new Intent(WorkCheckFeedActivity.this, HomeActivity.class);
 					startActivity(intent);

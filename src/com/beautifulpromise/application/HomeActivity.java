@@ -97,6 +97,7 @@ public class HomeActivity extends BeautifulPromiseActivity {
 			CheckDAO checkDAO = new CheckDAO(checkDBHelper);
 			
 			check = checkDAO.feedcheckdo(arSrc.get(position).getPostId());
+			checkDAO.close();
 			
 			// D-Day, D-day가 지나서 평가를 해야되는 약속들
 			if (arSrc.get(position).getResult() == 0 && arSrc.get(position).getD_day() < 1) {
@@ -162,6 +163,8 @@ public class HomeActivity extends BeautifulPromiseActivity {
 		CheckDAO checkDAO = new CheckDAO(checkDBHelper);
 //		checkDAO.feedcheckinit(promisedto);
 		checkDAO.feedtest();
+		checkDAO.close();
+		
 		// D-day계산해서 객체에 값넣음
 		for (int i = 0; i < promisedto.size(); i++) {
 			promisedto.get(i).setD_day(promisedto.get(i).getEndDate());

@@ -19,6 +19,9 @@ public class CheckDAO {
 		db = this.checkDBHelper.getWritableDatabase();
 	}
 	
+	public void close(){
+		db.close();
+	}
 	//GPS관련 메소드
 	public boolean gpsinit(){
 		db.delete("gps", null, null);

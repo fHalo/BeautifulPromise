@@ -168,6 +168,7 @@ public class EtcCheckActivity extends Activity {
 					CheckDBHelper checkDBHelper = new CheckDBHelper(EtcCheckActivity.this);
 					CheckDAO checkDAO = new CheckDAO(checkDBHelper);
 					checkDAO.feedcheckupdate(promiseobject.getPostId(), 1);
+					checkDAO.close();
 					
 					Intent intent = new Intent(EtcCheckActivity.this, HomeActivity.class);
 					startActivity(intent);
