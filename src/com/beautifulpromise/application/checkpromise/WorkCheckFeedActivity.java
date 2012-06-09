@@ -169,7 +169,7 @@ public class WorkCheckFeedActivity extends Activity{
 					
 					CheckDBHelper checkDBHelper = new CheckDBHelper(WorkCheckFeedActivity.this);
 					CheckDAO checkDAO = new CheckDAO(checkDBHelper);
-					checkDAO.feedcheckinsert(promiseobject.getId());
+					checkDAO.feedcheckinsert(promiseobject.getPostId(), 1);
 					
 					Intent intent = new Intent(WorkCheckFeedActivity.this, HomeActivity.class);
 					startActivity(intent);

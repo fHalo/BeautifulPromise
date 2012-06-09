@@ -2,6 +2,8 @@ package com.beautifulpromise.database;
 
 import java.util.ArrayList;
 
+import junit.framework.TestFailure;
+
 import com.beautifulpromise.common.dto.AddPromiseDTO;
 
 import android.content.ContentValues;
@@ -40,26 +42,62 @@ public class CheckDAO {
 	
 	//feedcheck메소드
 	
-	public boolean feedcheckinsert(int id){
+	public boolean feedcheckupdate(String id, int check){
 		try {
 			ContentValues row;
 			row = new ContentValues();
 			row.put("promiseid", id);
-			row.put("feedcheck", 1);
+			row.put("feedcheck", check);
 			db.update("feed", row, "promiseid=" + id, null);
 		} catch (Exception e) {
 			Log.e("ou", e.toString());
 			return false;
 		}
-		
+		feedtest();
 		return true;
 	}
 	
-	public int feedcheckdo(int id){
-		Cursor cursor = db.rawQuery("SELECT feedcheck FROM feed WHERE promiseid=" + id, null);
-		cursor.moveToNext();
-		int check = cursor.getInt(0);
-		return check;
+	public boolean feedcheckinsert(String id, int check){
+		try {
+			ContentValues row;
+			row = new ContentValues();
+			row.put("promiseid", id);
+			row.put("feedcheck", check);
+			db.insert("feed", null ,row);
+		} catch (Exception e) {
+			Log.e("ou", e.toString());
+			return false;
+		}
+		feedtest();
+		return true;
+	}
+	
+	public int feedcheckdo(String id){
+		Cursor cursor = db.rawQuery("SELECT feedcheck FROM feed WHERE promiseid=" + id , null);
+		int check;
+		if(cursor.getCount() != 0)
+		{
+			cursor.moveToNext();
+			check = cursor.getInt(0);
+		}
+		else
+		{
+			feedcheckinsert(id, 0);
+			check = 0;
+		}
+		cursor.close();
+ 		return check;
+	}
+	
+	public void feedtest(){
+		Cursor cursor = db.rawQuery("SELECT * FROM feed", null);
+		for(int i=0; i < cursor.getCount() ; i++)
+		{
+			cursor.moveToNext();
+			Log.e("ou", cursor.getString(1)+"  "+Integer.toString(cursor.getInt(2)));
+		}
+		
+		cursor.close();
 	}
 	
 	public boolean feedcheckinit(ArrayList<AddPromiseDTO> promisedto){
@@ -69,7 +107,7 @@ public class CheckDAO {
 		try {
 			for (AddPromiseDTO temppromise : promisedto) {
 				row.clear();
-				row.put("promiseid", temppromise.getId());
+				row.put("promiseid", temppromise.getPostId());
 				row.put("feedcheck", 0);
 				db.insert("feed", null, row);
 			}

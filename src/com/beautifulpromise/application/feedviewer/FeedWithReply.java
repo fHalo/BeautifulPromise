@@ -55,6 +55,7 @@ public class FeedWithReply extends BeautifulPromiseActivity{
 	ListView feedList;
 	Comment comment;
 	Comments comments;
+	FacebookType commentId;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -105,7 +106,10 @@ public class FeedWithReply extends BeautifulPromiseActivity{
 		submitButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				FacebookType commentId = feed.publishComment(replyText.getText().toString());
+				//공백이 아닐경우 댓글등록
+				String reply = replyText.getText().toString();
+				if(!reply.equals(""))
+					commentId = feed.publishComment(reply);
 				
 				//추가된 댓글 listview에 바로 추가
 				comment = new Comment();

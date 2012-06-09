@@ -30,6 +30,7 @@ import com.beautifulpromise.common.repository.Repository;
 import com.beautifulpromise.common.utils.ImageUtils;
 import com.beautifulpromise.database.CheckDAO;
 import com.beautifulpromise.database.CheckDBHelper;
+import com.beautifulpromise.parser.Controller;
 import com.facebook.halo.application.types.Album;
 import com.facebook.halo.application.types.Tags;
 import com.facebook.halo.application.types.User;
@@ -93,6 +94,7 @@ public class EtcCheckActivity extends Activity {
 
 			case R.id.checkpromise_etccheck_post_btn:
 
+				boolean result;
 				Upload_ImageView.buildDrawingCache();
 				Bitmap captureBitmap = Upload_ImageView.getDrawingCache();
 				FileOutputStream fos;
@@ -142,32 +144,34 @@ public class EtcCheckActivity extends Activity {
 				photos.setFileName("Beautiful Promise");
 				FacebookType type = user.publishPhotos(albumId, photos);
 
-//				ArrayList<Friends> HelperList = promiseobject.getHelperList();
-				ArrayList<Tags> tags = new ArrayList<Tags>();
-//				for (Friends friends : HelperList) {
-//					Tags tag = new Tags();
-//					tag.setTagUid(friends.getId());
-//					tags.add(tag);
-//				}
-
-				Tags tag = new Tags();
-				tag.setTagUid("100001428910089");
-				tags.add(tag);
-				Tags taga = new Tags();
-				taga.setTagUid("100001066448386");
-				tags.add(taga);
-
-				boolean result = user.publishTagsAtPhoto(type.getId(), tags);
+				Controller ctr = new Controller();
+				ArrayList<String> HelperList = ctr.GetHelperList(promiseobject.getPostId());
+				if(HelperList.size() != 0)
+				{
+					ArrayList<Tags> tags = new ArrayList<Tags>();
+					for (String helper : HelperList) {
+						Tags tag = new Tags();
+						tag.setTagUid(helper);
+						tags.add(tag);
+					}
+					result = user.publishTagsAtPhoto(type.getId(), tags);
+				}
+				else
+				{
+					result = true;
+				}
 				
 				if (result) {
 					Toast.makeText(EtcCheckActivity.this, "성공", Toast.LENGTH_SHORT).show();
+					boolean aa = ctr.PublishCheck(promiseobject.getPostId(), type.getId());
 
 					CheckDBHelper checkDBHelper = new CheckDBHelper(EtcCheckActivity.this);
 					CheckDAO checkDAO = new CheckDAO(checkDBHelper);
-					checkDAO.feedcheckinsert(promiseobject.getId());
+					checkDAO.feedcheckupdate(promiseobject.getPostId(), 1);
 					
 					Intent intent = new Intent(EtcCheckActivity.this, HomeActivity.class);
 					startActivity(intent);
+					finish();
 				} else {
 					Toast.makeText(EtcCheckActivity.this, "Upload에 실패하였습니다.",
 							Toast.LENGTH_SHORT).show();
