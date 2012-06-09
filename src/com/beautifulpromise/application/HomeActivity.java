@@ -156,7 +156,7 @@ public class HomeActivity extends BeautifulPromiseActivity {
 	}
 
 	@Override
-	protected void onResume() {
+	public void onResume() {
 		super.onResume();
 
 		Calendar oCalendar = Calendar.getInstance();

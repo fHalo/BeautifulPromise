@@ -8,8 +8,10 @@ import android.content.ContentProvider;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.ContentObserver;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,6 +22,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.beautifulpromise.R;
 import com.beautifulpromise.application.addpromise.AddPromiseActivity;
@@ -52,6 +55,9 @@ public class BeautifulPromiseActivity extends Activity{
 	HorizontalScrollView hscroll;
 	private int leftWidth = Var.LEFT_MENUBAR_WIDTH;
 	
+	NotificationAdapter adapter;
+	ContentObserver observer;
+	Cursor cursor;
 		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -93,12 +99,11 @@ public class BeautifulPromiseActivity extends Activity{
 		notificationLayout.setVisibility(View.GONE);
 		
 		//TODO Test
-		ContentResolver cr = getContentResolver();
 //		ContentValues row = new ContentValues();
 //		row.put("title", "Jaemyung Shin commented on 소지섭's photo of you: \"test\"");
 //		row.put("send_user_id", "100001066448386");
 //		row.put("fb_id", "113835812091211");
-//		cr.insert(NotificationProvider.CONTENT_URI, row);
+//		getContentResolver().insert(NotificationProvider.CONTENT_URI, row);
 		
 //		ContentValues row = new ContentValues();
 //		row.put("title", "소지섭 added 4 photos of you.");
@@ -106,14 +111,29 @@ public class BeautifulPromiseActivity extends Activity{
 //		row.put("fb_id", "114560352018757");
 //		cr.insert(NotificationProvider.CONTENT_URI, row);
 		
-		Cursor cursor = cr.query(NotificationProvider.CONTENT_URI, null, null, null, null);
+//		Cursor cursor = getContentResolver().query(NotificationProvider.CONTENT_URI, null, null, null, null);
+//		cursor.moveToFirst();
+//		startManagingCursor(cursor);
+		cursor = managedQuery(NotificationProvider.CONTENT_URI, null, null, null, null);
+		TextView text = new TextView(this);
+		text.setText("This is Header");
+		text.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				ContentValues row = new ContentValues();
+				row.put("title", "소지섭 added 4 photos of you.");
+				row.put("send_user_id", "100003943796581");
+				row.put("fb_id", "114560352018757");
+				getContentResolver().insert(NotificationProvider.CONTENT_URI, row);
+//				adapter.notifyDataSetChanged();
+			}
+		});
+		notificationListView.addHeaderView(text);
 		cursor.moveToFirst();
-
-		startManagingCursor(cursor);
-		NotificationAdapter adapter = new NotificationAdapter(this, cursor);
+		adapter = new NotificationAdapter(this, cursor);
 		notificationListView.setAdapter(adapter);
 		
-//		
 //		int count = cursor.getCount();
 //		if(count > 0) {
 //			startManagingCursor(cursor);
@@ -147,9 +167,9 @@ public class BeautifulPromiseActivity extends Activity{
 					notificationLayout.setVisibility(View.GONE);
 				else {
 					notificationLayout.setVisibility(View.VISIBLE);
-					Log.i("immk", "Timer Start");
-					Timer timer = new Timer();
-					timer.schedule(myTask, 1000);
+//					Log.i("immk", "Timer Start");
+//					Timer timer = new Timer();
+//					timer.schedule(myTask, 1000);
 				}
 				//TODO Test
 //				ContentResolver cr = getContentResolver();
@@ -203,13 +223,13 @@ public class BeautifulPromiseActivity extends Activity{
 			Log.i("immk", "TimerTask Start");
 			
 			ContentResolver cr = getContentResolver();
-			ContentValues row = new ContentValues();
-			row.put("title", "Jaemyung Shin commented on 소지섭's photo of you: \"test\"");
-			row.put("send_user_id", "100001066448386");
-			row.put("fb_id", "113835812091211");
-			cr.insert(NotificationProvider.CONTENT_URI, row);
+//			ContentValues row = new ContentValues();
+//			row.put("title", "Jaemyung Shin commented on 소지섭's photo of you: \"test\"");
+//			row.put("send_user_id", "100001066448386");
+//			row.put("fb_id", "113835812091211");
+//			cr.insert(NotificationProvider.CONTENT_URI, row);
 			
-			row = new ContentValues();
+			ContentValues row = new ContentValues();
 			row.put("title", "소지섭 added 4 photos of you.");
 			row.put("send_user_id", "100003943796581");
 			row.put("fb_id", "114560352018757");
@@ -257,5 +277,4 @@ public class BeautifulPromiseActivity extends Activity{
 	protected void setActivityLayout(ImageView layout){
 		activityLayout.addView(layout);
 	}
-	
 }

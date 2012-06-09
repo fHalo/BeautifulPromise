@@ -60,7 +60,7 @@ public class DateDialog extends Dialog{
         public DateDialog create() {
         	        	
         	LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        	dialog = new DateDialog(context, R.style.Dialog);
+        	dialog = new DateDialog(context, R.style.Theme_Dialog);
             view = inflater.inflate(R.layout.addpromise_date_dialog, null);
             
             startDateText = (TextView) view.findViewById(R.id.start_date_text);
@@ -79,8 +79,8 @@ public class DateDialog extends Dialog{
             okayBtn.setOnClickListener(buttonClickListener);
             cancelBtn.setOnClickListener(buttonClickListener);
             
-			startDateLayout.setBackgroundColor(0xFF000000);
-			endDateLayout.setBackgroundColor(0xFF333333);
+			startDateLayout.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.popup_create_box1_selection));
+			endDateLayout.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.popup_create_box1_nonselection));
 			
 			startDateText.setText("" + startYear + "년 " + (startMonth+1) + "월 " + startDay + "일");
 			endDateText.setText("" + endYear + "년 " + (endMonth+1) + "월 " + endDay + "일");
@@ -97,14 +97,14 @@ public class DateDialog extends Dialog{
 				switch (v.getId()) {
 				case R.id.start_date_layout:
 					select = SELECT.start;
-					startDateLayout.setBackgroundColor(0xFF000000);
-					endDateLayout.setBackgroundColor(0xFF333333);
+					startDateLayout.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.popup_create_box1_selection));
+					endDateLayout.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.popup_create_box1_nonselection));
 					datePicker.init(startYear, startMonth, startDay, mDatePickerListener);
 					break;
 				case R.id.end_date_layout:
 					select = SELECT.end;
-					startDateLayout.setBackgroundColor(0xFF333333);
-					endDateLayout.setBackgroundColor(0xFF000000);
+					startDateLayout.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.popup_create_box1_nonselection));
+					endDateLayout.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.popup_create_box1_selection));
 					datePicker.init(endYear, endMonth, endDay, mDatePickerListener);
 					break;
 				case R.id.okay_button:
