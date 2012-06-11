@@ -83,7 +83,6 @@ public class CycleCheckActivity extends MapActivity {
 		MapHour_TextView= (TextView) findViewById(R.id.checkpromise_cyclecheck_maphour_text);
 		Feed_EditBox = (EditText) findViewById(R.id.checkpromise_cyclecheck_content_edit);
 		Post_Btn = (Button) findViewById(R.id.checkpromise_cyclecheck_post_btn);
-		Camera_Btn = (Button) findViewById(R.id.checkpromise_cycle_camera_btn);
 		MapView_LinearLayout = (LinearLayout) findViewById(R.id.checkpromise_cyclecheck_mapview_layout);
 		
 		Post_Btn.setOnClickListener(buttonClickListener);
@@ -261,11 +260,7 @@ public class CycleCheckActivity extends MapActivity {
 				}
 				break;
 
-			case R.id.checkpromise_cycle_camera_btn:
-				CameraDialog.Builder cameraBuilder = new CameraDialog.Builder(CycleCheckActivity.this);
-				Dialog cameraDialog = cameraBuilder.create();
-				cameraDialog.show();
-				break;
+			
 
 			default:
 				break;
@@ -281,31 +276,5 @@ public class CycleCheckActivity extends MapActivity {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-	}
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-		Uri imageUri;
-		Bitmap bitmap;
-		
-		if (resultCode == RESULT_OK) {
-			switch (requestCode) {
-			case CameraDialog.FINISH_TAKE_PHOTO:
-				bitmap = (Bitmap) data.getExtras().get("data"); 
-				String path = ImageUtils.saveBitmap(CycleCheckActivity.this, bitmap);
-				
-				break;
-				
-			case CameraDialog.FINISH_GET_IMAGE:
-				imageUri = data.getData();
-				String[] proj = { MediaStore.Images.Media.DATA };
-				Cursor cursor = managedQuery(imageUri, proj, null, null, null);
-				cursor.moveToFirst();
-				String imagePath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA));
-				Toast.makeText(this, imagePath, Toast.LENGTH_SHORT).show();
-				bitmap = ImageUtils.getResizedBitmap(imagePath);
-
-				break;
-			}
-		}
 	}
 }

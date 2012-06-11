@@ -30,10 +30,10 @@
 
             <Button
                 android:id="@+id/checkpromise_etccheck_post_btn"
+                android:background="@drawable/btn_topbar"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
                 android:layout_marginRight="15dp"
-                android:background="@drawable/btn_topbar"
                 android:text="게시" />
         </LinearLayout>
     </LinearLayout>
@@ -92,6 +92,7 @@
             android:layout_marginTop="10dp"
             android:layout_weight="0.75"
             android:ems="10"
+            android:background="@drawable/popup_bg_white_plate"
             android:inputType="textMultiLine" >
 
             <requestFocus />
@@ -119,6 +120,14 @@
         android:background="@drawable/bg_bar_bottom"
         android:gravity="center_vertical"
         android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/checkpromise_etccheck_camera_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/ico_take_photo"
+            android:gravity="center_vertical" />
     </LinearLayout>
 
 </LinearLayout>
