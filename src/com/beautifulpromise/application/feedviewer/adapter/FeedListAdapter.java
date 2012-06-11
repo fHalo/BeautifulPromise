@@ -6,11 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.BaseAdapter;
@@ -21,7 +18,7 @@ import android.widget.TextView;
 import com.beautifulpromise.R;
 import com.beautifulpromise.application.feedviewer.FeedItemDTO;
 import com.beautifulpromise.application.feedviewer.FeedWithReply;
-import com.beautifulpromise.application.feedviewer.PromiseLogList;
+import com.beautifulpromise.application.feedviewer.PromiseFeedList;
 import com.beautifulpromise.common.repository.Repository;
 import com.beautifulpromise.common.utils.ImageUtils;
 import com.beautifulpromise.common.utils.WebViewManager;
@@ -35,17 +32,21 @@ public class FeedListAdapter extends BaseAdapter {
 	ArrayList<FeedItemDTO> arrayListFeedItem;
 	int layout;
 	String url;
+	String mode;
 	User user;
 	boolean isFriendFeed = false;
 	boolean isMine;
+	boolean isCheck;
 	Connection<Friends> friends;
 	
 	
-	public FeedListAdapter(Context context, int layout, ArrayList<FeedItemDTO> arrayListFeedItem, String mode) {
+	public FeedListAdapter(Context context, int layout, ArrayList<FeedItemDTO> arrayListFeedItem, String mode, Boolean isCheck) {
 		this.context = context;
 		this.inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		this.layout = layout;
 		this.arrayListFeedItem = arrayListFeedItem;
+		this.mode = mode;
+		this.isCheck = isCheck;
 		
 		//자신의 피드리스트 보기 일경우
 		if(mode.equals("me")) {
@@ -118,7 +119,7 @@ public class FeedListAdapter extends BaseAdapter {
 		if(arrayListFeedItem.get(position).getPhotoImagePath() == null)
 			photoImage.setVisibility(View.GONE);
 		else {
-			Log.e("position : " + position, arrayListFeedItem.get(position).getPhotoImagePath());
+//			Log.e("position : " + position, arrayListFeedItem.get(position).getPhotoImagePath());
 			url = ImageUtils.webViewImageReSize(arrayListFeedItem.get(position).getPhotoImagePath());
 			photoImage.loadDataWithBaseURL(null, url, "text/html", "utf-8", null);
 //			Log.e("EE", "H:" + photoImage.getHeight() + "// w : " + photoImage.getWidth());
@@ -163,13 +164,23 @@ public class FeedListAdapter extends BaseAdapter {
 		
 		//promise log click listener
 		TextView promiseLog = (TextView) convertView.findViewById(R.id.promiseLogText);
-		promiseLog.setOnClickListener(new TextView.OnClickListener() {
-			public void onClick(View v) {
-				Intent intent = new Intent(context, PromiseLogList.class);
-				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				context.startActivity(intent);
-			}
-		});
+		ImageView promiseLogImage = (ImageView) convertView.findViewById(R.id.promiseLogImage);
+
+		if(isCheck) { //check List 에서 Feed list 볼때
+			promiseLog.setVisibility(View.GONE);
+			promiseLogImage.setVisibility(View.GONE);
+		} else {
+			promiseLog.setOnClickListener(new TextView.OnClickListener() {
+				public void onClick(View v) {
+					Intent intent = new Intent(context, PromiseFeedList.class);
+					intent.putExtra("mode", mode);
+					intent.putExtra("isCheck", true);
+					intent.putExtra("feedId", arrayListFeedItem.get(position).getId());
+					intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+					context.startActivity(intent);
+				}
+			});
+		}
 		
 		return convertView;
 	}

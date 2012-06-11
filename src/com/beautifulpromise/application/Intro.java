@@ -51,7 +51,7 @@ public class Intro extends Activity {
 			//TODO
 			AccessToken.setAccessToken(mFacebook.getAccessToken());
 			loadHandler.sendEmptyMessage(0);
-			handler.sendEmptyMessageDelayed(0, 2000);
+			handler.sendEmptyMessageDelayed(0, 3000);
 		} else {
 			//Login Button
 			loginButton = (Button) findViewById(R.id.loginButton);

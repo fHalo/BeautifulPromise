@@ -7,68 +7,37 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.beautifulpromise.R;
 import com.beautifulpromise.application.feedviewer.adapter.LogListAdapter;
+import com.beautifulpromise.parser.Controller;
 
 public class PromiseCheck extends Activity {
 	//feed item 들을 담고있는 array
 	ArrayList<FeedItemDTO> arrayFeedItem;
 	
+	//서버에서 받아올 feed item list
+	ArrayList<String> checkList;
+	
+	//server와의 interface 객체
+	Controller ctrl;
+	
+	LinearLayout checkListLayout;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 	
-		setContentView(R.layout.feedviewer_check_promise);
+		//Layout setting
+//		checkListLayout = (LienearLayout)View.inflate(this, R.layout.feedviewer_check_promise, null);
+//		setActivityLayout(checkListLayout);
 		
 		//feed item 들을 담고있는 array
 		arrayFeedItem = new ArrayList<FeedItemDTO>();
 		
-//		//feed item 객체
-//		FeedItemDTO feedItem;
-//		
-//		//feed item 임시 추가
-//		feedItem = new FeedItemDTO();
-//		feedItem.setDate("2012/4/12 PM 12:12");
-//		feedItem.setFeed("hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello ");
-//		feedItem.setLike(32);
-//		feedItem.setName("Jaemyung Shin!");
-//		feedItem.setReply(12);
-////		feedItem.setPhotoImagePath(photoImagePath);
-//		feedItem.setProfileImagePath("https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc4/371699_100001066448386_1124509348_q.jpg");
-//		arrayFeedItem.add(feedItem);
-//		
-//		feedItem = new FeedItemDTO();
-//		feedItem.setDate("2012/4/12 PM 12:12");
-//		feedItem.setFeed("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
-//		feedItem.setLike(32);
-//		feedItem.setName("Jaemyung Shin!");
-//		feedItem.setReply(12);
-////		feedItem.setPhotoImagePath(photoImagePath);
-//		feedItem.setProfileImagePath("https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc4/371699_100001066448386_1124509348_q.jpg");
-//		arrayFeedItem.add(feedItem);
-//		
-//		feedItem = new FeedItemDTO();
-//		feedItem.setDate("2012/4/12 PM 12:12");
-//		feedItem.setFeed("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
-//		feedItem.setLike(32);
-//		feedItem.setName("Jaemyung Shin!");
-//		feedItem.setReply(12);
-////		feedItem.setPhotoImagePath(photoImagePath);
-//		feedItem.setProfileImagePath("https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc4/371699_100001066448386_1124509348_q.jpg");
-//		arrayFeedItem.add(feedItem);
-//		
-//		feedItem = new FeedItemDTO();
-//		feedItem.setDate("2012/4/12 PM 12:12");
-//		feedItem.setFeed("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
-//		feedItem.setLike(32);
-//		feedItem.setName("Jaemyung Shin!");
-//		feedItem.setReply(12);
-////		feedItem.setPhotoImagePath(photoImagePath);
-//		feedItem.setProfileImagePath("https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc4/371699_100001066448386_1124509348_q.jpg");
-//		arrayFeedItem.add(feedItem);
 		
 		//adapter 생성 후 레이아웃&데이터 세팅
 		LogListAdapter logListAdapter = new LogListAdapter(this, R.layout.feedviewer_feed_item, arrayFeedItem);

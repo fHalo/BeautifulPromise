@@ -186,18 +186,21 @@ public class BeautifulPromiseActivity extends Activity{
 
 			case R.id.myPromiseLayout:
 				intent = new Intent(BeautifulPromiseActivity.this, PromiseFeedList.class);
+				intent.putExtra("mode", "me");
 				Var.menuShowFlag = false;
 				startActivity(intent);
 				break;
 				
 			case R.id.helperPromiseLayout:
 				intent = new Intent(BeautifulPromiseActivity.this, PromiseFeedList.class);
+				intent.putExtra("mode", "helper");
 				Var.menuShowFlag = false;
 				startActivity(intent);
 				break;
 				
 			case R.id.friendPromiseLayout:
 				intent = new Intent(BeautifulPromiseActivity.this, PromiseFeedList.class);
+				intent.putExtra("mode", "helper");
 				Var.menuShowFlag = false;
 				startActivity(intent);
 				break;

@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:gravity="center"
-    android:orientation="vertical" >
+    android:orientation="vertical" android:background="#E3F1E2">
 
     <LinearLayout
         android:id="@+id/replyProgressLayout"
