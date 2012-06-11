@@ -22,6 +22,7 @@
             android:windowSoftInputMode="stateAlwaysHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -56,35 +57,42 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
-        <activity 
+        <activity
             android:name=".application.checkpromise.CycleCheckActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
-        
-        <activity 
+        <activity
             android:name=".application.checkpromise.EtcCheckActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
-        <activity 
+        <activity
             android:name=".application.HomeActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
-        <activity 
+        <activity
             android:name=".application.BeautifulPromiseActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
-        <activity 
+        <activity
             android:name=".application.checkpromise.WorkCheckActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
-        <activity 
+        <activity
             android:name=".application.checkpromise.WorkCheckFeedActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
-        
-        <provider 
+        <activity
+            android:name=".application.HomeAlarmActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+
+        <provider
             android:name="com.beautifulpromise.database.NotificationProvider"
-            android:authorities="com.beautifulpromise.database"></provider>
+            android:authorities="com.beautifulpromise.database" >
+        </provider>
+
+        <receiver android:name=".application.checkpromise.CycleGpsAlarm" >
+        </receiver>
     </application>
 
 </manifest>

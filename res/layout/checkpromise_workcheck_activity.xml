@@ -34,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
                 android:layout_marginRight="15dp"
-                android:background="@drawable/btn_post_keydown"
+                android:background="@drawable/btn_topbar"
                 android:text="생성" />
         </LinearLayout>
     </LinearLayout>

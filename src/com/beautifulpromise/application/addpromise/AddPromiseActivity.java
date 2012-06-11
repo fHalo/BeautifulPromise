@@ -438,7 +438,7 @@ public class AddPromiseActivity extends MapActivity {
 			promiseDTO.setEndDate("2012년 6월 20일");
 			promiseDTO.setLatitue(3.749611E7);
 			promiseDTO.setLongitude(1.27051993E8);
-			promiseDTO.setDayPeriod(new boolean[]{true, true, true, true, true, false, false});
+			promiseDTO.setDayPeriod(new boolean[]{true, true, true, true, true, true, true});
 			promiseDTO.setTime(10);
 			promiseDTO.setMin(30);
 			break;

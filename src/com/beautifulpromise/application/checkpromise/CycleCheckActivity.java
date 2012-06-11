@@ -22,6 +22,7 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,9 +65,11 @@ public class CycleCheckActivity extends MapActivity {
 	
 	TextView PromiseName_TextView;
 	TextView Period_TextView;
+	TextView MapHour_TextView;
 	EditText Feed_EditBox;
 	Button Post_Btn;
 	Button Camera_Btn;
+	LinearLayout MapView_LinearLayout;
 
 	Double Latitude;
 	Double Longitude;
@@ -77,12 +80,14 @@ public class CycleCheckActivity extends MapActivity {
 
 		PromiseName_TextView = (TextView) findViewById(R.id.checkpromise_cyclecheck_promisename_text);
 		Period_TextView = (TextView) findViewById(R.id.checkpromise_cyclecheck_period_text);
+		MapHour_TextView= (TextView) findViewById(R.id.checkpromise_cyclecheck_maphour_text);
 		Feed_EditBox = (EditText) findViewById(R.id.checkpromise_cyclecheck_content_edit);
 		Post_Btn = (Button) findViewById(R.id.checkpromise_cyclecheck_post_btn);
-		Camera_Btn = (Button) findViewById(R.id.checkpromise_cycle_camera_btn);
-
+		MapView_LinearLayout = (LinearLayout) findViewById(R.id.checkpromise_cyclecheck_mapview_layout);
+		
 		Post_Btn.setOnClickListener(buttonClickListener);
 		Camera_Btn.setOnClickListener(buttonClickListener);
+		
 		
 		//home에서 객체 받아오기
 		Object tempobject = getIntent().getExtras().get("PromiseDTO");
@@ -99,6 +104,26 @@ public class CycleCheckActivity extends MapActivity {
 		EndTime = EndTime.substring(0, 4) + "." + EndTime.substring(4, 6)+ "." + EndTime.substring(6, 8);
 		
 		Period_TextView.setText(StartTime + " ~ " + EndTime);
+		
+		//mapview 텍스트 설정
+		int hour;
+		//오전
+		if(promiseobject.getTime() < 12)
+		{
+			hour = promiseobject.getTime();
+			if(promiseobject.getTime()==0)
+				hour=12;
+			MapHour_TextView.setText("오전 " + hour + "시 " +promiseobject.getMin()+"분에");
+		}
+		//오후
+		else
+		{
+			hour = promiseobject.getTime()-12;
+			if(promiseobject.getTime()==0)
+				hour=12;
+			MapHour_TextView.setText("오후 " + hour + "시 " +promiseobject.getMin()+"분에");
+		}
+		
 
 		mapview = (MapView) findViewById(R.id.checkpromise_cyclecheck_mapview);
 		mapview.setBuiltInZoomControls(true);
@@ -108,25 +133,18 @@ public class CycleCheckActivity extends MapActivity {
 		gps_DBHelper = new CheckDBHelper(this);
 		db = gps_DBHelper.getWritableDatabase();
 		
-		db.delete("gps", null, null);
-		ContentValues row;
-		row = new ContentValues();
-		row.put("promiseid", promiseobject.getId());
-		row.put("latitude", 37.589207);
-		row.put("longitude", 126.979294);
-		db.insert("gps", null, row);
-
-		Cursor cursor;
-		
 		int a = 12345678;
 		
 		try{
-			cursor = db.rawQuery("SELECT latitude, longitude FROM gps WHERE promiseid=" + promiseobject.getId(), null);
-
-			cursor.moveToNext();
-			Latitude = cursor.getDouble(0);
-			Longitude = cursor.getDouble(1);
-
+			
+			CheckDBHelper checkDBHelper = new CheckDBHelper(this);
+			CheckDAO checkDAO = new CheckDAO(checkDBHelper);
+			
+			Double [] Location = new Double[2];
+			Location = checkDAO.getGPS(promiseobject.getPostId());
+			Latitude=Location[0];
+			Longitude=Location[1];
+			
 			// 위도 경로 입력
 			GeoPoint gp = new GeoPoint((int) (Latitude * 1000000),
 					(int) (Longitude * 1000000));
@@ -158,8 +176,8 @@ public class CycleCheckActivity extends MapActivity {
 			case R.id.checkpromise_cyclecheck_post_btn:
 
 				boolean result;
-				mapview.buildDrawingCache();
-				Bitmap captureBitmap = mapview.getDrawingCache();
+				MapView_LinearLayout.buildDrawingCache();
+				Bitmap captureBitmap = MapView_LinearLayout.getDrawingCache();
 				FileOutputStream fos;
 				try {
 					fos = new FileOutputStream(Environment
@@ -168,7 +186,7 @@ public class CycleCheckActivity extends MapActivity {
 					captureBitmap
 							.compress(Bitmap.CompressFormat.JPEG, 100, fos);
 					captureBitmap = Bitmap.createScaledBitmap(captureBitmap,
-							mapview.getWidth(), mapview.getHeight(),
+							MapView_LinearLayout.getWidth(), MapView_LinearLayout.getHeight(),
 							true);
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
@@ -242,11 +260,7 @@ public class CycleCheckActivity extends MapActivity {
 				}
 				break;
 
-			case R.id.checkpromise_cycle_camera_btn:
-				CameraDialog.Builder cameraBuilder = new CameraDialog.Builder(CycleCheckActivity.this);
-				Dialog cameraDialog = cameraBuilder.create();
-				cameraDialog.show();
-				break;
+			
 
 			default:
 				break;
@@ -262,31 +276,5 @@ public class CycleCheckActivity extends MapActivity {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-	}
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-		Uri imageUri;
-		Bitmap bitmap;
-		
-		if (resultCode == RESULT_OK) {
-			switch (requestCode) {
-			case CameraDialog.FINISH_TAKE_PHOTO:
-				bitmap = (Bitmap) data.getExtras().get("data"); 
-				String path = ImageUtils.saveBitmap(CycleCheckActivity.this, bitmap);
-				
-				break;
-				
-			case CameraDialog.FINISH_GET_IMAGE:
-				imageUri = data.getData();
-				String[] proj = { MediaStore.Images.Media.DATA };
-				Cursor cursor = managedQuery(imageUri, proj, null, null, null);
-				cursor.moveToFirst();
-				String imagePath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA));
-				Toast.makeText(this, imagePath, Toast.LENGTH_SHORT).show();
-				bitmap = ImageUtils.getResizedBitmap(imagePath);
-
-				break;
-			}
-		}
 	}
 }
