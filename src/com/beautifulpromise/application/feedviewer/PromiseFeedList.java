@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -97,13 +97,17 @@ public class PromiseFeedList extends BeautifulPromiseActivity{
 //			}
 			
 	        Post feed = new Post();
-	        feed = feed.createInstance("113852212089571");
+	        feed = feed.createInstance("114940478645556");
 	        feedItem = new FeedItemDTO(feed);
 	        arrayFeedItem.add(feedItem);
 	        feedItem = new FeedItemDTO(feed);
 	        arrayFeedItem.add(feedItem);
 	        feedItem = new FeedItemDTO(feed);
 	        arrayFeedItem.add(feedItem);
+	        
+//	        ctrl.PublishCheck("114940478645556", "11494047864555");
+//	        toDoList = ctrl.GetCheckList("114940478645556");
+	        Log.e("CHECK", "" + toDoList);
 	        
 			return null;
 		}

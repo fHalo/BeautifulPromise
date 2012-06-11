@@ -62,14 +62,22 @@
         android:layout_below="@+id/feedText"
         android:layout_marginTop="5dp" android:background="@drawable/feed_bottom_bar" android:paddingLeft="4dp" android:paddingRight="4dp" android:paddingBottom="2dp" android:paddingTop="2dp">
 
+        
+        <ImageView
+            android:id="@+id/promiseLogImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/like" android:layout_marginLeft="3dp"/>
+        
         <TextView
             android:id="@+id/promiseLogText"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:text="약속일지" />
+            android:text="약속일지" android:layout_toRightOf="@id/promiseLogImage" android:layout_marginLeft="3dp"/>
 
         <TextView
             android:id="@+id/replyText"
@@ -78,7 +86,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:text="20"
-            android:textSize="20dp" />
+            android:textSize="18dp" android:layout_marginRight="3dp"/>
 
         <ImageView
             android:id="@+id/replyImage"
@@ -96,7 +104,7 @@
             android:layout_marginRight="16dp"
             android:layout_toLeftOf="@+id/replyImage"
             android:text="20"
-            android:textSize="20dp" />
+            android:textSize="18dp" />
 
         <ImageView
             android:id="@+id/likeImage"
@@ -105,14 +113,6 @@
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/likeText"
             android:src="@drawable/like" android:layout_marginRight="3dp"/>
-        
-		<ImageView
-            android:id="@+id/addFreindImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/addFriendText"
-            android:src="@drawable/like" android:visibility="invisible"/>
                 
         <TextView
             android:id="@+id/noFriendText"
@@ -123,6 +123,7 @@
             android:layout_alignParentRight="true"
             android:text="친구아님"
             android:textSize="15dp" android:visibility="invisible"/>
+
     </RelativeLayout>
 
 </RelativeLayout>

@@ -3,19 +3,18 @@ package com.beautifulpromise.application;
 import java.util.TimerTask;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.ContentObserver;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
-import android.view.WindowManager;
-import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -29,6 +28,7 @@ import com.beautifulpromise.application.feedviewer.PromiseFeedList;
 import com.beautifulpromise.common.Var;
 import com.beautifulpromise.database.NotificationProvider;
 import com.beautifulpromise.facebooklibrary.Facebook;
+import com.beautifulpromise.facebooklibrary.SessionStore;
 
 public class BeautifulPromiseActivity extends Activity{
 
@@ -50,7 +50,6 @@ public class BeautifulPromiseActivity extends Activity{
 	LinearLayout friendPromiseBtn;
 	LinearLayout pointShopBtn;
 	LinearLayout settingBtn;
-	FrameLayout frameLayout;
 	
 	HorizontalScrollView hscroll;
 	private int leftWidth = Var.LEFT_MENUBAR_WIDTH;
@@ -58,6 +57,8 @@ public class BeautifulPromiseActivity extends Activity{
 	NotificationAdapter adapter;
 	ContentObserver observer;
 	Cursor cursor;
+	
+	Intent intent;
 		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +81,6 @@ public class BeautifulPromiseActivity extends Activity{
 		notificationListView = (ListView) findViewById(R.id.notification_listview);
 		leftMenuLayout = (LinearLayout) findViewById(R.id.menu_layout);
 		activityLayout = (LinearLayout) findViewById(R.id.activity_layout);
-		frameLayout = (FrameLayout) findViewById(R.id.mainFrameLayout);
 		
 		leftMenuBtn.setOnClickListener(clickLisetner);
 		homeBtn.setOnClickListener(clickLisetner);
@@ -144,7 +144,6 @@ public class BeautifulPromiseActivity extends Activity{
 	} 
 	
 	View.OnClickListener clickLisetner = new View.OnClickListener() {
-		Intent intent;
 		@Override
 		public void onClick(View v) {
 			switch (v.getId()) {
@@ -209,10 +208,33 @@ public class BeautifulPromiseActivity extends Activity{
 				
 			case R.id.accountLayout:
 				Var.menuShowFlag = false;
+				//logout dialog
+				new AlertDialog.Builder(BeautifulPromiseActivity.this)
+				.setTitle("로그아웃")
+				.setMessage("로그아웃 하시겠습니까?")
+				.setIcon(R.drawable.icon)
+				.setPositiveButton("확인", logoutClickListener)
+				.setNegativeButton("취소", null)
+				.show();
 				break;
 			default:
 				break;
 			}
+		}
+	};
+	
+	/**
+	 * Logout dialog 확인 click listener
+	 */
+	DialogInterface.OnClickListener logoutClickListener = new DialogInterface.OnClickListener() {
+		
+		@Override
+		public void onClick(DialogInterface dialog, int which) {
+			mFacebook = new Facebook(Var.APP_ID);
+			SessionStore.clear(BeautifulPromiseActivity.this);
+			
+			intent = new Intent(BeautifulPromiseActivity.this, Intro.class);
+			startActivity(intent);
 		}
 	};
 

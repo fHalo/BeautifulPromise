@@ -68,7 +68,7 @@ public class Controller {
 	/**
 	 * @description Todo 체크 리스트
 	 * @param postId
-	 * @return boolean
+	 * @return ArrayList<String>
 	 */
 
 	@SuppressWarnings({"unchecked", "rawtypes"})

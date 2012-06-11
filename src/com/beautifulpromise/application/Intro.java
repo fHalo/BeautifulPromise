@@ -8,6 +8,9 @@ import org.apache.http.message.BasicNameValuePair;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -35,27 +38,48 @@ public class Intro extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		
 		mFacebook = new Facebook(Var.APP_ID);
+		
+		/**
+		 * splash activity 
+		 */
+		setContentView(R.layout.intro);
 		
 		//이미 로긴 되있으면 바로 시작(자동 로그인 처리)
 		if(SessionStore.restore(mFacebook, this)) {
-			
 			//TODO
 			AccessToken.setAccessToken(mFacebook.getAccessToken());
-			Repository.getInstance().setUser();
+			loadHandler.sendEmptyMessage(0);
+			handler.sendEmptyMessageDelayed(0, 2000);
+		} else {
+			//Login Button
+			loginButton = (Button) findViewById(R.id.loginButton);
+			loginButton.setVisibility(View.VISIBLE);
+			loginButton.setOnClickListener(buttonClickListener);
+		}
+	}
+	
+	/**
+	 * delay 후 home activity 실행하는 handler
+	 */
+	Handler handler = new Handler() {
+		public void handleMessage(Message msg) {
+			finish();
             if(setNewMember())
             	Toast.makeText(Intro.this, "Success", Toast.LENGTH_SHORT).show();
 			startActivity(new Intent(Intro.this, HomeActivity.class));
-			finish();
 		}
-		
-		setContentView(R.layout.intro);
-		
-		//Login Button
-		loginButton = (Button) findViewById(R.id.loginButton);
-		loginButton.setOnClickListener(buttonClickListener);
-	}
+	};
+
+	/**
+	 * 서버에서 데이터 가져오는 handler
+	 */
+	Handler loadHandler = new Handler() {
+		public void handleMessage(Message msg) {
+			Repository.getInstance().setUser();
+		}
+	};
 
 	View.OnClickListener buttonClickListener = new View.OnClickListener() {
 		
