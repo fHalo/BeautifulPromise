@@ -134,25 +134,18 @@ public class CycleCheckActivity extends MapActivity {
 		gps_DBHelper = new CheckDBHelper(this);
 		db = gps_DBHelper.getWritableDatabase();
 		
-		db.delete("gps", null, null);
-		ContentValues row;
-		row = new ContentValues();
-		row.put("promiseid", promiseobject.getId());
-		row.put("latitude", 37.589207);
-		row.put("longitude", 126.979294);
-		db.insert("gps", null, row);
-
-		Cursor cursor;
-		
 		int a = 12345678;
 		
 		try{
-			cursor = db.rawQuery("SELECT latitude, longitude FROM gps WHERE promiseid=" + promiseobject.getId(), null);
-
-			cursor.moveToNext();
-			Latitude = cursor.getDouble(0);
-			Longitude = cursor.getDouble(1);
-
+			
+			CheckDBHelper checkDBHelper = new CheckDBHelper(this);
+			CheckDAO checkDAO = new CheckDAO(checkDBHelper);
+			
+			Double [] Location = new Double[2];
+			Location = checkDAO.getGPS(promiseobject.getPostId());
+			Latitude=Location[0];
+			Longitude=Location[1];
+			
 			// 위도 경로 입력
 			GeoPoint gp = new GeoPoint((int) (Latitude * 1000000),
 					(int) (Longitude * 1000000));

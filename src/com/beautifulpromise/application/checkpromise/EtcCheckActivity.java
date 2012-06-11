@@ -6,16 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -41,12 +35,10 @@ import com.facebook.halo.application.types.infra.FacebookType;
 import com.facebook.halo.framework.core.Connection;
 
 public class EtcCheckActivity extends Activity {
-	private static final int CROP_FROM_CAMERA = 1;
 	
 	TextView PromiseName_TextView;
 	TextView Period_TextView;
 	Button Post_Btn;
-	Button Camera_Btn;
 	EditText Feed_EditBox;
 	ImageView Upload_ImageView;
 
@@ -61,12 +53,10 @@ public class EtcCheckActivity extends Activity {
 		PromiseName_TextView = (TextView) findViewById(R.id.checkpromise_etccheck_promisename_text);
 		Period_TextView = (TextView) findViewById(R.id.checkpromise_etccheck_period_text);
 		Post_Btn = (Button) findViewById(R.id.checkpromise_etccheck_post_btn);
-		Camera_Btn = (Button) findViewById(R.id.checkpromise_etccheck_camera_btn);
 		Feed_EditBox = (EditText) findViewById(R.id.checkpromise_etccheck_content_edit);
 		Upload_ImageView = (ImageView) findViewById(R.id.checkpromise_etccheck_uploadimage_img);
 
 		Post_Btn.setOnClickListener(buttonClickListener);
-		Camera_Btn.setOnClickListener(buttonClickListener);
 
 		//home에서 객체 받아오기
 		Object tempobject = getIntent().getExtras().get("PromiseDTO");
@@ -178,68 +168,11 @@ public class EtcCheckActivity extends Activity {
 							Toast.LENGTH_SHORT).show();
 				}
 				break;
-
-			case R.id.checkpromise_etccheck_camera_btn:
-				CameraDialog.Builder cameraBuilder = new CameraDialog.Builder(EtcCheckActivity.this);
-				Dialog cameraDialog = cameraBuilder.create();
-				cameraDialog.show();
-				break;
-
+				
 			default:
 				break;
 			}
 		}
 	};
-	
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-		Uri imageUri;
-		Bitmap bitmap;
-		
-		if (resultCode == RESULT_OK) {
-			switch (requestCode) {
-			case CROP_FROM_CAMERA:
-			{
-				// 크롭이 된 이후의 이미지를 넘겨 받습니다. 이미지뷰에 이미지를 보여준다거나 부가적인 작업 이후에
-				// 임시 파일을 삭제합니다.
-				final Bundle extras = data.getExtras();
-	
-				if(extras != null)
-				{
-					Bitmap photo = extras.getParcelable("data");
-					Upload_ImageView.setImageBitmap(photo);
-				}
-				break;
-			}
-			
-			case CameraDialog.FINISH_TAKE_PHOTO:
-				bitmap = (Bitmap) data.getExtras().get("data"); 
-				String path = ImageUtils.saveBitmap(EtcCheckActivity.this, bitmap);
-				Upload_ImageView.setImageBitmap(bitmap);
-				break;
-				
-			case CameraDialog.FINISH_GET_IMAGE:
-				imageUri = data.getData();
-				String[] proj = { MediaStore.Images.Media.DATA };
-				Cursor cursor = managedQuery(imageUri, proj, null, null, null);
-				cursor.moveToFirst();
-				String imagePath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA));
-				bitmap = ImageUtils.getResizedBitmap(imagePath);
-				Intent intent = new Intent("com.android.camera.action.CROP");
-				intent.setDataAndType(imageUri, "image/*");
-	
-				intent.putExtra("outputX", Upload_ImageView.getWidth()/2);
-				intent.putExtra("outputY", Upload_ImageView.getHeight()/2);
-				intent.putExtra("aspectX", Upload_ImageView.getWidth());
-				intent.putExtra("aspectY", Upload_ImageView.getHeight());
-				intent.putExtra("scale", true);
-				intent.putExtra("return-data", true);
-				startActivityForResult(intent, CROP_FROM_CAMERA);
-//				Upload_ImageView.setImageBitmap(bitmap);
-
-				break;
-			}
-		}
-	}
 
 }

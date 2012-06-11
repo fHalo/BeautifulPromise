@@ -25,24 +25,28 @@ public class CheckDAO {
 	//GPS관련 메소드
 	public boolean gpsinit(){
 		db.delete("gps", null, null);
-		return false;
+		return true;
 		
 	}
 
 	public boolean gpsinsert(String id, Double Latitude,Double Longitude){
 		ContentValues row;
 		row = new ContentValues();
-		row.put("promiseid", Latitude);
+		row.put("promiseid", id);
 		row.put("latitude", Latitude);
 		row.put("longitude", Longitude);
 		db.insert("gps", null, row);
-		return false;
+		return true;
 		
 	}
 	
-	public boolean findgpsid(Double findLatitude){
-//		Cursor cursor = db.rawQuery("SELECT promiseid FROM gps WHERE latitude=" + findLatitude , null);
-		return false;
+	public Double[] getGPS(String id){
+		Double [] Location = new Double[2];
+		Cursor cursor = db.rawQuery("SELECT latitude, longitude FROM gps WHERE promiseid=" + id, null);
+		cursor.moveToNext();
+		Location[0] = cursor.getDouble(0);
+		Location[1] = cursor.getDouble(1);
+		return Location;
 	}
 
 	//feedcheck메소드

@@ -1,9 +1,20 @@
 package com.beautifulpromise.application.checkpromise;
 
+import com.beautifulpromise.application.BeautifulPromiseActivity;
 import com.beautifulpromise.application.HomeActivity;
+import com.beautifulpromise.application.HomeAlarmActivity;
+import com.beautifulpromise.application.HomeAlarmDialog;
+import com.beautifulpromise.application.HomeAlarmDialog.Builder;
+import com.beautifulpromise.application.addpromise.AddPromiseActivity;
+import com.beautifulpromise.application.addpromise.DateDialog;
+import com.beautifulpromise.application.addpromise.RepeatDayDialog;
+import com.beautifulpromise.common.dto.AddPromiseDTO;
 import com.beautifulpromise.database.CheckDAO;
 import com.beautifulpromise.database.CheckDBHelper;
 
+import android.app.Dialog;
+import android.app.PendingIntent;
+import android.app.PendingIntent.CanceledException;
 import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -23,6 +34,7 @@ public class CycleGpsAlarm extends BroadcastReceiver{
 	CheckDBHelper gps_DBHelper;
 	Context context;
 	CheckDAO checkDAO;
+	AddPromiseDTO promiseobject;
 	
 	public void onReceive(Context context, Intent intent) {
 		
@@ -32,21 +44,32 @@ public class CycleGpsAlarm extends BroadcastReceiver{
 		
 		lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
 		
+		//home에서 객체 받아오기
+		Object tempobject = intent.getExtras().get("PromiseDTO");
+		promiseobject = (AddPromiseDTO) tempobject;
+		
  		mLocationListener = new LocationListener() {
 			public void onLocationChanged(Location location) {
 				if (location != null) {
 					
 					Double Latitude = location.getLatitude();
 					Double Longitude = location.getLongitude();
+					checkDAO.gpsinit();
+					checkDAO.gpsinsert(promiseobject.getPostId(), Latitude, Longitude);
+					checkDAO.close();
 					
-					ContentValues row;
-//					
-//					db.delete("gps", null, null);
-//					row = new ContentValues();
-//					row.put("latitude", Latitude);
-//					row.put("longitude", Longitude);
-//					db.insert("gps", null, row);
-					Toast.makeText(CycleGpsAlarm.this.context, "알람알람", Toast.LENGTH_SHORT).show();
+					Intent intent = new Intent( CycleGpsAlarm.this.context, HomeAlarmActivity.class );
+					Bundle extras = new Bundle();
+					extras.putSerializable("PromiseDTO", promiseobject);
+					intent.putExtras(extras);
+					
+					PendingIntent pi = PendingIntent.getActivity(CycleGpsAlarm.this.context, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+					try {
+						pi.send();
+					}catch (CanceledException e) {
+						
+					}
+
 					lm.removeUpdates(mLocationListener);
 				}
 			}
