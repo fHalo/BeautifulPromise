@@ -143,6 +143,7 @@ public class CycleCheckActivity extends MapActivity {
 			Location = checkDAO.getGPS(promiseobject.getPostId());
 			Latitude=Location[0];
 			Longitude=Location[1];
+			checkDAO.close();
 			
 			// 위도 경로 입력
 			GeoPoint gp = new GeoPoint((int) (Latitude * 1000000),

@@ -12,7 +12,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.beautifulpromise.R;
-import com.beautifulpromise.application.feedviewer.adapter.LogListAdapter;
 import com.beautifulpromise.parser.Controller;
 
 public class PromiseCheck extends Activity {
@@ -40,13 +39,13 @@ public class PromiseCheck extends Activity {
 		
 		
 		//adapter 생성 후 레이아웃&데이터 세팅
-		LogListAdapter logListAdapter = new LogListAdapter(this, R.layout.feedviewer_feed_item, arrayFeedItem);
+//		LogListAdapter logListAdapter = new LogListAdapter(this, R.layout.feedviewer_feed_item, arrayFeedItem);
 		
 		//list view 생성
 		ListView feedList = (ListView)findViewById(R.id.promiseCheckList);
 		
 		//list view 와 adapter 연결
-		feedList.setAdapter(logListAdapter);
+//		feedList.setAdapter(logListAdapter);
 		
 		//yes or no button click listener
 		Button yesBtn = (Button)findViewById(R.id.yesButton);

@@ -16,6 +16,7 @@ public class HomeAlarmActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home_alarm_acitivity);
+		
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
 		
 		Object tempobject = getIntent().getExtras().get("PromiseDTO");

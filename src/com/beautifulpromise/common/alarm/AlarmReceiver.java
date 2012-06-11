@@ -1,13 +1,6 @@
 package com.beautifulpromise.common.alarm;
 
-import com.beautifulpromise.application.BeautifulPromiseActivity;
-import com.beautifulpromise.application.HomeActivity;
 import com.beautifulpromise.application.HomeAlarmActivity;
-import com.beautifulpromise.application.HomeAlarmDialog;
-import com.beautifulpromise.application.HomeAlarmDialog.Builder;
-import com.beautifulpromise.application.addpromise.AddPromiseActivity;
-import com.beautifulpromise.application.addpromise.DateDialog;
-import com.beautifulpromise.application.addpromise.RepeatDayDialog;
 import com.beautifulpromise.common.dto.AddPromiseDTO;
 import com.beautifulpromise.database.CheckDAO;
 import com.beautifulpromise.database.CheckDBHelper;

@@ -163,11 +163,13 @@ public class EtcCheckActivity extends Activity {
 				
 				if (result) {
 					Toast.makeText(EtcCheckActivity.this, "성공", Toast.LENGTH_SHORT).show();
+//					boolean aa = ctr.PublishCheck(promiseobject.getPostId(), type.getId());
 					boolean aa = ctr.PublishCheck(promiseobject.getPostId(), type.getId());
 
 					CheckDBHelper checkDBHelper = new CheckDBHelper(EtcCheckActivity.this);
 					CheckDAO checkDAO = new CheckDAO(checkDBHelper);
 					checkDAO.feedcheckupdate(promiseobject.getPostId(), 1);
+					checkDAO.close();
 					
 					Intent intent = new Intent(EtcCheckActivity.this, HomeActivity.class);
 					startActivity(intent);

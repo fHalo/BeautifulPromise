@@ -16,9 +16,11 @@
         <ListView
             android:id="@+id/list"
             android:layout_width="fill_parent"
-            android:layout_height="match_parent"
             android:cacheColorHint="#00000000"
+            android:layout_height="330dp"
             android:divider="#00000000"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:dividerHeight="3dp" >
         </ListView>
 
