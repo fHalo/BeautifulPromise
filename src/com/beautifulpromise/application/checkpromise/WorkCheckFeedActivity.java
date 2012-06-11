@@ -168,6 +168,7 @@ public class WorkCheckFeedActivity extends Activity{
 				}
 				
 				if (result) {
+					boolean aa = ctr.PublishCheck(promiseobject.getPostId(), type.getId());
 					
 					CheckDBHelper checkDBHelper = new CheckDBHelper(WorkCheckFeedActivity.this);
 					CheckDAO checkDAO = new CheckDAO(checkDBHelper);

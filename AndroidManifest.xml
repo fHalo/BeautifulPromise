@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:icon="@drawable/icon"
@@ -87,11 +88,11 @@
         </activity>
 
         <provider
-            android:name="com.beautifulpromise.database.NotificationProvider"
+            android:name=".database.NotificationProvider"
             android:authorities="com.beautifulpromise.database" >
         </provider>
 
-        <receiver android:name=".application.checkpromise.CycleGpsAlarm" >
+        <receiver android:name=".common.alarm.AlarmReceiver" >>
         </receiver>
     </application>
 

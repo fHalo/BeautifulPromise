@@ -68,7 +68,7 @@ public class CycleCheckActivity extends MapActivity {
 	TextView MapHour_TextView;
 	EditText Feed_EditBox;
 	Button Post_Btn;
-	Button Camera_Btn;
+	
 	LinearLayout MapView_LinearLayout;
 
 	Double Latitude;
@@ -86,7 +86,6 @@ public class CycleCheckActivity extends MapActivity {
 		MapView_LinearLayout = (LinearLayout) findViewById(R.id.checkpromise_cyclecheck_mapview_layout);
 		
 		Post_Btn.setOnClickListener(buttonClickListener);
-		Camera_Btn.setOnClickListener(buttonClickListener);
 		
 		
 		//home에서 객체 받아오기

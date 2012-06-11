@@ -140,7 +140,6 @@ public class HomeActivity extends BeautifulPromiseActivity {
 			else if (promiseObject.getCategoryId() == 1) {
 				intent = new Intent(HomeActivity.this, WorkCheckActivity.class);
 			}
-
 			else {
 				intent = new Intent(HomeActivity.this, EtcCheckActivity.class);
 			}
