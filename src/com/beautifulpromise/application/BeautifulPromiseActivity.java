@@ -58,7 +58,7 @@ public class BeautifulPromiseActivity extends Activity{
 	ContentObserver observer;
 	Cursor cursor;
 	
-	Intent intent;
+	Intent intent = new Intent();
 		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -158,7 +158,7 @@ public class BeautifulPromiseActivity extends Activity{
 				break;
 
 			case R.id.home_button:
-				intent = new Intent(BeautifulPromiseActivity.this, HomeActivity.class);
+				intent.setAction("HomeActivity");
 				startActivity(intent);
 				break;
 				
@@ -180,26 +180,26 @@ public class BeautifulPromiseActivity extends Activity{
 			case R.id.addPromiseLayout:
 				mySmoothScrollTo(leftWidth, 0);
 				Var.menuShowFlag = false;
-				intent = new Intent(BeautifulPromiseActivity.this, AddPromiseActivity.class);
+				intent.setAction("addpromise.AddPromiseActivity");
 				startActivity(intent);
 				break;
 
 			case R.id.myPromiseLayout:
-				intent = new Intent(BeautifulPromiseActivity.this, PromiseFeedList.class);
+				intent.setAction("feedviewer.PromiseFeedList");
 				intent.putExtra("mode", "me");
 				Var.menuShowFlag = false;
 				startActivity(intent);
 				break;
 				
 			case R.id.helperPromiseLayout:
-				intent = new Intent(BeautifulPromiseActivity.this, PromiseFeedList.class);
+				intent.setAction("feedviewer.PromiseFeedList");
 				intent.putExtra("mode", "helper");
 				Var.menuShowFlag = false;
 				startActivity(intent);
 				break;
 				
 			case R.id.friendPromiseLayout:
-				intent = new Intent(BeautifulPromiseActivity.this, PromiseFeedList.class);
+				intent.setAction("feedviewer.PromiseFeedList");
 				intent.putExtra("mode", "helper");
 				Var.menuShowFlag = false;
 				startActivity(intent);

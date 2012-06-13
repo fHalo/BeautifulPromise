@@ -49,6 +49,7 @@ public class EtcCheckActivity extends Activity {
 	Button Camera_Btn;
 	EditText Feed_EditBox;
 	ImageView Upload_ImageView;
+	Intent intent = new Intent();
 
 	Connection<Friends> friends;
 
@@ -171,7 +172,7 @@ public class EtcCheckActivity extends Activity {
 					checkDAO.feedcheckupdate(promiseobject.getPostId(), 1);
 					checkDAO.close();
 					
-					Intent intent = new Intent(EtcCheckActivity.this, HomeActivity.class);
+					intent.setAction("HomeActivity");
 					startActivity(intent);
 					finish();
 				} else {

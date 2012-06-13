@@ -38,6 +38,7 @@ public class FeedListAdapter extends BaseAdapter {
 	boolean isMine;
 	boolean isCheck;
 	Connection<Friends> friends;
+	Intent intent = new Intent();
 	
 	
 	public FeedListAdapter(Context context, int layout, ArrayList<FeedItemDTO> arrayListFeedItem, String mode, Boolean isCheck) {
@@ -146,7 +147,7 @@ public class FeedListAdapter extends BaseAdapter {
 			RelativeLayout viewerBottom = (RelativeLayout)convertView.findViewById(R.id.feedViewerBottom);
 			viewerBottom.setOnClickListener(new RelativeLayout.OnClickListener() {
 				public void onClick(View v) {
-					Intent intent = new Intent(context, FeedWithReply.class);
+					intent.setAction("feedviewer.FeedWithReply");
 					intent.putExtra("feedId", arrayListFeedItem.get(position).getId());
 					intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 					context.startActivity(intent);
@@ -172,7 +173,7 @@ public class FeedListAdapter extends BaseAdapter {
 		} else {
 			promiseLog.setOnClickListener(new TextView.OnClickListener() {
 				public void onClick(View v) {
-					Intent intent = new Intent(context, PromiseFeedList.class);
+					intent.setAction("feedviewer.PromiseFeedList");
 					intent.putExtra("mode", mode);
 					intent.putExtra("isCheck", true);
 					intent.putExtra("feedId", arrayListFeedItem.get(position).getId());
