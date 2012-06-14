@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
-import com.beautifulpromise.application.addpromise.DonationDTO;
 import com.facebook.halo.application.types.connection.Friends;
 
 import android.graphics.Bitmap;

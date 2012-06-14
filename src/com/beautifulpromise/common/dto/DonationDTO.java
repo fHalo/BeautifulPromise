@@ -1,4 +1,4 @@
-package com.beautifulpromise.application.addpromise;
+package com.beautifulpromise.common.dto;
 
 import android.graphics.drawable.Drawable;
 

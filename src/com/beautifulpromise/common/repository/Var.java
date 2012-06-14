@@ -1,4 +1,4 @@
-package com.beautifulpromise.common;
+package com.beautifulpromise.common.repository;
 
 public class Var {
 	public static boolean menuShowFlag = false;

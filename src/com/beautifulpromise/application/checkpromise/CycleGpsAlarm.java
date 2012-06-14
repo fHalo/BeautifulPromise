@@ -58,7 +58,8 @@ public class CycleGpsAlarm extends BroadcastReceiver{
 					checkDAO.gpsinsert(promiseobject.getPostId(), Latitude, Longitude);
 					checkDAO.close();
 					
-					Intent intent = new Intent( CycleGpsAlarm.this.context, HomeAlarmActivity.class );
+					Intent intent = new Intent();
+					intent.setAction("HomeAlarmActivity");
 					Bundle extras = new Bundle();
 					extras.putSerializable("PromiseDTO", promiseobject);
 					intent.putExtras(extras);

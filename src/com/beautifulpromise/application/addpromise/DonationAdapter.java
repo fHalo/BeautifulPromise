@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.beautifulpromise.R;
+import com.beautifulpromise.common.dto.DonationDTO;
 
 public class DonationAdapter extends BaseAdapter {
 	

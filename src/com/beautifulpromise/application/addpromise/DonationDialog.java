@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.beautifulpromise.R;
 import com.beautifulpromise.common.dto.AddPromiseDTO;
+import com.beautifulpromise.common.dto.DonationDTO;
 import com.beautifulpromise.common.utils.ImageUtils;
 
 public class DonationDialog extends Dialog{

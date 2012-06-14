@@ -79,7 +79,8 @@ public class AlarmReceiver extends BroadcastReceiver {
 
 		} 
 		
-		Intent i = new Intent(AlarmReceiver.this.context, HomeAlarmActivity.class);
+		Intent i = new Intent();
+		i.setAction("HomeAlarmActivity");
 		Bundle extras = new Bundle();
 		extras.putSerializable("PromiseDTO", promiseobject);
 		i.putExtras(extras);

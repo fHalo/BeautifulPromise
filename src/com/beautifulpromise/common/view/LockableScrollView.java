@@ -6,7 +6,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.HorizontalScrollView;
 
-import com.beautifulpromise.common.Var;
+import com.beautifulpromise.common.repository.Var;
 
 public class LockableScrollView extends HorizontalScrollView {
 

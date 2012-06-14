@@ -23,8 +23,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.beautifulpromise.R;
-import com.beautifulpromise.common.Var;
 import com.beautifulpromise.common.database.NotificationProvider;
+import com.beautifulpromise.common.repository.Var;
 import com.facebook.halo.framework.androidLogin.Facebook;
 import com.facebook.halo.framework.androidLogin.SessionStore;
 
