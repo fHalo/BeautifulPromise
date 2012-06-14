@@ -13,8 +13,8 @@ import android.widget.CursorAdapter;
 import android.widget.TextView;
 
 import com.beautifulpromise.R;
+import com.beautifulpromise.common.database.NotificationProvider;
 import com.beautifulpromise.common.utils.ImageUtils;
-import com.beautifulpromise.database.NotificationProvider;
 
 public class NotificationAdapter extends CursorAdapter{
 

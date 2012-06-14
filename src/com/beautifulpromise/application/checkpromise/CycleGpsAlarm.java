@@ -8,9 +8,9 @@ import com.beautifulpromise.application.HomeAlarmDialog.Builder;
 import com.beautifulpromise.application.addpromise.AddPromiseActivity;
 import com.beautifulpromise.application.addpromise.DateDialog;
 import com.beautifulpromise.application.addpromise.RepeatDayDialog;
+import com.beautifulpromise.common.database.CheckDAO;
+import com.beautifulpromise.common.database.CheckDBHelper;
 import com.beautifulpromise.common.dto.AddPromiseDTO;
-import com.beautifulpromise.database.CheckDAO;
-import com.beautifulpromise.database.CheckDBHelper;
 
 import android.app.Dialog;
 import android.app.PendingIntent;

@@ -8,11 +8,11 @@ import com.beautifulpromise.application.checkpromise.CycleCheckActivity;
 import com.beautifulpromise.application.checkpromise.EtcCheckActivity;
 import com.beautifulpromise.application.checkpromise.WorkCheckActivity;
 import com.beautifulpromise.common.alarm.Alarm;
+import com.beautifulpromise.common.database.CheckDAO;
+import com.beautifulpromise.common.database.CheckDBHelper;
+import com.beautifulpromise.common.database.DatabaseHelper;
+import com.beautifulpromise.common.database.GoalsDAO;
 import com.beautifulpromise.common.dto.AddPromiseDTO;
-import com.beautifulpromise.database.CheckDAO;
-import com.beautifulpromise.database.CheckDBHelper;
-import com.beautifulpromise.database.DatabaseHelper;
-import com.beautifulpromise.database.GoalsDAO;
 
 import android.content.ContentValues;
 import android.content.Context;

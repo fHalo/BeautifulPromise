@@ -3,9 +3,9 @@ package com.beautifulpromise.common.alarm;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import com.beautifulpromise.common.database.DatabaseHelper;
+import com.beautifulpromise.common.database.GoalsDAO;
 import com.beautifulpromise.common.dto.AddPromiseDTO;
-import com.beautifulpromise.database.DatabaseHelper;
-import com.beautifulpromise.database.GoalsDAO;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;

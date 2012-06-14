@@ -13,8 +13,8 @@ import android.widget.ListView;
 
 import com.beautifulpromise.R;
 import com.beautifulpromise.application.BeautifulPromiseActivity;
+import com.beautifulpromise.common.parser.Controller;
 import com.beautifulpromise.common.repository.Repository;
-import com.beautifulpromise.parser.Controller;
 import com.facebook.halo.application.types.Post;
 import com.facebook.halo.application.types.User;
 

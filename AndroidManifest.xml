@@ -124,7 +124,7 @@
         </activity>
 
         <provider
-            android:name=".database.NotificationProvider"
+            android:name=".common.database.NotificationProvider"
             android:authorities="com.beautifulpromise.database" >
         </provider>
 

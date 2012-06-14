@@ -1,4 +1,4 @@
-package com.beautifulpromise.parser;
+package com.beautifulpromise.common.parser;
 
 import java.io.IOException;
 import java.net.URI;

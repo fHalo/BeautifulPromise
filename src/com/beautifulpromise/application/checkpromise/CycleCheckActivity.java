@@ -28,12 +28,12 @@ import android.widget.Toast;
 
 import com.beautifulpromise.R;
 import com.beautifulpromise.application.HomeActivity;
+import com.beautifulpromise.common.database.CheckDAO;
+import com.beautifulpromise.common.database.CheckDBHelper;
 import com.beautifulpromise.common.dto.AddPromiseDTO;
+import com.beautifulpromise.common.parser.Controller;
 import com.beautifulpromise.common.repository.Repository;
 import com.beautifulpromise.common.utils.ImageUtils;
-import com.beautifulpromise.database.CheckDAO;
-import com.beautifulpromise.database.CheckDBHelper;
-import com.beautifulpromise.parser.Controller;
 import com.facebook.halo.application.types.Album;
 import com.facebook.halo.application.types.Tags;
 import com.facebook.halo.application.types.User;

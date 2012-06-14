@@ -30,13 +30,13 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.beautifulpromise.R;
+import com.beautifulpromise.common.database.DatabaseHelper;
+import com.beautifulpromise.common.database.GoalsDAO;
 import com.beautifulpromise.common.dto.AddPromiseDTO;
+import com.beautifulpromise.common.parser.Controller;
 import com.beautifulpromise.common.repository.Repository;
 import com.beautifulpromise.common.utils.DateUtils;
 import com.beautifulpromise.common.utils.ImageUtils;
-import com.beautifulpromise.database.DatabaseHelper;
-import com.beautifulpromise.database.GoalsDAO;
-import com.beautifulpromise.parser.Controller;
 import com.facebook.halo.application.types.User;
 import com.facebook.halo.application.types.connection.Friends;
 import com.facebook.halo.framework.core.Connection;

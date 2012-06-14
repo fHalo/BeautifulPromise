@@ -16,9 +16,9 @@ import android.widget.Toast;
 
 import com.beautifulpromise.R;
 import com.beautifulpromise.common.Var;
+import com.beautifulpromise.common.parser.HttpClients;
 import com.beautifulpromise.common.repository.Repository;
 import com.beautifulpromise.common.utils.MessageUtils;
-import com.beautifulpromise.parser.HttpClients;
 import com.facebook.halo.application.types.User;
 import com.facebook.halo.framework.androidLogin.DialogError;
 import com.facebook.halo.framework.androidLogin.Facebook;

@@ -1,9 +1,9 @@
 package com.beautifulpromise.common.alarm;
 
 import com.beautifulpromise.application.HomeAlarmActivity;
+import com.beautifulpromise.common.database.CheckDAO;
+import com.beautifulpromise.common.database.CheckDBHelper;
 import com.beautifulpromise.common.dto.AddPromiseDTO;
-import com.beautifulpromise.database.CheckDAO;
-import com.beautifulpromise.database.CheckDBHelper;
 
 import android.app.Dialog;
 import android.app.PendingIntent;

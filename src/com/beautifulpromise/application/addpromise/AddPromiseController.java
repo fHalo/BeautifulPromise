@@ -6,10 +6,10 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
 import com.beautifulpromise.common.dto.AddPromiseDTO;
+import com.beautifulpromise.common.parser.HttpClients;
 import com.beautifulpromise.common.repository.Repository;
 import com.beautifulpromise.common.utils.DateUtils;
 import com.beautifulpromise.common.utils.MessageUtils;
-import com.beautifulpromise.parser.HttpClients;
 import com.facebook.halo.application.types.connection.Friends;
 
 public class AddPromiseController {

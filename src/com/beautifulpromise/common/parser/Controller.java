@@ -1,4 +1,4 @@
-package com.beautifulpromise.parser;
+package com.beautifulpromise.common.parser;
 
 import java.util.ArrayList;
 import java.util.HashMap;

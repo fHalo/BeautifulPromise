@@ -1,4 +1,4 @@
-package com.beautifulpromise.database;
+package com.beautifulpromise.common.database;
 
 import java.util.ArrayList;
 import java.util.HashMap;

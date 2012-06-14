@@ -12,7 +12,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.beautifulpromise.R;
-import com.beautifulpromise.parser.Controller;
+import com.beautifulpromise.common.parser.Controller;
 
 public class PromiseCheck extends Activity {
 	//feed item 들을 담고있는 array

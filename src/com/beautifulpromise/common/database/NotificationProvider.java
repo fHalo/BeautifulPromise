@@ -1,4 +1,4 @@
-package com.beautifulpromise.database;
+package com.beautifulpromise.common.database;
 
 import com.beautifulpromise.application.BeautifulPromiseActivity;
 

@@ -1,4 +1,4 @@
-package com.beautifulpromise.database;
+package com.beautifulpromise.common.database;
 
 public final class DatabaseMetadata
 {	
