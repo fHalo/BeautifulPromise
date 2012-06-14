@@ -71,7 +71,7 @@ public class BeautifulPromiseActivity extends Activity{
 	Handler handler;
 	Connection<Notifications> notificaitons;
 		
-	@Override
+	@Override 
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
