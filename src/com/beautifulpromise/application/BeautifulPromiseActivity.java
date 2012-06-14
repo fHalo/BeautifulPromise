@@ -144,9 +144,9 @@ public class BeautifulPromiseActivity extends Activity{
 		adapter = new NotificationAdapter(this, cursor);
 		notificationListView.setAdapter(adapter);
 		
-		handler = new Handler();
-		Timer timer = new Timer();
-		timer.schedule(task, 1000, 10000);
+//		handler = new Handler();
+//		Timer timer = new Timer();
+//		timer.schedule(task, 1000, 10000);
 		
 //		int count = cursor.getCount();
 //		if(count > 0) {
@@ -213,6 +213,9 @@ public class BeautifulPromiseActivity extends Activity{
 				
 			case R.id.pointShopLayout:
 				mySmoothScrollTo(leftWidth, 0);
+				intent.setAction("feedviewer.PromiseCheck");
+				intent.putExtra("feedId", "159564817509135");
+				startActivity(intent);
 				break;
 				
 			case R.id.accountLayout:
