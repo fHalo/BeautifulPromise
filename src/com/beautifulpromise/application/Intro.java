@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -19,13 +18,13 @@ import com.beautifulpromise.R;
 import com.beautifulpromise.common.Var;
 import com.beautifulpromise.common.repository.Repository;
 import com.beautifulpromise.common.utils.MessageUtils;
-import com.beautifulpromise.facebooklibrary.DialogError;
-import com.beautifulpromise.facebooklibrary.Facebook;
-import com.beautifulpromise.facebooklibrary.Facebook.DialogListener;
-import com.beautifulpromise.facebooklibrary.FacebookError;
-import com.beautifulpromise.facebooklibrary.SessionStore;
 import com.beautifulpromise.parser.HttpClients;
 import com.facebook.halo.application.types.User;
+import com.facebook.halo.framework.androidLogin.DialogError;
+import com.facebook.halo.framework.androidLogin.Facebook;
+import com.facebook.halo.framework.androidLogin.Facebook.DialogListener;
+import com.facebook.halo.framework.androidLogin.FacebookError;
+import com.facebook.halo.framework.androidLogin.SessionStore;
 import com.facebook.halo.framework.common.AccessToken;
 
 public class Intro extends Activity {

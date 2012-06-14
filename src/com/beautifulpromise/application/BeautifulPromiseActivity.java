@@ -23,12 +23,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.beautifulpromise.R;
-import com.beautifulpromise.application.addpromise.AddPromiseActivity;
-import com.beautifulpromise.application.feedviewer.PromiseFeedList;
 import com.beautifulpromise.common.Var;
 import com.beautifulpromise.database.NotificationProvider;
-import com.beautifulpromise.facebooklibrary.Facebook;
-import com.beautifulpromise.facebooklibrary.SessionStore;
+import com.facebook.halo.framework.androidLogin.Facebook;
+import com.facebook.halo.framework.androidLogin.SessionStore;
 
 public class BeautifulPromiseActivity extends Activity{
 
