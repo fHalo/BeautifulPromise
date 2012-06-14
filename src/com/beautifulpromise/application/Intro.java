@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.beautifulpromise.R;
+import com.beautifulpromise.application.intro.NotificationService;
 import com.beautifulpromise.common.Var;
 import com.beautifulpromise.common.repository.Repository;
 import com.beautifulpromise.common.utils.MessageUtils;
@@ -45,7 +46,6 @@ public class Intro extends Activity {
 		 * splash activity 
 		 */
 		setContentView(R.layout.intro);
-		
 		//이미 로긴 되있으면 바로 시작(자동 로그인 처리)
 		if(SessionStore.restore(mFacebook, this)) {
 			//TODO
@@ -142,5 +142,11 @@ public class Intro extends Activity {
 			return client.getResult(data);
 		} else 
 			return false;
+	}
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+//		stopService(new Intent(this, NotificationService.class));
 	}
 }

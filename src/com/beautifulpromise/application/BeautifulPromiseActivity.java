@@ -1,16 +1,20 @@
 package com.beautifulpromise.application;
 
+import java.util.Timer;
 import java.util.TimerTask;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.ContentObserver;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -26,9 +30,14 @@ import com.beautifulpromise.R;
 import com.beautifulpromise.application.addpromise.AddPromiseActivity;
 import com.beautifulpromise.application.feedviewer.PromiseFeedList;
 import com.beautifulpromise.common.Var;
+import com.beautifulpromise.common.repository.Repository;
 import com.beautifulpromise.database.NotificationProvider;
 import com.beautifulpromise.facebooklibrary.Facebook;
 import com.beautifulpromise.facebooklibrary.SessionStore;
+import com.facebook.halo.application.types.Notifications;
+import com.facebook.halo.application.types.User;
+import com.facebook.halo.application.types.connection.Friends;
+import com.facebook.halo.framework.core.Connection;
 
 public class BeautifulPromiseActivity extends Activity{
 
@@ -37,7 +46,7 @@ public class BeautifulPromiseActivity extends Activity{
 	ImageButton leftMenuBtn;
 	ImageButton homeBtn;
 	ImageButton notificationBtn;
-	
+	ImageView newImage;
 	ListView notificationListView;
 	
 	LinearLayout notificationLayout;
@@ -59,6 +68,8 @@ public class BeautifulPromiseActivity extends Activity{
 	Cursor cursor;
 	
 	Intent intent;
+	Handler handler;
+	Connection<Notifications> notificaitons;
 		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +80,7 @@ public class BeautifulPromiseActivity extends Activity{
 		leftMenuBtn = (ImageButton) findViewById(R.id.left_menu_button);
 		homeBtn = (ImageButton) findViewById(R.id.home_button);
 		notificationBtn = (ImageButton) findViewById(R.id.notification_button);
+		newImage = (ImageView) findViewById(R.id.new_feeds_image);
 		
 		addPromiseBtn = (LinearLayout) findViewById(R.id.addPromiseLayout);
 		myPromiseBtn = (LinearLayout) findViewById(R.id.myPromiseLayout);
@@ -112,28 +124,29 @@ public class BeautifulPromiseActivity extends Activity{
 //		row.put("fb_id", "114560352018757");
 //		cr.insert(NotificationProvider.CONTENT_URI, row);
 		
-//		Cursor cursor = getContentResolver().query(NotificationProvider.CONTENT_URI, null, null, null, null);
-//		cursor.moveToFirst();
-//		startManagingCursor(cursor);
 		cursor = managedQuery(NotificationProvider.CONTENT_URI, null, null, null, null);
-		TextView text = new TextView(this);
-		text.setText("This is Header");
-		text.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				ContentValues row = new ContentValues();
-				row.put("title", "소지섭 added 4 photos of you.");
-				row.put("send_user_id", "100003943796581");
-				row.put("fb_id", "114560352018757");
-				getContentResolver().insert(NotificationProvider.CONTENT_URI, row);
-//				adapter.notifyDataSetChanged();
-			}
-		});
-		notificationListView.addHeaderView(text);
+//		TextView text = new TextView(this);
+//		text.setText("This is Header");
+//		text.setOnClickListener(new View.OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View v) {
+//				ContentValues row = new ContentValues();
+//				row.put("title", "소지섭 added 4 photos of you.");
+//				row.put("send_user_id", "100003943796581");
+//				row.put("fb_id", "114560352018757");
+//				getContentResolver().insert(NotificationProvider.CONTENT_URI, row);
+////				adapter.notifyDataSetChanged();
+//			}
+//		});
+//		notificationListView.addHeaderView(text);
 		cursor.moveToFirst();
 		adapter = new NotificationAdapter(this, cursor);
 		notificationListView.setAdapter(adapter);
+		
+		handler = new Handler();
+		Timer timer = new Timer();
+		timer.schedule(task, 1000, 10000);
 		
 //		int count = cursor.getCount();
 //		if(count > 0) {
@@ -163,18 +176,13 @@ public class BeautifulPromiseActivity extends Activity{
 				break;
 				
 			case R.id.notification_button:
+				
 				if(notificationLayout.isShown())
 					notificationLayout.setVisibility(View.GONE);
 				else {
+					goneNewImage();
 					notificationLayout.setVisibility(View.VISIBLE);
-//					Log.i("immk", "Timer Start");
-//					Timer timer = new Timer();
-//					timer.schedule(myTask, 1000);
 				}
-				//TODO Test
-//				ContentResolver cr = getContentResolver();
-//				cr.query(NotificationProvider.CONTENT_URI, null, null, null, null);
-				
 				break;	
 				
 			case R.id.addPromiseLayout:
@@ -238,25 +246,57 @@ public class BeautifulPromiseActivity extends Activity{
 		}
 	};
 
-	TimerTask myTask = new TimerTask() {
+//	TimerTask myTask = new TimerTask() {
+//		
+//		@Override
+//		public void run() {
+//			
+//			Log.i("immk", "TimerTask Start");
+//			
+//			ContentResolver cr = getContentResolver();
+////			ContentValues row = new ContentValues();
+////			row.put("title", "Jaemyung Shin commented on 소지섭's photo of you: \"test\"");
+////			row.put("send_user_id", "100001066448386");
+////			row.put("fb_id", "113835812091211");
+////			cr.insert(NotificationProvider.CONTENT_URI, row);
+//			
+//			ContentValues row = new ContentValues();
+//			row.put("title", "소지섭 added 4 photos of you.");
+//			row.put("send_user_id", "100003943796581");
+//			row.put("fb_id", "114560352018757");
+//			cr.insert(NotificationProvider.CONTENT_URI, row);
+//		}
+//	};
+	
+	TimerTask task = new TimerTask() {
 		
 		@Override
 		public void run() {
-			
-			Log.i("immk", "TimerTask Start");
-			
-			ContentResolver cr = getContentResolver();
-//			ContentValues row = new ContentValues();
-//			row.put("title", "Jaemyung Shin commented on 소지섭's photo of you: \"test\"");
-//			row.put("send_user_id", "100001066448386");
-//			row.put("fb_id", "113835812091211");
-//			cr.insert(NotificationProvider.CONTENT_URI, row);
-			
-			ContentValues row = new ContentValues();
-			row.put("title", "소지섭 added 4 photos of you.");
-			row.put("send_user_id", "100003943796581");
-			row.put("fb_id", "114560352018757");
-			cr.insert(NotificationProvider.CONTENT_URI, row);
+			Log.i("immk", "aaaa");
+			User user = Repository.getInstance().getUser();
+			notificaitons = user.notifications();
+			if(notificaitons.getData().size()>0){
+				handler.post(new Runnable() {
+					@Override
+					public void run() {
+						ContentResolver cr = getContentResolver();						
+						for(Notifications notification : notificaitons.getData()){
+							Log.i("immk", "id : " + notification.getId() + " title : " + notification.getTitle());
+//							Uri notiUri = ContentUris.withAppendedId(NotificationProvider.CONTENT_URI, id);
+//							Cursor cursor = cr.query(NotificationProvider.CONTENT_URI, new String[]{"_id"}, "fb_id=?", new String[]{notification.getId()}, null);
+							Cursor cursor = cr.query(NotificationProvider.CONTENT_URI, new String[]{"_id"}, "fb_id=?", new String[]{notification.getId()}, null);
+							if(cursor.getCount()==0){	
+								ContentValues row = new ContentValues();
+								row.put("title", notification.getTitle());
+								row.put("send_user_id", notification.getFrom().getId());
+								row.put("fb_id", notification.getId());
+								cr.insert(NotificationProvider.CONTENT_URI, row);
+								visibleNewImage();
+							}
+						}
+					}
+				});
+			}
 		}
 	};
 	
@@ -300,4 +340,41 @@ public class BeautifulPromiseActivity extends Activity{
 	protected void setActivityLayout(ImageView layout){
 		activityLayout.addView(layout);
 	}
+	
+//	private IRemoteServiceCallback remoteServiceCallback = new IRemoteServiceCallback.Stub() {
+//		
+//		@Override
+//		public String MessageCallback(int message) {
+//			Log.i("immk", "callback : "+message);
+//			return null;
+//		}
+//	};
+//	
+//	private ServiceConnection connection = new ServiceConnection() {
+//		
+//		@Override
+//		public void onServiceConnected(ComponentName name, IBinder service) {
+//			mService = IRemoteService.Stub.asInterface(service);
+//			try {
+//				mService.registerCallback(remoteServiceCallback);
+//			} catch (RemoteException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//		
+//		@Override
+//		public void onServiceDisconnected(ComponentName name) {
+//			mService = null;
+//		}
+//	};
+	
+	public void visibleNewImage(){
+		if(newImage.getVisibility() == View.INVISIBLE)
+			newImage.setVisibility(View.VISIBLE);
+	}
+	public void goneNewImage(){
+		newImage.setVisibility(View.INVISIBLE);
+	}
+	
+	
 }

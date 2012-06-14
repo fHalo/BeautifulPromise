@@ -41,7 +41,6 @@ public class NotificationProvider extends ContentProvider {
 	@Override
 	public Uri insert(Uri uri, ContentValues values) {
 		long id = db.insert(TABLE, null, values);
-		Log.i("immk", ""+id);
 		if(id > 0){
 			Uri notiUri = ContentUris.withAppendedId(CONTENT_URI, id);
 			Log.i("immk", notiUri.toString());
@@ -56,14 +55,13 @@ public class NotificationProvider extends ContentProvider {
 	public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
 		String sql;
 		
-		if(uri.getPathSegments().size() > 1)
-			sql = "SELECT * FROM " + TABLE + " WHERE _id="+uri.getPathSegments().get(1);  // " WHERE _id="+uri.getPathSegments().get(1)
+		if(selectionArgs != null)
+			sql = "SELECT * FROM " + TABLE + " WHERE fb_id='"+selectionArgs[0]+"'";  // " WHERE _id="+uri.getPathSegments().get(1)
 		else
 			sql = "SELECT * FROM " + TABLE ; 
+		Log.i("immk", sql);
 		Cursor cursor = db.rawQuery(sql, null);
 		cursor.setNotificationUri(getContext().getContentResolver(), uri);
-		
-		Log.i("immk", "test : " + sql);
 		return cursor;
 	}
 

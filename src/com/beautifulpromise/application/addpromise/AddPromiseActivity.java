@@ -7,14 +7,10 @@ import java.util.List;
 
 import android.app.Dialog;
 import android.app.TimePickerDialog;
-import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -27,16 +23,12 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.beautifulpromise.R;
 import com.beautifulpromise.common.dto.AddPromiseDTO;
 import com.beautifulpromise.common.repository.Repository;
 import com.beautifulpromise.common.utils.DateUtils;
 import com.beautifulpromise.common.utils.ImageUtils;
-import com.beautifulpromise.database.DatabaseHelper;
-import com.beautifulpromise.database.GoalsDAO;
-import com.beautifulpromise.parser.Controller;
 import com.facebook.halo.application.types.User;
 import com.facebook.halo.application.types.connection.Friends;
 import com.facebook.halo.framework.core.Connection;
@@ -375,6 +367,7 @@ public class AddPromiseActivity extends MapActivity {
 	}
 
 	public Bitmap getHelperImage() {
+		helperGrid.setDrawingCacheEnabled(false);
 		return ImageUtils.capture(helperGrid);
 	}
 	
@@ -458,5 +451,40 @@ public class AddPromiseActivity extends MapActivity {
 		default:
 			break;
 		}
+	}
+	
+	public void setRepeatDay(boolean[] dayArr){
+		promiseDTO.setDayPeriod(dayArr);
+		String day = "";
+		if(dayArr[0]){
+			day += "월 ";
+		}
+		if(dayArr[1]){
+			day += "화 ";
+		}
+		if(dayArr[2]){
+			day += "수 ";
+		}
+		if(dayArr[3]){
+			day += "목 ";
+		}
+		if(dayArr[4]){
+			day += "금 ";
+		}
+		if(dayArr[5]){
+			day += "토 ";
+		}
+		if(dayArr[6]){
+			day += "일 ";
+		}
+		
+		if(day.equals("월 화 수 목 금 토 일 "))
+			dayRepeatText.setText("매일");
+		else if(day.equals("월 화 수 목 금 "))
+			dayRepeatText.setText("주중");
+		else if(day.equals("토 일 "))
+			dayRepeatText.setText("주말");
+		else 
+			dayRepeatText.setText(day);
 	}
 }

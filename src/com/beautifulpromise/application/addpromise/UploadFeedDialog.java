@@ -111,6 +111,7 @@ public class UploadFeedDialog extends Dialog{
             helperLayout.setBackgroundDrawable(ImageUtils.bitmapToDrawable(bitmap));
             
             okayBtn.setOnClickListener(buttonClickListener);
+            cancelBtn.setOnClickListener(buttonClickListener);
             progressLayout.setVisibility(View.GONE);
             dialog.setContentView(layout);			
             return dialog;

@@ -13,6 +13,7 @@ import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -72,9 +73,13 @@ public class DonationDialog extends Dialog{
 
 			@Override
 			public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+				if( promiseDTO.getDonation()!=null){
+					int prevPosition = promiseDTO.getDonation().getId()-1;
+					adapterView.getChildAt(prevPosition).setBackgroundResource(R.drawable.popup_bg_white_plate);
+				}
 				DonationDTO donation = (DonationDTO) adapterView.getAdapter().getItem(position);
+				adapterView.getChildAt(position).setBackgroundResource(R.drawable.popup_bg_green_plate);
 				promiseDTO.setDonation(donation);
-				Toast.makeText(context, ""+position, Toast.LENGTH_SHORT).show();
 			}
 		};
 

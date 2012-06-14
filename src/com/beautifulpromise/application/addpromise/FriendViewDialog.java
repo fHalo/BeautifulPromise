@@ -62,6 +62,7 @@ public class FriendViewDialog extends Dialog{
 
             friendList.setItemsCanFocus(true);
             friendList.setAdapter(adapter);
+            friendList.setDividerHeight(0);
          
             friendList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
             

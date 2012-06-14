@@ -92,6 +92,15 @@
             android:authorities="com.beautifulpromise.database" >
         </provider>
 
+<!-- <service 
+            android:name = ".application.intro.NotificationService" android:process=":remote">
+            <intent-filter>
+                <action android:name="com.beautifulpromise.applicaiton.intro.IRemoteService"/>
+                <action android:name="com.beautifulpromise.applicaiton.intro.REMOTE_SERVICE"/>
+            </intent-filter>
+        </service> -->        
+        
+
         <receiver android:name=".common.alarm.AlarmReceiver" >>
         </receiver>
     </application>

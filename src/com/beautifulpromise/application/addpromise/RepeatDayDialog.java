@@ -144,76 +144,76 @@ public class RepeatDayDialog extends Dialog{
 					
 				case R.id.monday_button:
 					if(dayArr[0]){
-						mondayBtn.setBackgroundResource(R.drawable.popup_create_box1_selection);
+						mondayBtn.setBackgroundResource(R.drawable.popup_create_box1_nonselection);
 						dayArr[0] = false;
 					}else{
-						mondayBtn.setBackgroundResource(R.drawable.popup_create_box1_nonselection);
+						mondayBtn.setBackgroundResource(R.drawable.popup_create_box1_selection);
 						dayArr[0] = true;
 					}
 					break;
 					
 				case R.id.tuesday_button:
 					if(dayArr[1]){
-						tuesdayBtn.setBackgroundResource(R.drawable.popup_create_box1_selection);
+						tuesdayBtn.setBackgroundResource(R.drawable.popup_create_box1_nonselection);
 						dayArr[1] = false;
 					}else{
-						tuesdayBtn.setBackgroundResource(R.drawable.popup_create_box1_nonselection);
+						tuesdayBtn.setBackgroundResource(R.drawable.popup_create_box1_selection);
 						dayArr[1] = true;
 					}
 					break;
 					
 				case R.id.wednesday_button:
 					if(dayArr[2]){
-						wednesdayBtn.setBackgroundResource(R.drawable.popup_create_box1_selection);
+						wednesdayBtn.setBackgroundResource(R.drawable.popup_create_box1_nonselection);
 						dayArr[2] = false;
 					}else{
-						wednesdayBtn.setBackgroundResource(R.drawable.popup_create_box1_nonselection);
+						wednesdayBtn.setBackgroundResource(R.drawable.popup_create_box1_selection);
 						dayArr[2] = true;
 					}
 					break;
 					
 				case R.id.thursday_button:
 					if(dayArr[3]){
-						thursdayBtn.setBackgroundResource(R.drawable.popup_create_box1_selection);
+						thursdayBtn.setBackgroundResource(R.drawable.popup_create_box1_nonselection);
 						dayArr[3] = false;
 					}else{
-						thursdayBtn.setBackgroundResource(R.drawable.popup_create_box1_nonselection);
+						thursdayBtn.setBackgroundResource(R.drawable.popup_create_box1_selection);
 						dayArr[3] = true;
 					}
 					break;
 					
 				case R.id.friday_button:
 					if(dayArr[4]){
-						fridayBtn.setBackgroundResource(R.drawable.popup_create_box1_selection);
+						fridayBtn.setBackgroundResource(R.drawable.popup_create_box1_nonselection);
 						dayArr[4] = false;
 					}else{
-						fridayBtn.setBackgroundResource(R.drawable.popup_create_box1_nonselection);
+						fridayBtn.setBackgroundResource(R.drawable.popup_create_box1_selection);
 						dayArr[4] = true;
 					}
 					break;
 					
 				case R.id.saturday_button:
 					if(dayArr[5]){
-						saturdayBtn.setBackgroundResource(R.drawable.popup_create_box1_selection);
+						saturdayBtn.setBackgroundResource(R.drawable.popup_create_box1_nonselection);
 						dayArr[5] = false;
 					}else{
-						saturdayBtn.setBackgroundResource(R.drawable.popup_create_box1_nonselection);
+						saturdayBtn.setBackgroundResource(R.drawable.popup_create_box1_selection);
 						dayArr[5] = true;
 					}
 					break;
 					
 				case R.id.sunday_button:
 					if(dayArr[6]){
-						sundayBtn.setBackgroundResource(R.drawable.popup_create_box1_selection);
+						sundayBtn.setBackgroundResource(R.drawable.popup_create_box1_nonselection);
 						dayArr[6] = false;
 					}else{
-						sundayBtn.setBackgroundResource(R.drawable.popup_create_box1_nonselection);
+						sundayBtn.setBackgroundResource(R.drawable.popup_create_box1_selection);
 						dayArr[6] = true;
 					}
 					break;
 					
 				case R.id.okay_button:
-					((AddPromiseActivity)context).promiseDTO.setDayPeriod(dayArr);
+					((AddPromiseActivity)context).setRepeatDay(dayArr);
 					dialog.dismiss();
 					break;
 					

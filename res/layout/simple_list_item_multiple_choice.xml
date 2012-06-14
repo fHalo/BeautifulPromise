@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2008 The Android Open Source Project
+<!--
+     Copyright (C) 2008 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -12,17 +13,21 @@
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
+     
+     ?android:attr/listPreferredItemHeight
+     ?android:attr/textAppearanceLarge
 -->
 
 <CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@android:id/text1"
     android:layout_width="fill_parent"
-    android:layout_height="?android:attr/listPreferredItemHeight"
-    android:textAppearance="?android:attr/textAppearanceLarge"
-    android:gravity="center_vertical"
+    android:layout_height="40dp"
+    android:background="@drawable/popup_create_box1"
     android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+    android:divider="#00000000"
+    android:dividerHeight="3dp"
+    android:gravity="center_vertical"
     android:paddingLeft="6dip"
     android:paddingRight="6dip"
     android:textColor="#FF585858"
-    android:background="@drawable/popup_create_box1"
-/>
+    android:textSize="15dp" />

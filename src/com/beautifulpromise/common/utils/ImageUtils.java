@@ -124,7 +124,6 @@ public class ImageUtils {
 	}
 	
 	public static Bitmap capture(View view) {
-
 		view.setDrawingCacheEnabled(true);
 		return view.getDrawingCache();
 

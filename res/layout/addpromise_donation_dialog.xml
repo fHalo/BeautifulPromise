@@ -17,7 +17,7 @@
     
     <ListView 
         android:layout_width="fill_parent"
-        android:layout_height="260dp"
+        android:layout_height="325dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:cacheColorHint="#00000000"

@@ -8,16 +8,16 @@
     <TextView 
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text = "친구를 선택해주세요. (최대 5명)"
+        android:text = "친구를 선택해주세요."
         android:textColor="#FF585858"
         android:gravity="center"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="15dp"
-        android:textSize="17dp"/>
+        android:textSize="20dp"/>
     
     <ListView 
         android:layout_width="fill_parent"
-        android:layout_height="211dp"
+        android:layout_height="208dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:cacheColorHint="#00000000"
