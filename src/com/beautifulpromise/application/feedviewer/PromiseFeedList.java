@@ -13,7 +13,6 @@ import android.widget.ListView;
 
 import com.beautifulpromise.R;
 import com.beautifulpromise.application.BeautifulPromiseActivity;
-import com.beautifulpromise.application.feedviewer.adapter.FeedListAdapter;
 import com.beautifulpromise.common.repository.Repository;
 import com.beautifulpromise.parser.Controller;
 import com.facebook.halo.application.types.Post;
@@ -73,7 +72,6 @@ public class PromiseFeedList extends BeautifulPromiseActivity{
 		toDoList = new ArrayList<String>();
 		user = Repository.getInstance().getUser();
 		ctrl = new Controller();
-		feed = new Post();
 		intent = getIntent();
 		
 		isCheck = intent.getBooleanExtra("isCheck", false);
@@ -96,14 +94,20 @@ public class PromiseFeedList extends BeautifulPromiseActivity{
 				toDoList = ctrl.GetCheckList(feedId);
 			} else { //me, helper, all 경우
 				//서버에서 피드 리스트 가져옴
-				toDoList = ctrl.GetTodoList(mode);				
+				toDoList = ctrl.GetTodoList(mode);		
+				Log.e("toDoList mode :" + mode, "" + toDoList);
 			}
 			
 			//가져온 데이터를 arrayList에 담음
 			for(String s : toDoList) {
+				Log.e("s : ", "" + s);
+				feed = new Post();
 				feed = feed.createInstance(s);
-				feedItem = new FeedItemDTO(feed);
-				arrayFeedItem.add(feedItem);
+				Log.e("feed : ", "" + feed);
+				if(feed != null ) {
+					feedItem = new FeedItemDTO(feed);
+					arrayFeedItem.add(feedItem);
+				}
 			}
 			
 //	        Post feed = new Post();

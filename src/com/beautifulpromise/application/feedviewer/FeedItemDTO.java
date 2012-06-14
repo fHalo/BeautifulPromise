@@ -1,17 +1,16 @@
 package com.beautifulpromise.application.feedviewer;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.util.List;
 
-import com.facebook.halo.application.types.Comment;
 import com.facebook.halo.application.types.Post;
 import com.facebook.halo.application.types.Post.Comments;
 import com.facebook.halo.application.types.Post.Likes;
 import com.facebook.halo.application.types.User;
-import com.facebook.halo.application.types.infra.NamedFacebookType;
-import com.facebook.halo.framework.core.Connection;
 
-public class FeedItemDTO {
+public class FeedItemDTO implements Serializable {
+	
+	private static final long serialVersionUID = 6025863160122617608L;
 	
 	private String id;
 	private String profileImagePath;

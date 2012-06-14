@@ -22,7 +22,6 @@ import android.widget.TextView;
 
 import com.beautifulpromise.R;
 import com.beautifulpromise.application.BeautifulPromiseActivity;
-import com.beautifulpromise.application.feedviewer.adapter.ReplyListAdapter;
 import com.beautifulpromise.common.repository.Repository;
 import com.beautifulpromise.common.utils.ImageUtils;
 import com.beautifulpromise.common.utils.WebViewManager;
@@ -94,11 +93,12 @@ public class FeedWithReply extends BeautifulPromiseActivity{
 			public void onClick(View v) {
 				//공백이 아닐경우 댓글등록
 				String reply = replyText.getText().toString();
-				if(!reply.equals(""))
+				if(!reply.equals("")) {
 					commentId = feed.publishComment(reply);
-				
-				//댓글 단 후 list refresh
-				refreshReplyList();
+					
+					//댓글 단 후 list refresh
+					refreshReplyList();
+				}
 			}
 		});
 	}
@@ -159,6 +159,7 @@ public class FeedWithReply extends BeautifulPromiseActivity{
 	        feed = new Post();
 	        feed = feed.createInstance(feedId);
 	        feedItem = new FeedItemDTO(feed);
+			
 	        
 	        //feed의 댓글들 comment list에 삽입
 	        Connection<Comment> comments = feed.comments();

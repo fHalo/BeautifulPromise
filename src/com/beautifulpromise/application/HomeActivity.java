@@ -127,21 +127,24 @@ public class HomeActivity extends BeautifulPromiseActivity {
 			int position = (Integer) v.getTag();
 
 			AddPromiseDTO promiseObject = getItem(position);
-			Intent intent;
+			Intent intent = new Intent();
 
 			Bundle extras = new Bundle();
 			extras.putSerializable("PromiseDTO", promiseObject);
 
 			// 주기(GPS)
 			if (promiseObject.getCategoryId() == 0) {
-				intent = new Intent(HomeActivity.this, CycleCheckActivity.class);
+//				intent = new Intent(HomeActivity.this, CycleCheckActivity.class);
+				intent.setAction("checkpromise.CycleCheckActivity");
 			}
 			// 운동/공부 (타이머)
 			else if (promiseObject.getCategoryId() == 1) {
-				intent = new Intent(HomeActivity.this, WorkCheckActivity.class);
+//				intent = new Intent(HomeActivity.this, WorkCheckActivity.class);
+				intent.setAction("checkpromise.WorkCheckActivity");
 			}
 			else {
-				intent = new Intent(HomeActivity.this, EtcCheckActivity.class);
+//				intent = new Intent(HomeActivity.this, EtcCheckActivity.class);
+				intent.setAction("checkpromise.EtcCheckActivity");
 			}
 			intent.putExtras(extras);
 			startActivityForResult(intent, 0);

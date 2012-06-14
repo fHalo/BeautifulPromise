@@ -150,16 +150,15 @@ public class BeautifulPromiseActivity extends Activity{
 			case R.id.left_menu_button:
 					if(!Var.menuShowFlag){
 						mySmoothScrollTo(0, 0);
-						Var.menuShowFlag = true;
 					}else{
 						mySmoothScrollTo(leftWidth, 0);
-						Var.menuShowFlag = false;
 					}
 				break;
 
 			case R.id.home_button:
 				intent.setAction("HomeActivity");
 				startActivity(intent);
+				finish();
 				break;
 				
 			case R.id.notification_button:
@@ -179,38 +178,36 @@ public class BeautifulPromiseActivity extends Activity{
 				
 			case R.id.addPromiseLayout:
 				mySmoothScrollTo(leftWidth, 0);
-				Var.menuShowFlag = false;
 				intent.setAction("addpromise.AddPromiseActivity");
 				startActivity(intent);
 				break;
 
 			case R.id.myPromiseLayout:
+				mySmoothScrollTo(leftWidth, 0);
 				intent.setAction("feedviewer.PromiseFeedList");
 				intent.putExtra("mode", "me");
-				Var.menuShowFlag = false;
 				startActivity(intent);
 				break;
 				
 			case R.id.helperPromiseLayout:
+				mySmoothScrollTo(leftWidth, 0);
 				intent.setAction("feedviewer.PromiseFeedList");
 				intent.putExtra("mode", "helper");
-				Var.menuShowFlag = false;
 				startActivity(intent);
 				break;
 				
 			case R.id.friendPromiseLayout:
+				mySmoothScrollTo(leftWidth, 0);
 				intent.setAction("feedviewer.PromiseFeedList");
-				intent.putExtra("mode", "helper");
-				Var.menuShowFlag = false;
+				intent.putExtra("mode", "all");
 				startActivity(intent);
 				break;
 				
 			case R.id.pointShopLayout:
-				Var.menuShowFlag = false;
+				mySmoothScrollTo(leftWidth, 0);
 				break;
 				
 			case R.id.accountLayout:
-				Var.menuShowFlag = false;
 				//logout dialog
 				new AlertDialog.Builder(BeautifulPromiseActivity.this)
 				.setTitle("로그아웃")
@@ -279,10 +276,8 @@ public class BeautifulPromiseActivity extends Activity{
 		if (x <= leftWidth) {	
 			if (x <= leftWidth /2) { 			// 왼쪽 메뉴 보이게
 				mySmoothScrollTo(0, y);
-				Var.menuShowFlag = true;
 			} else {							// 왼쪽 메뉴 사라지게
 				mySmoothScrollTo(leftWidth, y);
-				Var.menuShowFlag = false;
 			}
 		}
 	}
@@ -291,6 +286,11 @@ public class BeautifulPromiseActivity extends Activity{
 		hscroll.post(new Runnable() {
 			@Override
 			public void run() {
+				if(x == 0)
+					Var.menuShowFlag = true;
+				else
+					Var.menuShowFlag = false;
+				
 				hscroll.smoothScrollTo(x, y);
 			}
 		});
