@@ -51,6 +51,7 @@ public class WorkCheckFeedActivity extends Activity{
 	Button PostBtn;
 	Button CameraBtn;
 	
+	Intent intent;
 	AddPromiseDTO promiseobject;
 	
 	public void onCreate(Bundle savedInstanceState) 
@@ -175,7 +176,7 @@ public class WorkCheckFeedActivity extends Activity{
 					checkDAO.feedcheckupdate(promiseobject.getPostId(), 1);
 					checkDAO.close();
 					
-					Intent intent = new Intent(WorkCheckFeedActivity.this, HomeActivity.class);
+					intent.setAction("HomeActivity");
 					startActivity(intent);
 					
 					Toast.makeText(WorkCheckFeedActivity.this, "성공",

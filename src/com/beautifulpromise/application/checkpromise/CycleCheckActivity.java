@@ -68,6 +68,7 @@ public class CycleCheckActivity extends MapActivity {
 	TextView MapHour_TextView;
 	EditText Feed_EditBox;
 	Button Post_Btn;
+	Intent intent;
 	
 	LinearLayout MapView_LinearLayout;
 
@@ -143,6 +144,7 @@ public class CycleCheckActivity extends MapActivity {
 			Location = checkDAO.getGPS(promiseobject.getPostId());
 			Latitude=Location[0];
 			Longitude=Location[1];
+			checkDAO.close();
 			
 			// 위도 경로 입력
 			GeoPoint gp = new GeoPoint((int) (Latitude * 1000000),
@@ -250,7 +252,7 @@ public class CycleCheckActivity extends MapActivity {
 					checkDAO.feedcheckupdate(promiseobject.getPostId(), 1);
 					checkDAO.close();
 					
-					Intent intent = new Intent(CycleCheckActivity.this, HomeActivity.class);
+					intent.setAction("HomeActivity");
 					startActivity(intent);
 					finish();
 				} else {

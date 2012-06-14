@@ -13,7 +13,6 @@ import android.widget.ListView;
 
 import com.beautifulpromise.R;
 import com.beautifulpromise.application.BeautifulPromiseActivity;
-import com.beautifulpromise.application.feedviewer.adapter.FeedListAdapter;
 import com.beautifulpromise.common.repository.Repository;
 import com.beautifulpromise.parser.Controller;
 import com.facebook.halo.application.types.Post;
@@ -40,10 +39,14 @@ public class PromiseFeedList extends BeautifulPromiseActivity{
 	
 	//progress bar
 	LinearLayout feedProgressLayout;
+
+	LinearLayout feedListLayout;
 	
 	Intent intent;
 	String mode;
-	LinearLayout feedListLayout;
+	String feedId;
+	boolean isCheck;
+	
 	FeedListAdapter feedListAdapter;
 	ListView feedList;
 	
@@ -69,11 +72,11 @@ public class PromiseFeedList extends BeautifulPromiseActivity{
 		toDoList = new ArrayList<String>();
 		user = Repository.getInstance().getUser();
 		ctrl = new Controller();
-		feed = new Post();
 		intent = getIntent();
 		
-//		mode = intent.getStringExtra("mode");
-		mode = "me";
+		isCheck = intent.getBooleanExtra("isCheck", false);
+		mode = intent.getStringExtra("mode");
+		feedId = intent.getStringExtra("feedId");
 		
 		//progress bar
 		feedProgressLayout = (LinearLayout) findViewById(R.id.feedProgressLayout);
@@ -86,28 +89,39 @@ public class PromiseFeedList extends BeautifulPromiseActivity{
 
 		@Override
 		protected Long doInBackground(URL... params) {
-//			//서버에서 자신의 피드 리스트 가져옴
-//			toDoList = ctrl.GetTodoList(mode);
-//			
-//			//가져온 데이터를 arrayList에 담음
-//			for(String s : toDoList) {
-//				feed = feed.createInstance(s);
-//				feedItem = new FeedItemDTO(feed);
-//				arrayFeedItem.add(feedItem);
-//			}
+			if(isCheck) { //약속일지 피드 뿌려주는 부분일경우
+				Log.e("FEED id ", feedId);
+				toDoList = ctrl.GetCheckList(feedId);
+			} else { //me, helper, all 경우
+				//서버에서 피드 리스트 가져옴
+				toDoList = ctrl.GetTodoList(mode);		
+				Log.e("toDoList mode :" + mode, "" + toDoList);
+			}
 			
-	        Post feed = new Post();
-	        feed = feed.createInstance("114940478645556");
-	        feedItem = new FeedItemDTO(feed);
-	        arrayFeedItem.add(feedItem);
-	        feedItem = new FeedItemDTO(feed);
-	        arrayFeedItem.add(feedItem);
-	        feedItem = new FeedItemDTO(feed);
-	        arrayFeedItem.add(feedItem);
-	        
-//	        ctrl.PublishCheck("114940478645556", "11494047864555");
-//	        toDoList = ctrl.GetCheckList("114940478645556");
-	        Log.e("CHECK", "" + toDoList);
+			//가져온 데이터를 arrayList에 담음
+			for(String s : toDoList) {
+				Log.e("s : ", "" + s);
+				feed = new Post();
+				feed = feed.createInstance(s);
+				Log.e("feed : ", "" + feed);
+				if(feed != null ) {
+					feedItem = new FeedItemDTO(feed);
+					arrayFeedItem.add(feedItem);
+				}
+			}
+			
+//	        Post feed = new Post();
+//	        feed = feed.createInstance("114940478645556");
+//	        feedItem = new FeedItemDTO(feed);
+//	        arrayFeedItem.add(feedItem);
+//	        
+//	        feed = feed.createInstance("374610762596551");
+//	        feedItem = new FeedItemDTO(feed);
+//	        arrayFeedItem.add(feedItem);
+//	        
+//	        feed = feed.createInstance("114940478645556");
+//	        feedItem = new FeedItemDTO(feed);
+//	        arrayFeedItem.add(feedItem);
 	        
 			return null;
 		}
@@ -119,7 +133,7 @@ public class PromiseFeedList extends BeautifulPromiseActivity{
 			feedList.setVisibility(View.VISIBLE);
 			
 			//adapter 생성 후 레이아웃&데이터 세팅
-			feedListAdapter = new FeedListAdapter(getApplicationContext(), R.layout.feedviewer_feed_item, arrayFeedItem, mode);
+			feedListAdapter = new FeedListAdapter(getApplicationContext(), R.layout.feedviewer_feed_item, arrayFeedItem, mode, isCheck);
 			
 			//list view 와 adapter 연결
 			feedList.setAdapter(feedListAdapter);

@@ -1,4 +1,4 @@
-package com.beautifulpromise.application.feedviewer.adapter;
+package com.beautifulpromise.application.feedviewer;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

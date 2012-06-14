@@ -47,7 +47,7 @@ public class Alarm {
 //				calendar.set(calendar.getTime().getYear(), calendar.getTime().getMonth(), calendar.getTime().getDay(), Promise.getTime(), Promise.getMin());
 //				calendar.set(2012,5,10,17,18);
 				calendar.setTimeInMillis(System.currentTimeMillis());
-				calendar.add(Calendar.SECOND, 5);
+				calendar.add(Calendar.SECOND, 10);
 
 				// 알람 등록
 				am.set(AlarmManager.RTC, calendar.getTimeInMillis(), sender);
@@ -68,7 +68,7 @@ public class Alarm {
 //				calendar.set(2012,5,10,17,18);
 				Log.e("ou", Integer.toString(calendar.getTime().getYear())+ Integer.toString(calendar.getTime().getMonth())+ Integer.toString(calendar.getTime().getDay())+Integer.toString(Promise.getTime()) +Integer.toString(Promise.getMin()));
 				calendar.setTimeInMillis(System.currentTimeMillis());
-//				calendar.add(Calendar.SECOND, 5);
+				calendar.add(Calendar.SECOND, 15);
 
 				// 알람 등록
 				am.set(AlarmManager.RTC, calendar.getTimeInMillis(), sender);

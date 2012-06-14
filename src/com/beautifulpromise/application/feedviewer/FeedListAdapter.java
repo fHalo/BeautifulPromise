@@ -1,4 +1,4 @@
-package com.beautifulpromise.application.feedviewer.adapter;
+package com.beautifulpromise.application.feedviewer;
 
 import java.util.ArrayList;
 
@@ -6,11 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.BaseAdapter;
@@ -19,9 +16,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.beautifulpromise.R;
-import com.beautifulpromise.application.feedviewer.FeedItemDTO;
-import com.beautifulpromise.application.feedviewer.FeedWithReply;
-import com.beautifulpromise.application.feedviewer.PromiseLogList;
 import com.beautifulpromise.common.repository.Repository;
 import com.beautifulpromise.common.utils.ImageUtils;
 import com.beautifulpromise.common.utils.WebViewManager;
@@ -35,27 +29,32 @@ public class FeedListAdapter extends BaseAdapter {
 	ArrayList<FeedItemDTO> arrayListFeedItem;
 	int layout;
 	String url;
-	User user;
+	String mode;
+	User user = new User();
 	boolean isFriendFeed = false;
 	boolean isMine;
+	boolean isCheck;
 	Connection<Friends> friends;
+	Intent intent = new Intent();
 	
 	
-	public FeedListAdapter(Context context, int layout, ArrayList<FeedItemDTO> arrayListFeedItem, String mode) {
+	public FeedListAdapter(Context context, int layout, ArrayList<FeedItemDTO> arrayListFeedItem, String mode, Boolean isCheck) {
 		this.context = context;
 		this.inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		this.layout = layout;
 		this.arrayListFeedItem = arrayListFeedItem;
+		this.mode = mode;
+		this.isCheck = isCheck;
 		
 		//자신의 피드리스트 보기 일경우
 		if(mode.equals("me")) {
 			isMine = true;
+		} else {
+			isMine = false;
 			
 			//친구리스트 받아오기
 			user = Repository.getInstance().getUser();
 			friends = user.friends();
-		} else {
-			isMine = false;
 		}
 			
 	}
@@ -118,7 +117,7 @@ public class FeedListAdapter extends BaseAdapter {
 		if(arrayListFeedItem.get(position).getPhotoImagePath() == null)
 			photoImage.setVisibility(View.GONE);
 		else {
-			Log.e("position : " + position, arrayListFeedItem.get(position).getPhotoImagePath());
+//			Log.e("position : " + position, arrayListFeedItem.get(position).getPhotoImagePath());
 			url = ImageUtils.webViewImageReSize(arrayListFeedItem.get(position).getPhotoImagePath());
 			photoImage.loadDataWithBaseURL(null, url, "text/html", "utf-8", null);
 //			Log.e("EE", "H:" + photoImage.getHeight() + "// w : " + photoImage.getWidth());
@@ -145,7 +144,7 @@ public class FeedListAdapter extends BaseAdapter {
 			RelativeLayout viewerBottom = (RelativeLayout)convertView.findViewById(R.id.feedViewerBottom);
 			viewerBottom.setOnClickListener(new RelativeLayout.OnClickListener() {
 				public void onClick(View v) {
-					Intent intent = new Intent(context, FeedWithReply.class);
+					intent.setAction("feedviewer.FeedWithReply");
 					intent.putExtra("feedId", arrayListFeedItem.get(position).getId());
 					intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 					context.startActivity(intent);
@@ -163,13 +162,23 @@ public class FeedListAdapter extends BaseAdapter {
 		
 		//promise log click listener
 		TextView promiseLog = (TextView) convertView.findViewById(R.id.promiseLogText);
-		promiseLog.setOnClickListener(new TextView.OnClickListener() {
-			public void onClick(View v) {
-				Intent intent = new Intent(context, PromiseLogList.class);
-				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				context.startActivity(intent);
-			}
-		});
+		ImageView promiseLogImage = (ImageView) convertView.findViewById(R.id.promiseLogImage);
+
+		if(isCheck) { //check List 에서 Feed list 볼때
+			promiseLog.setVisibility(View.GONE);
+			promiseLogImage.setVisibility(View.GONE);
+		} else {
+			promiseLog.setOnClickListener(new TextView.OnClickListener() {
+				public void onClick(View v) {
+					intent.setAction("feedviewer.PromiseFeedList");
+					intent.putExtra("mode", mode);
+					intent.putExtra("isCheck", true);
+					intent.putExtra("feedId", arrayListFeedItem.get(position).getId());
+					intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+					context.startActivity(intent);
+				}
+			});
+		}
 		
 		return convertView;
 	}
@@ -182,6 +191,10 @@ public class FeedListAdapter extends BaseAdapter {
 	 * @return 친구의 피드면 true, 아니면 false
 	 */
 	private boolean isFriendFeed(String id) {
+		//자신의 피드면 true return
+		if(id.equals(user.getId()))
+			return true;
+		
 		for(int i = 0; i < friends.getData().size(); i++) {
 			if(friends.getData().get(i).getId().equals(id)) 
 				return true;

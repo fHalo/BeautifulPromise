@@ -34,6 +34,8 @@ public class Intro extends Activity {
 	Facebook mFacebook;
 	
 	Button loginButton;
+	
+	Intent intent = new Intent();
 
 	
 	@Override
@@ -51,7 +53,7 @@ public class Intro extends Activity {
 			//TODO
 			AccessToken.setAccessToken(mFacebook.getAccessToken());
 			loadHandler.sendEmptyMessage(0);
-			handler.sendEmptyMessageDelayed(0, 2000);
+			handler.sendEmptyMessageDelayed(0, 3000);
 		} else {
 			//Login Button
 			loginButton = (Button) findViewById(R.id.loginButton);
@@ -68,7 +70,8 @@ public class Intro extends Activity {
 			finish();
             if(setNewMember())
             	Toast.makeText(Intro.this, "Success", Toast.LENGTH_SHORT).show();
-			startActivity(new Intent(Intro.this, HomeActivity.class));
+            intent.setAction("HomeActivity");
+            startActivity(intent);
 		}
 	};
 
@@ -94,7 +97,8 @@ public class Intro extends Activity {
                     Repository.getInstance().setUser();
                     if(setNewMember())
                     	Toast.makeText(Intro.this, "Success", Toast.LENGTH_SHORT).show();
-                	startActivity(new Intent(Intro.this, HomeActivity.class));
+                	intent.setAction("HomeActivity");
+                    startActivity(intent);
                 	finish();
                 }
     
