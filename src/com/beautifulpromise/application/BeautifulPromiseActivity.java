@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.widget.AdapterView;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -110,36 +111,9 @@ public class BeautifulPromiseActivity extends Activity{
 		hscroll.setOnTouchListener(hscrollTouchListener);
 		
 		notificationLayout.setVisibility(View.GONE);
-		
-		//TODO Test
-//		ContentValues row = new ContentValues();
-//		row.put("title", "Jaemyung Shin commented on 소지섭's photo of you: \"test\"");
-//		row.put("send_user_id", "100001066448386");
-//		row.put("fb_id", "113835812091211");
-//		getContentResolver().insert(NotificationProvider.CONTENT_URI, row);
-		
-//		ContentValues row = new ContentValues();
-//		row.put("title", "소지섭 added 4 photos of you.");
-//		row.put("send_user_id", "100003943796581");
-//		row.put("fb_id", "114560352018757");
-//		cr.insert(NotificationProvider.CONTENT_URI, row);
-		
+	
 		cursor = managedQuery(NotificationProvider.CONTENT_URI, null, null, null, null);
-//		TextView text = new TextView(this);
-//		text.setText("This is Header");
-//		text.setOnClickListener(new View.OnClickListener() {
-//			
-//			@Override
-//			public void onClick(View v) {
-//				ContentValues row = new ContentValues();
-//				row.put("title", "소지섭 added 4 photos of you.");
-//				row.put("send_user_id", "100003943796581");
-//				row.put("fb_id", "114560352018757");
-//				getContentResolver().insert(NotificationProvider.CONTENT_URI, row);
-////				adapter.notifyDataSetChanged();
-//			}
-//		});
-//		notificationListView.addHeaderView(text);
+
 		cursor.moveToFirst();
 		adapter = new NotificationAdapter(this, cursor);
 		notificationListView.setAdapter(adapter);
@@ -148,12 +122,14 @@ public class BeautifulPromiseActivity extends Activity{
 //		Timer timer = new Timer();
 //		timer.schedule(task, 1000, 10000);
 		
-//		int count = cursor.getCount();
-//		if(count > 0) {
-//			startManagingCursor(cursor);
-//			NotificationAdapter adapter = new NotificationAdapter(this, cursor);
-//			notificationListView.setAdapter(adapter);
-//		}
+//		notificationListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//
+//			@Override
+//			public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+//				
+//			}
+//			
+//		});
 	} 
 	
 	View.OnClickListener clickLisetner = new View.OnClickListener() {
@@ -176,10 +152,12 @@ public class BeautifulPromiseActivity extends Activity{
 				
 			case R.id.notification_button:
 				
-				if(notificationLayout.isShown())
+				if(notificationLayout.isShown()){
 					notificationLayout.setVisibility(View.GONE);
-				else {
+					notificationLayout.setVisibility(View.GONE);
+				} else {
 					goneNewImage();
+					notificationLayout.setVisibility(View.VISIBLE);
 					notificationLayout.setVisibility(View.VISIBLE);
 				}
 				break;	
@@ -219,7 +197,6 @@ public class BeautifulPromiseActivity extends Activity{
 				break;
 				
 			case R.id.accountLayout:
-				//logout dialog
 				new AlertDialog.Builder(BeautifulPromiseActivity.this)
 				.setTitle("로그아웃")
 				.setMessage("로그아웃 하시겠습니까?")
@@ -249,33 +226,10 @@ public class BeautifulPromiseActivity extends Activity{
 		}
 	};
 
-//	TimerTask myTask = new TimerTask() {
-//		
-//		@Override
-//		public void run() {
-//			
-//			Log.i("immk", "TimerTask Start");
-//			
-//			ContentResolver cr = getContentResolver();
-////			ContentValues row = new ContentValues();
-////			row.put("title", "Jaemyung Shin commented on 소지섭's photo of you: \"test\"");
-////			row.put("send_user_id", "100001066448386");
-////			row.put("fb_id", "113835812091211");
-////			cr.insert(NotificationProvider.CONTENT_URI, row);
-//			
-//			ContentValues row = new ContentValues();
-//			row.put("title", "소지섭 added 4 photos of you.");
-//			row.put("send_user_id", "100003943796581");
-//			row.put("fb_id", "114560352018757");
-//			cr.insert(NotificationProvider.CONTENT_URI, row);
-//		}
-//	};
-	
 	TimerTask task = new TimerTask() {
 		
 		@Override
 		public void run() {
-			Log.i("immk", "aaaa");
 			User user = Repository.getInstance().getUser();
 			notificaitons = user.notifications();
 			if(notificaitons.getData().size()>0){
@@ -284,7 +238,6 @@ public class BeautifulPromiseActivity extends Activity{
 					public void run() {
 						ContentResolver cr = getContentResolver();						
 						for(Notifications notification : notificaitons.getData()){
-							Log.i("immk", "id : " + notification.getId() + " title : " + notification.getTitle());
 //							Uri notiUri = ContentUris.withAppendedId(NotificationProvider.CONTENT_URI, id);
 //							Cursor cursor = cr.query(NotificationProvider.CONTENT_URI, new String[]{"_id"}, "fb_id=?", new String[]{notification.getId()}, null);
 							Cursor cursor = cr.query(NotificationProvider.CONTENT_URI, new String[]{"_id"}, "fb_id=?", new String[]{notification.getId()}, null);
@@ -342,38 +295,9 @@ public class BeautifulPromiseActivity extends Activity{
 	protected void setActivityLayout(LinearLayout layout){
 		activityLayout.addView(layout);
 	}
-	
 	protected void setActivityLayout(ImageView layout){
 		activityLayout.addView(layout);
 	}
-	
-//	private IRemoteServiceCallback remoteServiceCallback = new IRemoteServiceCallback.Stub() {
-//		
-//		@Override
-//		public String MessageCallback(int message) {
-//			Log.i("immk", "callback : "+message);
-//			return null;
-//		}
-//	};
-//	
-//	private ServiceConnection connection = new ServiceConnection() {
-//		
-//		@Override
-//		public void onServiceConnected(ComponentName name, IBinder service) {
-//			mService = IRemoteService.Stub.asInterface(service);
-//			try {
-//				mService.registerCallback(remoteServiceCallback);
-//			} catch (RemoteException e) {
-//				e.printStackTrace();
-//			}
-//		}
-//		
-//		@Override
-//		public void onServiceDisconnected(ComponentName name) {
-//			mService = null;
-//		}
-//	};
-	
 	public void visibleNewImage(){
 		if(newImage.getVisibility() == View.INVISIBLE)
 			newImage.setVisibility(View.VISIBLE);
@@ -381,6 +305,4 @@ public class BeautifulPromiseActivity extends Activity{
 	public void goneNewImage(){
 		newImage.setVisibility(View.INVISIBLE);
 	}
-	
-	
 }
