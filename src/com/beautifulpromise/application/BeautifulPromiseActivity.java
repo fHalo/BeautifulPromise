@@ -191,8 +191,10 @@ public class BeautifulPromiseActivity extends Activity{
 				
 			case R.id.pointShopLayout:
 				mySmoothScrollTo(leftWidth, 0);
-				intent.setAction("feedviewer.PromiseCheck");
-				intent.putExtra("feedId", "159564817509135");
+//				intent.setAction("feedviewer.PromiseCheck");
+//				intent.putExtra("feedId", "159564817509135");
+//				startActivity(intent);
+				intent.setAction("PointShopActivity");
 				startActivity(intent);
 				break;
 				

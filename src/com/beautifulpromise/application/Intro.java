@@ -70,7 +70,7 @@ public class Intro extends Activity {
 			finish();
             if(setNewMember())
             	Toast.makeText(Intro.this, "Success", Toast.LENGTH_SHORT).show();
-            intent.setAction("HomeActivity");
+            intent.setAction("PointShopActivity");
             startActivity(intent);
 		}
 	};

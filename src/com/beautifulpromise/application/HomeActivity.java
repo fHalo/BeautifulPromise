@@ -60,8 +60,7 @@ public class HomeActivity extends BeautifulPromiseActivity {
 		public MyListAdapter(Context context, int alayout,
 				ArrayList<AddPromiseDTO> aarSrc) {
 			maincon = context;
-			Inflater = (LayoutInflater) context
-					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			Inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			arSrc = aarSrc;
 			layout = alayout;
 		}
@@ -87,8 +86,7 @@ public class HomeActivity extends BeautifulPromiseActivity {
 			TextView promisenametxt = (TextView) convertView
 					.findViewById(R.id.promisename);
 			TextView d_daytxt = (TextView) convertView.findViewById(R.id.d_day);
-			ImageView checkimg = (ImageView) convertView
-					.findViewById(R.id.home_check);
+			ImageView checkimg = (ImageView) convertView.findViewById(R.id.home_check);
 
 			promisenametxt.setText(arSrc.get(position).getTitle());
 			int check = 0;
@@ -103,6 +101,7 @@ public class HomeActivity extends BeautifulPromiseActivity {
 			if (arSrc.get(position).getResult() == 0 && arSrc.get(position).getD_day() < 1) {
 				d_daytxt.setText("D-Day");
 				d_daytxt.setTextColor(Color.RED);
+				checkimg.setImageResource(R.drawable.ico_finished);
 			}
 			// 오늘 피드를 올린 약속
 			else if(check == 1)
