@@ -20,6 +20,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +39,8 @@ public class HomeActivity extends BeautifulPromiseActivity {
 	ListView PromiseListView;
 	MyListAdapter MyAdapter;
 	ArrayList<AddPromiseDTO> promisedto;
+	int flag = 0;
+	AnimationDrawable mAni;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -49,6 +53,29 @@ public class HomeActivity extends BeautifulPromiseActivity {
 		// 알람
 		Alarm alarm = new Alarm();
 		alarm.SetAlarm(this);
+	}
+	
+	@Override
+	public void onWindowFocusChanged(boolean hasFocus) {
+		if(flag == 0) {
+			ImageView img = (ImageView) findViewById(R.id.imageView1);
+			
+			mAni = new AnimationDrawable();
+			mAni.addFrame((BitmapDrawable) getResources().getDrawable(
+					R.drawable.home_banner1), 1000);
+			mAni.addFrame((BitmapDrawable) getResources().getDrawable(
+					R.drawable.home_banner2), 1000);
+			mAni.addFrame((BitmapDrawable) getResources().getDrawable(
+					R.drawable.home_banner3), 1000);
+			mAni.addFrame((BitmapDrawable) getResources().getDrawable(
+					R.drawable.home_banner4), 1000);
+			
+			mAni.setOneShot(false);
+			img.setBackgroundDrawable(mAni);
+
+			mAni.start();
+			flag++;
+		}
 	}
 
 	class MyListAdapter extends BaseAdapter implements OnClickListener {
