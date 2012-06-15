@@ -158,8 +158,14 @@ public class HomeActivity extends BeautifulPromiseActivity {
 			Bundle extras = new Bundle();
 			extras.putSerializable("PromiseDTO", promiseObject);
 
+			if(promiseObject.getResult() == 0 && promiseObject.getD_day() < 1)
+			{
+				intent.setAction("feedviewer.PromiseCheck");
+				intent.putExtra("feedId", "159564817509135");
+				startActivity(intent);
+			}
 			// 주기(GPS)
-			if (promiseObject.getCategoryId() == 0) {
+			else if(promiseObject.getCategoryId() == 0) {
 //				intent = new Intent(HomeActivity.this, CycleCheckActivity.class);
 				intent.setAction("checkpromise.CycleCheckActivity");
 			}
