@@ -1,9 +1,13 @@
 package com.beautifulpromise.application.feedviewer;
 
+import java.net.URL;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -12,7 +16,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.beautifulpromise.R;
+import com.beautifulpromise.database.DatabaseHelper;
+import com.beautifulpromise.database.GoalsDAO;
 import com.beautifulpromise.parser.Controller;
+import com.facebook.halo.application.types.Post;
 
 public class PromiseCheck extends Activity {
 	//feed item 들을 담고있는 array
@@ -24,32 +31,36 @@ public class PromiseCheck extends Activity {
 	//server와의 interface 객체
 	Controller ctrl;
 	
+	//progress bar
+	LinearLayout feedProgressLayout;
+	
 	LinearLayout checkListLayout;
+	ListView feedList;
+	Button yesBtn;
+	Button noBtn;
+	Intent intent;
+	
+	String mode;
+	String feedId;
+	boolean isCheck;
+	
+	Post feed;
+	
+	//feed item 객체
+	FeedItemDTO feedItem;
+	
+	GoalsDAO goalsDAO;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-	
-		//Layout setting
-//		checkListLayout = (LienearLayout)View.inflate(this, R.layout.feedviewer_check_promise, null);
-//		setActivityLayout(checkListLayout);
+		setContentView(R.layout.feedviewer_check_promise);
 		
-		//feed item 들을 담고있는 array
-		arrayFeedItem = new ArrayList<FeedItemDTO>();
+		setVariable();
 		
+		FeedLoadAsyncTask task = new FeedLoadAsyncTask();
+		task.execute();
 		
-		//adapter 생성 후 레이아웃&데이터 세팅
-//		LogListAdapter logListAdapter = new LogListAdapter(this, R.layout.feedviewer_feed_item, arrayFeedItem);
-		
-		//list view 생성
-		ListView feedList = (ListView)findViewById(R.id.promiseCheckList);
-		
-		//list view 와 adapter 연결
-//		feedList.setAdapter(logListAdapter);
-		
-		//yes or no button click listener
-		Button yesBtn = (Button)findViewById(R.id.yesButton);
-		Button noBtn = (Button)findViewById(R.id.noButton);
 		
 		//set yes btn click listener
 		yesBtn.setOnClickListener(new OnClickListener() {
@@ -58,6 +69,7 @@ public class PromiseCheck extends Activity {
 			public void onClick(View v) {
 				//페북에 성공 글 올리기
 				Toast.makeText(PromiseCheck.this, "success", Toast.LENGTH_LONG).show();
+//				goalsDAO.update(id, result)
 			}
 		});
 		
@@ -68,8 +80,70 @@ public class PromiseCheck extends Activity {
 			public void onClick(View v) {
 				//페북에 실패 글 올리기
 				Toast.makeText(PromiseCheck.this, "failed", Toast.LENGTH_LONG).show();
+//				goalsDAO.update(id, result)
 			}
 		});
+	}
+	
+	private void setVariable() {
+		//feed item 들을 담고있는 array
+		arrayFeedItem = new ArrayList<FeedItemDTO>();
+		checkList = new ArrayList<String>();
+		ctrl = new Controller();
+		
+		mode = "me";
+		isCheck = true;
+		
+		//list view 생성
+		feedList = (ListView)findViewById(R.id.promiseCheckList);
+		
+		yesBtn = (Button)findViewById(R.id.yesButton);
+		noBtn = (Button)findViewById(R.id.noButton);
+		
+		//progress bar
+		feedProgressLayout = (LinearLayout) findViewById(R.id.checkProgressLayout);
+		
+		intent = getIntent();
+		feedId = intent.getStringExtra("feedId");
+		
+		//db
+		DatabaseHelper databaseHelper = new DatabaseHelper(getApplicationContext());
+		goalsDAO = new GoalsDAO(databaseHelper);
+	}
+	
+	private class FeedLoadAsyncTask extends AsyncTask<URL, Integer, Long> {
+
+		@Override
+		protected Long doInBackground(URL... params) {
+			checkList = ctrl.GetCheckList(feedId);
+			
+			//가져온 데이터를 arrayList에 담음
+			for(String s : checkList) {
+				Log.e("s : ", "" + s);
+				feed = new Post();
+				feed = feed.createInstance(s);
+				if(feed != null ) {
+					feedItem = new FeedItemDTO(feed);
+					arrayFeedItem.add(feedItem);
+				}
+			}
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Long result) {
+			//progress bar 없에고, 받아온 데이터 띄워줌
+			feedProgressLayout.setVisibility(View.GONE);
+			feedList.setVisibility(View.VISIBLE);
+			
+			//adapter 생성 후 레이아웃&데이터 세팅
+			FeedListAdapter feedListAdapter = new FeedListAdapter(getApplicationContext(), R.layout.feedviewer_feed_item, arrayFeedItem, mode, isCheck);
+			
+			//list view 와 adapter 연결
+			feedList.setAdapter(feedListAdapter);
+			
+			super.onPostExecute(result);
+		}
 	}
 
 }

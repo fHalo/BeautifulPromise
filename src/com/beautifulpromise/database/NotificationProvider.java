@@ -43,7 +43,6 @@ public class NotificationProvider extends ContentProvider {
 		long id = db.insert(TABLE, null, values);
 		if(id > 0){
 			Uri notiUri = ContentUris.withAppendedId(CONTENT_URI, id);
-			Log.i("immk", notiUri.toString());
 			getContext().getContentResolver().notifyChange(notiUri, null);
 			return uri;
 		}
@@ -58,8 +57,7 @@ public class NotificationProvider extends ContentProvider {
 		if(selectionArgs != null)
 			sql = "SELECT * FROM " + TABLE + " WHERE fb_id='"+selectionArgs[0]+"'";  // " WHERE _id="+uri.getPathSegments().get(1)
 		else
-			sql = "SELECT * FROM " + TABLE ; 
-		Log.i("immk", sql);
+			sql = "SELECT * FROM " + TABLE + " ORDER BY _id DESC"; 
 		Cursor cursor = db.rawQuery(sql, null);
 		cursor.setNotificationUri(getContext().getContentResolver(), uri);
 		return cursor;

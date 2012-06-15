@@ -45,6 +45,8 @@ public class PromiseFeedList extends BeautifulPromiseActivity{
 	Intent intent;
 	String mode;
 	String feedId;
+	
+	//check List에서 볼 경우 true(약속일지 UI 없음)
 	boolean isCheck;
 	
 	FeedListAdapter feedListAdapter;
@@ -100,10 +102,10 @@ public class PromiseFeedList extends BeautifulPromiseActivity{
 			
 			//가져온 데이터를 arrayList에 담음
 			for(String s : toDoList) {
-				Log.e("s : ", "" + s);
+//				Log.e("s : ", "" + s);
 				feed = new Post();
 				feed = feed.createInstance(s);
-				Log.e("feed : ", "" + feed);
+//				Log.e("feed : ", "" + feed);
 				if(feed != null ) {
 					feedItem = new FeedItemDTO(feed);
 					arrayFeedItem.add(feedItem);
