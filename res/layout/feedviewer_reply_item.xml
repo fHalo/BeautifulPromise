@@ -33,7 +33,7 @@
         android:layout_below="@+id/replyNameText"
         android:layout_marginTop="3dp"
         android:layout_toRightOf="@+id/replyProfileImage"
-        android:text="hello hi good bye this si test .. . .blah blah balh balh this is too long sentence ghahaha" />
+        android:text="hello hi good bye this si test .. . .blah blah balh balh this is too long sentence ghahaha" android:textColor="#444444"/>
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="5dp"
-            android:text="2012/4/12 PM 2:32" />
+            android:text="2012/4/12 PM 2:32" android:textColor="#555555"/>
 
         <TextView
             android:id="@+id/replyLikeText"
@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="15dp"
-            android:text="좋아요" />
+            android:text="좋아요" android:textColor="#555555"/>
     </LinearLayout>
 
 </RelativeLayout>

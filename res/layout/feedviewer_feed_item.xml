@@ -31,7 +31,7 @@
         android:layout_alignBottom="@+id/profileImage"
         android:layout_alignLeft="@+id/nameText"
         android:text="2012.05.16 PM 2:18"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceSmall" android:textColor="#444444"/>
 
     <WebView
         android:id="@+id/photoImage"
@@ -51,7 +51,7 @@
         android:layout_below="@+id/photoImage"
         android:layout_marginRight="15dp"
         android:layout_marginTop="14dp"
-        android:text="Hello this is a test about facebook feed. This will be full of feed message and blah blah blah blah blah blah" />
+        android:text="Hello this is a test about facebook feed. This will be full of feed message and blah blah blah blah blah blah" android:textColor="#444444"/>
 
     <RelativeLayout
         android:id="@+id/feedViewerBottom"
@@ -69,15 +69,14 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/like" android:layout_marginLeft="3dp"/>
+            android:src="@drawable/promise_log" android:layout_marginLeft="3dp"/>
         
         <TextView
             android:id="@+id/promiseLogText"
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="약속일지" android:layout_toRightOf="@id/promiseLogImage" android:layout_marginLeft="3dp"/>
+            android:text="약속일지" android:layout_toRightOf="@id/promiseLogImage" android:layout_marginLeft="3dp" android:textColor="#444444"/>
 
         <TextView
             android:id="@+id/replyText"
@@ -86,7 +85,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:text="20"
-            android:textSize="18dp" android:layout_marginRight="3dp"/>
+            android:layout_marginRight="3dp" android:textColor="#444444"/>
 
         <ImageView
             android:id="@+id/replyImage"
@@ -103,8 +102,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="16dp"
             android:layout_toLeftOf="@+id/replyImage"
-            android:text="20"
-            android:textSize="18dp" />
+            android:text="20" android:textColor="#444444"/>
 
         <ImageView
             android:id="@+id/likeImage"
