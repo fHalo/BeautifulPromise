@@ -88,10 +88,10 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/checkpromise_cyclecheck_mapview_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:id="@+id/checkpromise_cyclecheck_mapview_layout" >
+                android:orientation="vertical" >
 
                 <TextView
                     android:id="@+id/checkpromise_cyclecheck_maphour_text"
@@ -125,18 +125,21 @@
                     android:text="에 있었습니다."
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="#000000" />
-
             </LinearLayout>
 
             <EditText
                 android:id="@+id/checkpromise_cyclecheck_content_edit"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="30dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
+                android:background="@drawable/box_white_h170"
                 android:ems="10"
-                android:inputType="textMultiLine" >
+                android:gravity="top"
+                android:inputType="textMultiLine"
+                android:paddingLeft="15dp"
+                android:paddingTop="10dp" >
 
                 <requestFocus />
             </EditText>

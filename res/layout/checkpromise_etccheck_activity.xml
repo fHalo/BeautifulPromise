@@ -30,10 +30,10 @@
 
             <Button
                 android:id="@+id/checkpromise_etccheck_post_btn"
-                android:background="@drawable/btn_topbar"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
                 android:layout_marginRight="15dp"
+                android:background="@drawable/btn_topbar"
                 android:text="게시" />
         </LinearLayout>
     </LinearLayout>
@@ -49,10 +49,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="15dp"
-            android:layout_marginBottom="10dp"
             android:background="@drawable/box_green"
             android:gravity="center"
             android:text="금주하기"
@@ -90,10 +90,12 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="10dp"
-            android:layout_weight="0.75"
+            android:background="@drawable/box_white_h260"
             android:ems="10"
-            android:background="@drawable/popup_bg_white_plate"
-            android:inputType="textMultiLine" >
+            android:gravity="top"
+            android:inputType="textMultiLine"
+            android:paddingLeft="15dp"
+            android:paddingTop="10dp" >
 
             <requestFocus />
         </EditText>
