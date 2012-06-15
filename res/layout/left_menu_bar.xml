@@ -30,7 +30,7 @@
         android:id = "@+id/addPromiseLayout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/left_menu_bg_sub_1"
+        android:background="@drawable/left_menu_bar_selector"
         android:gravity="center_vertical"
         android:orientation="horizontal" android:clickable="true">
 
@@ -52,7 +52,7 @@
         android:id = "@+id/myPromiseLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/left_menu_bg_sub_1"
+        android:background="@drawable/left_menu_bar_selector"
         android:gravity="center_vertical"
         android:orientation="horizontal" >
 
@@ -74,7 +74,7 @@
         android:id = "@+id/helperPromiseLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/left_menu_bg_sub_1"
+        android:background="@drawable/left_menu_bar_selector"
         android:gravity="center_vertical"
         android:orientation="horizontal" >
 
@@ -96,7 +96,7 @@
         android:id = "@+id/friendPromiseLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/left_menu_bg_sub_1"
+        android:background="@drawable/left_menu_bar_selector"
         android:gravity="center_vertical"
         android:orientation="horizontal" >
 
@@ -130,7 +130,7 @@
         android:id = "@+id/pointShopLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/left_menu_bg_sub_1"
+        android:background="@drawable/left_menu_bar_selector"
         android:gravity="center_vertical"
         android:orientation="horizontal" >
 
@@ -218,7 +218,7 @@
         android:id = "@+id/accountLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/left_menu_bg_sub_1"
+        android:background="@drawable/left_menu_bar_selector"
         android:gravity="center_vertical"
         android:orientation="horizontal" >
 

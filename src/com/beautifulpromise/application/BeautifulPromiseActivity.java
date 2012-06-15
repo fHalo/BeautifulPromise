@@ -61,6 +61,9 @@ public class BeautifulPromiseActivity extends Activity{
 	LinearLayout pointShopBtn;
 	LinearLayout settingBtn;
 	
+	LinearLayout pointShopItemLayout1;
+	LinearLayout pointShopItemLayout2;
+	
 	HorizontalScrollView hscroll;
 	private int leftWidth = Var.LEFT_MENUBAR_WIDTH;
 	
@@ -94,6 +97,8 @@ public class BeautifulPromiseActivity extends Activity{
 		notificationListView = (ListView) findViewById(R.id.notification_listview);
 		leftMenuLayout = (LinearLayout) findViewById(R.id.menu_layout);
 		activityLayout = (LinearLayout) findViewById(R.id.activity_layout);
+		pointShopItemLayout1 = (LinearLayout) findViewById(R.id.pointshopItemLayout1);
+		pointShopItemLayout2 = (LinearLayout) findViewById(R.id.pointshopItemLayout2);
 		
 		leftMenuBtn.setOnClickListener(clickLisetner);
 		homeBtn.setOnClickListener(clickLisetner);
@@ -106,7 +111,8 @@ public class BeautifulPromiseActivity extends Activity{
 		pointShopBtn.setOnClickListener(clickLisetner);
 		settingBtn.setOnClickListener(clickLisetner);
 		
-		addPromiseBtn.setClickable(true);
+		pointShopItemLayout1.setOnClickListener(clickLisetner);
+		pointShopItemLayout2.setOnClickListener(clickLisetner);
 		
 		hscroll = (HorizontalScrollView) findViewById(R.id.horizontal_scrollview);
 		mySmoothScrollTo(leftWidth, 0);
@@ -209,6 +215,13 @@ public class BeautifulPromiseActivity extends Activity{
 				.setNegativeButton("취소", null)
 				.show();
 				break;
+				
+			case R.id.pointshopItemLayout1:
+				break;
+			
+			case R.id.pointshopItemLayout2:
+				break;
+				
 			default:
 				break;
 			}
