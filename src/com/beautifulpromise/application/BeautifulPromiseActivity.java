@@ -106,6 +106,8 @@ public class BeautifulPromiseActivity extends Activity{
 		pointShopBtn.setOnClickListener(clickLisetner);
 		settingBtn.setOnClickListener(clickLisetner);
 		
+		addPromiseBtn.setClickable(true);
+		
 		hscroll = (HorizontalScrollView) findViewById(R.id.horizontal_scrollview);
 		mySmoothScrollTo(leftWidth, 0);
 		hscroll.setOnTouchListener(hscrollTouchListener);
