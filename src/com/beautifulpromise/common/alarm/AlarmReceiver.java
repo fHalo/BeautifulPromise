@@ -1,11 +1,15 @@
 package com.beautifulpromise.common.alarm;
 
-import com.beautifulpromise.application.HomeAlarmActivity;
+import com.beautifulpromise.R;
+import com.beautifulpromise.application.checkpromise.CycleCheckActivity;
+import com.beautifulpromise.application.checkpromise.WorkCheckActivity;
 import com.beautifulpromise.common.dto.AddPromiseDTO;
 import com.beautifulpromise.database.CheckDAO;
 import com.beautifulpromise.database.CheckDBHelper;
 
 import android.app.Dialog;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.PendingIntent.CanceledException;
 import android.content.BroadcastReceiver;
@@ -35,13 +39,16 @@ public class AlarmReceiver extends BroadcastReceiver {
 		CheckDBHelper checkDBHelper = new CheckDBHelper(this.context);
 		checkDAO = new CheckDAO(checkDBHelper);
 
+		Intent i = null;
+		
 		// home에서 객체 받아오기
 		Object tempobject = intent.getExtras().get("PromiseDTO");
 		promiseobject = (AddPromiseDTO) tempobject;
 
 		if (promiseobject.getCategoryId() == 0) {
 			lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-
+			i = new Intent(AlarmReceiver.this.context, CycleCheckActivity.class);
+			
 			mLocationListener = new LocationListener() {
 				public void onLocationChanged(Location location) {
 					if (location != null) {
@@ -77,18 +84,26 @@ public class AlarmReceiver extends BroadcastReceiver {
 			lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 2000,
 					5, mLocationListener);
 
-		} 
+		} else if ((promiseobject.getCategoryId() == 1))
+		{
+			i = new Intent(AlarmReceiver.this.context, WorkCheckActivity.class);
+		}
 		
-		Intent i = new Intent(AlarmReceiver.this.context, HomeAlarmActivity.class);
 		Bundle extras = new Bundle();
 		extras.putSerializable("PromiseDTO", promiseobject);
 		i.putExtras(extras);
 
-		PendingIntent pi = PendingIntent.getActivity(AlarmReceiver.this.context, 0, i, PendingIntent.FLAG_ONE_SHOT);
-		try {
-			pi.send();
-		} catch (CanceledException e) {
-
-		}
+		PendingIntent contentIntent = PendingIntent.getActivity(AlarmReceiver.this.context, 0, i, PendingIntent.FLAG_ONE_SHOT);
+		
+		CharSequence tickerText = "아름다운 약속을 실천하실 시간입니다.";
+		CharSequence contentTitle = "아름다운 약속";
+		CharSequence contentText = promiseobject.getTitle();
+		
+		Notification notification = new Notification(R.drawable.icon, tickerText, 0);
+		notification.setLatestEventInfo(AlarmReceiver.this.context, contentTitle, contentText, contentIntent);
+		
+		NotificationManager notificationManager = (NotificationManager) AlarmReceiver.this.context.getSystemService(Context.NOTIFICATION_SERVICE);
+		notificationManager.notify(1,notification);
+		
 	}
 }

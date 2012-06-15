@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Dialog;
+import android.app.NotificationManager;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -78,6 +79,10 @@ public class CycleCheckActivity extends MapActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.checkpromise_cyclecheck_activity);
+		
+		//알림바 제거
+		NotificationManager nm = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+		nm.cancel(1);
 
 		PromiseName_TextView = (TextView) findViewById(R.id.checkpromise_cyclecheck_promisename_text);
 		Period_TextView = (TextView) findViewById(R.id.checkpromise_cyclecheck_period_text);
@@ -87,7 +92,6 @@ public class CycleCheckActivity extends MapActivity {
 		MapView_LinearLayout = (LinearLayout) findViewById(R.id.checkpromise_cyclecheck_mapview_layout);
 		
 		Post_Btn.setOnClickListener(buttonClickListener);
-		
 		
 		//home에서 객체 받아오기
 		Object tempobject = getIntent().getExtras().get("PromiseDTO");

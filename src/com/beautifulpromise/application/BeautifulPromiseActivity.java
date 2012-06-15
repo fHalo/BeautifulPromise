@@ -144,9 +144,9 @@ public class BeautifulPromiseActivity extends Activity{
 		adapter = new NotificationAdapter(this, cursor);
 		notificationListView.setAdapter(adapter);
 		
-		handler = new Handler();
-		Timer timer = new Timer();
-		timer.schedule(task, 1000, 10000);
+//		handler = new Handler();
+//		Timer timer = new Timer();
+//		timer.schedule(task, 1000, 10000);
 		
 //		int count = cursor.getCount();
 //		if(count > 0) {

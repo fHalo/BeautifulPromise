@@ -44,7 +44,7 @@ public class CameraDialog extends Dialog{
         	        	
         	LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         	dialog = new CameraDialog(context, R.style.Theme_Dialog);
-            layout = inflater.inflate(R.layout.addpromise_camera_dialog, null);
+            layout = inflater.inflate(R.layout.checkpromise_camera_dialog, null);
             dialog.addContentView(layout, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
             
             takeImageButton = (Button) layout.findViewById(R.id.take_photo_button);

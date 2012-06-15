@@ -51,6 +51,7 @@ public class Alarm {
 
 				// 알람 등록
 				am.set(AlarmManager.RTC, calendar.getTimeInMillis(), sender);
+				break;
 			}
 			//운동 알람
 			else if ((Promise.getCategoryId() == 1))
@@ -72,6 +73,7 @@ public class Alarm {
 
 				// 알람 등록
 				am.set(AlarmManager.RTC, calendar.getTimeInMillis(), sender);
+				break;
 			}
 			else
 			{

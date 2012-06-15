@@ -6,6 +6,7 @@ import com.beautifulpromise.R;
 import com.beautifulpromise.common.dto.AddPromiseDTO;
 
 import android.app.Activity;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -70,6 +71,10 @@ public class WorkCheckActivity extends Activity {
 				
 		startbutton.setOnClickListener(mStartListener);		
 		creationbutton.setOnClickListener(mCreationListener);
+		
+		//알림바 제거
+		NotificationManager nm = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+		nm.cancel(1);
 	}
 
 	View.OnClickListener mStartListener = new OnClickListener() {
