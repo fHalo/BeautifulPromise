@@ -3,10 +3,25 @@ package com.beautifulpromise.application;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
+
 import com.beautifulpromise.R;
-import com.beautifulpromise.application.checkpromise.CycleCheckActivity;
-import com.beautifulpromise.application.checkpromise.EtcCheckActivity;
-import com.beautifulpromise.application.checkpromise.WorkCheckActivity;
 import com.beautifulpromise.common.alarm.Alarm;
 import com.beautifulpromise.common.dto.AddPromiseDTO;
 import com.beautifulpromise.database.CheckDAO;
@@ -14,29 +29,17 @@ import com.beautifulpromise.database.CheckDBHelper;
 import com.beautifulpromise.database.DatabaseHelper;
 import com.beautifulpromise.database.GoalsDAO;
 
-import android.content.ContentValues;
-import android.content.Context;
-import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
-
 public class HomeActivity extends BeautifulPromiseActivity {
 	/** Called when the activity is first created. */
 
 	ListView PromiseListView;
 	MyListAdapter MyAdapter;
 	ArrayList<AddPromiseDTO> promisedto;
+	int flag = 0;
+	AnimationDrawable mAni;
+	AlphaAnimation animation1;
+	AlphaAnimation animation2;
+	ImageView img;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -49,7 +52,94 @@ public class HomeActivity extends BeautifulPromiseActivity {
 		// 알람
 		Alarm alarm = new Alarm();
 		alarm.SetAlarm(this);
+		
+		if(flag == 0) {
+			img = (ImageView) findViewById(R.id.home_test);
+			
+			mAni = new AnimationDrawable();
+			
+//			animation1 = new AlphaAnimation(1.0f, 0.6f); 
+//			animation1.setDuration(1950); 
+//		    animation1.setStartOffset(50); 
+//			
+//		    animation2 = new AlphaAnimation(0.6f, 1.0f); 
+//		    animation2.setStartOffset(50);
+//		    animation2.setDuration(1950); 
+			
+			mAni.addFrame((BitmapDrawable) getResources().getDrawable(
+					R.drawable.home_banner1), 2000);
+			mAni.addFrame((BitmapDrawable) getResources().getDrawable(
+					R.drawable.home_banner2), 2000);
+			mAni.addFrame((BitmapDrawable) getResources().getDrawable(
+					R.drawable.home_banner3), 2000);
+			mAni.addFrame((BitmapDrawable) getResources().getDrawable(
+					R.drawable.home_banner4), 2000);
+			
+			mAni.setOneShot(false);
+			img.setImageDrawable(mAni);
+
+			mAni.start();
+//			img.startAnimation(animation1);
+			
+			flag++;
+		}
+//		
+		img.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Log.e("TEST","TEST");
+			}
+		});
+//	    //animation1 AnimationListener 
+//	    animation1.setAnimationListener(new AnimationListener(){ 
+//	 
+//	        @Override 
+//	        public void onAnimationEnd(Animation arg0) { 
+//	            // start animation2 when animation1 ends (continue) 
+//	        	img.startAnimation(animation2); 
+//	        } 
+//	 
+//	        @Override 
+//	        public void onAnimationRepeat(Animation arg0) { 
+//	            // TODO Auto-generated method stub 
+//	 
+//	        } 
+//	 
+//	        @Override 
+//	        public void onAnimationStart(Animation arg0) { 
+//	            // TODO Auto-generated method stub 
+//	 
+//	        } 
+//	 
+//	    }); 
+//	    
+//	    //animation2 AnimationListener 
+//	    animation2.setAnimationListener(new AnimationListener(){ 
+//	 
+//	        @Override 
+//	        public void onAnimationEnd(Animation arg0) { 
+//	            // start animation1 when animation2 ends (repeat) 
+//	        	img.startAnimation(animation1); 
+//	        } 
+//	 
+//	        @Override 
+//	        public void onAnimationRepeat(Animation arg0) { 
+//	            // TODO Auto-generated method stub 
+//	 
+//	        } 
+//	 
+//	        @Override 
+//	        public void onAnimationStart(Animation arg0) { 
+//	            // TODO Auto-generated method stub 
+//	 
+//	        } 
+//	 
+//	    }); 
+	    
 	}
+
 
 	class MyListAdapter extends BaseAdapter implements OnClickListener {
 		Context maincon;
@@ -185,4 +275,6 @@ public class HomeActivity extends BeautifulPromiseActivity {
 		PromiseListView.setItemsCanFocus(false);
 		PromiseListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 	}
+
 }
+
