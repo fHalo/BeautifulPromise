@@ -9,14 +9,12 @@ import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.Animation.AnimationListener;
-import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -24,7 +22,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.beautifulpromise.R;
-import com.beautifulpromise.application.PointShopActivity.MyListAdapter;
 import com.beautifulpromise.common.alarm.Alarm;
 import com.beautifulpromise.common.dto.AddPromiseDTO;
 import com.beautifulpromise.database.CheckDAO;
@@ -87,6 +84,14 @@ public class HomeActivity extends BeautifulPromiseActivity {
 			flag++;
 		}
 //		
+		img.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Log.e("TEST","TEST");
+			}
+		});
 //	    //animation1 AnimationListener 
 //	    animation1.setAnimationListener(new AnimationListener(){ 
 //	 
