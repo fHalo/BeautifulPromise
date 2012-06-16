@@ -165,4 +165,10 @@ public class AddPromiseDTO implements Serializable {
 	public void setPostId(String postId) {
 		this.postId = postId;
 	}
+	
+	public void setDonationId(int id) {
+		if(this.donation==null)
+			this.donation = new DonationDTO();
+		this.donation.setId(id); 
+	}
 }

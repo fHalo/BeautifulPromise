@@ -22,6 +22,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		buffer.append("end_date TEXT,");
 		buffer.append("content TEXT, ");
 		buffer.append("result INT, "); 
+		buffer.append("donation INT, "); 
 		buffer.append("create_date TEXT"); 
 		buffer.append(")");
 		db.execSQL(buffer.toString());

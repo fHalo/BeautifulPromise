@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,6 +17,9 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.beautifulpromise.R;
+import com.beautifulpromise.application.addpromise.AddPromiseActivity;
+import com.beautifulpromise.application.addpromise.RepeatDayDialog;
+import com.beautifulpromise.application.addpromise.UploadDonationLetterDialog;
 import com.beautifulpromise.database.DatabaseHelper;
 import com.beautifulpromise.database.GoalsDAO;
 import com.beautifulpromise.parser.Controller;
@@ -70,6 +74,11 @@ public class PromiseCheck extends Activity {
 				//페북에 성공 글 올리기
 				Toast.makeText(PromiseCheck.this, "success", Toast.LENGTH_LONG).show();
 //				goalsDAO.update(id, result)
+				
+//				UploadDonationLetterDialog.Builder builder = new UploadDonationLetterDialog.Builder(PromiseCheck.this, true, feedId);
+				UploadDonationLetterDialog.Builder builder = new UploadDonationLetterDialog.Builder(PromiseCheck.this, true, "161990977266519");
+				Dialog dialog = builder.create();
+				dialog.show();
 			}
 		});
 		
@@ -81,6 +90,10 @@ public class PromiseCheck extends Activity {
 				//페북에 실패 글 올리기
 				Toast.makeText(PromiseCheck.this, "failed", Toast.LENGTH_LONG).show();
 //				goalsDAO.update(id, result)
+				
+				UploadDonationLetterDialog.Builder builder = new UploadDonationLetterDialog.Builder(PromiseCheck.this, false, "161990977266519");
+				Dialog dialog = builder.create();
+				dialog.show();
 			}
 		});
 	}

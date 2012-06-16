@@ -362,7 +362,12 @@ public class AddPromiseActivity extends MapActivity {
 		}else{
 			promiseDTO.setHelperList(null);
 		}
-		FriendImageAdapter adapter = new FriendImageAdapter(this, helperList);
+		
+		ArrayList<Object> helper = new ArrayList<Object>();
+		for(Friends friend : helperList){
+			helper.add(friend);
+		}
+		FriendImageAdapter adapter = new FriendImageAdapter(this, helper);
 		helperGrid.setAdapter(adapter);
 	}
 
@@ -409,7 +414,7 @@ public class AddPromiseActivity extends MapActivity {
 
 		@Override
 		protected void onPreExecute() {
-//			progressLayout.setVisibility(View.VISIBLE);
+			progressLayout.setVisibility(View.VISIBLE);
 		}
 
 		@Override
@@ -438,7 +443,7 @@ public class AddPromiseActivity extends MapActivity {
 		case 1:  	// 운동
 			promiseDTO.setTitle("운동 하기");
 			promiseDTO.setContent("1. 아침운동 30분 하기 \n2. 저녁은 조금만 먹을랭");
-			promiseDTO.setEndDate("2012년 6월 14일");
+			promiseDTO.setEndDate("2012년 6월 17일");
 			promiseDTO.setDayPeriod(new boolean[]{true, true, true, true, true, true, true});
 			promiseDTO.setTime(10);
 			promiseDTO.setMin(0);

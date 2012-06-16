@@ -58,11 +58,11 @@ public class HomeActivity extends BeautifulPromiseActivity {
 //			mAni.addFrame((BitmapDrawable) getResources().getDrawable(
 //					R.drawable.home_banner1), 1000);
 			mAni.addFrame((BitmapDrawable) getResources().getDrawable(
-					R.drawable.home_banner2), 1000);
+					R.drawable.home_banner2), 2000);
 			mAni.addFrame((BitmapDrawable) getResources().getDrawable(
-					R.drawable.home_banner3), 1000);
+					R.drawable.home_banner3), 2000);
 			mAni.addFrame((BitmapDrawable) getResources().getDrawable(
-					R.drawable.home_banner4), 1000);
+					R.drawable.home_banner4), 2000);
 			
 			mAni.setOneShot(false);
 			img.setImageDrawable(mAni);
