@@ -44,7 +44,7 @@ public class HomeActivity extends BeautifulPromiseActivity {
 		LinearLayout layout = (LinearLayout) View.inflate(this, R.layout.homeactivity, null);
 		setActivityLayout(layout);
 
-		PromiseListView = (ListView) findViewById(R.id.list);
+		PromiseListView = (ListView) findViewById(R.id.home_list);
 		
 		// 알람
 		Alarm alarm = new Alarm();
