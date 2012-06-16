@@ -1,35 +1,27 @@
 package com.beautifulpromise.application;
 
-import java.util.Timer;
 import java.util.TimerTask;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
-import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.ContentObserver;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
-import android.widget.AdapterView;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.beautifulpromise.R;
-import com.beautifulpromise.application.addpromise.AddPromiseActivity;
-import com.beautifulpromise.application.feedviewer.PromiseFeedList;
 import com.beautifulpromise.common.Var;
 import com.beautifulpromise.common.repository.Repository;
 import com.beautifulpromise.database.NotificationProvider;
@@ -37,7 +29,6 @@ import com.beautifulpromise.facebooklibrary.Facebook;
 import com.beautifulpromise.facebooklibrary.SessionStore;
 import com.facebook.halo.application.types.Notifications;
 import com.facebook.halo.application.types.User;
-import com.facebook.halo.application.types.connection.Friends;
 import com.facebook.halo.framework.core.Connection;
 
 public class BeautifulPromiseActivity extends Activity{

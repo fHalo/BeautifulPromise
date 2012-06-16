@@ -20,10 +20,10 @@ public class GoalsDAO implements IGoalsDAO {
 		
 		boolean isSuccess = false;
 		addPromiseDTO.setCreateDate(DateUtils.getCreateDate());
-		String query = "INSERT INTO Goals(post_id, category, title, start_date, end_date, content, result, create_date) " 
+		String query = "INSERT INTO Goals(post_id, category, title, start_date, end_date, content, result, donation, create_date) " 
 				+ "VALUES('" + addPromiseDTO.getPostId() + "',"+ addPromiseDTO.getCategoryId() + ",'" + addPromiseDTO.getTitle() + "','" 
 				+ DateUtils.convertStringDate(addPromiseDTO.getStartDate()) + "','" + DateUtils.convertStringDate(addPromiseDTO.getEndDate()) + "','" + addPromiseDTO.getContent()
-				+ "',0,'" + addPromiseDTO.getCreateDate() + "')";
+				+ "',0,"+ addPromiseDTO.getDonation().getId() + ",'" + addPromiseDTO.getCreateDate() + "')";
 		if (SQLClient.executeUpdate(databaseHelper, query)) {
 			int goalId = getGoalId(addPromiseDTO.getCreateDate());
 			if (goalId >= 0) {
@@ -89,12 +89,23 @@ public class GoalsDAO implements IGoalsDAO {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public AddPromiseDTO get(int id) {
+		String query = "SELECT id, post_id, category, title, start_date, end_date, content, result, donation, create_date FROM Goals WHERE id = " + id;
+		return parser(query);
+	}
+	
+	
+	@Override
+	public AddPromiseDTO get(String postId) {
+		String query = "SELECT id, post_id, category, title, start_date, end_date, content, result, donation, create_date FROM Goals WHERE post_id = '" + postId + "'";
+		return parser(query);
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	private AddPromiseDTO parser (String query){
 		AddPromiseDTO promiseDTO = new AddPromiseDTO();
-		
-		String query = "SELECT post_id, category, title, start_date, end_date, content, result, create_date FROM Goals WHERE id = " + id;
-		ArrayList<HashMap> rows = SQLClient.executeQuery(databaseHelper, query, new Class[] {String.class, Integer.class, String.class, String.class, String.class, String.class, Integer.class, String.class });
+		ArrayList<HashMap> rows = SQLClient.executeQuery(databaseHelper, query, new Class[] {Integer.class, String.class, Integer.class, String.class, String.class, String.class, String.class, Integer.class, Integer.class, String.class });
 		for (HashMap row : rows) {
-			promiseDTO.setId(id);
+			promiseDTO.setId((Integer) row.get("id"));
 			promiseDTO.setPostId((String) row.get("post_id"));
 			promiseDTO.setCategoryId((Integer) row.get("category"));
 			promiseDTO.setTitle((String) row.get("title"));
@@ -102,20 +113,21 @@ public class GoalsDAO implements IGoalsDAO {
 			promiseDTO.setEndDate((String) row.get("end_date"));
 			promiseDTO.setContent((String) row.get("content"));
 			promiseDTO.setResult((Integer) row.get("result"));
+			promiseDTO.setDonationId((Integer) row.get("donation"));
 			promiseDTO.setCreateDate((String) row.get("create_date"));
 		}
 		
 		//TODO
 		switch (promiseDTO.getCategoryId()) {
 		case 0: // Locations, Alarms
-			query = "SELECT latitude, longitude FROM Locations WHERE goal_id = " + id;
+			query = "SELECT latitude, longitude FROM Locations WHERE goal_id = " + promiseDTO.getId();
 			rows = SQLClient.executeQuery(databaseHelper, query, new Class[] {Double.class, Double.class});
 			for (HashMap row : rows) {
 				promiseDTO.setLatitue((Double) row.get("latitude"));
 				promiseDTO.setLongitude((Double) row.get("longitude"));
 			}
 		case 1: // Alarms 
-			query = "SELECT monday, tuesday, wednesday, thursday, friday, saturday, sunday, time, min FROM Alarms WHERE goal_id = " + id;
+			query = "SELECT monday, tuesday, wednesday, thursday, friday, saturday, sunday, time, min FROM Alarms WHERE goal_id = " + promiseDTO.getId();
 			rows = SQLClient.executeQuery(databaseHelper, query, new Class[] {Integer.class, Integer.class, Integer.class, Integer.class, Integer.class, Integer.class, Integer.class, Integer.class, Integer.class});
 			for (HashMap row : rows) {
 				boolean[] selectDay = { TypeUtils.IntegerToBoolean((Integer) row.get("monday")), TypeUtils.IntegerToBoolean((Integer) row.get("tuesday")), TypeUtils.IntegerToBoolean((Integer) row.get("wednesday")),
@@ -130,6 +142,7 @@ public class GoalsDAO implements IGoalsDAO {
 			break;
 		}
 		return promiseDTO;
+		
 	}
  
 	@Override

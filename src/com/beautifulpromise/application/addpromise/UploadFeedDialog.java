@@ -197,7 +197,6 @@ public class UploadFeedDialog extends Dialog{
 				FacebookType type = user.publishPhotos(albumId, photos);
 				facebookId = type.getId();
 				promiseDTO.setPostId(facebookId);
-				Log.i("immk", facebookId);
 				
 				ArrayList<Tags> tags = new ArrayList<Tags>();
 				int count=0;
@@ -207,7 +206,7 @@ public class UploadFeedDialog extends Dialog{
 						Tags tag = new Tags();
 						tag.setTagUid(friend.getId());
 						tag.setX(""+(20*count));
-						tag.setY(""+(80));
+						tag.setY(""+(60));
 						tags.add(tag);
 					}
 					result = user.publishTagsAtPhoto(facebookId, tags);
@@ -243,7 +242,6 @@ public class UploadFeedDialog extends Dialog{
 				DatabaseHelper databaseHelper = new DatabaseHelper(context);
 				GoalsDAO dao = new GoalsDAO(databaseHelper);
 				boolean isCheck = dao.insert(promiseDTO);
-				Log.i("immk", "Database : "+isCheck);
 				count++;
 				return 0L;
 			}
@@ -277,7 +275,6 @@ public class UploadFeedDialog extends Dialog{
 			protected Long doInBackground(URL... params) {
 				AddPromiseController ctr = new AddPromiseController();
 				boolean isCheck = ctr.InsertPromise(promiseDTO);
-				Log.i("immk", "Server : "+isCheck);
 				count++;
 				return 0L;
 			}

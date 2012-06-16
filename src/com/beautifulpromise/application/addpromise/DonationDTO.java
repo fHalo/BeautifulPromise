@@ -8,6 +8,7 @@ public class DonationDTO {
 	private String title;
 	private String details;
 	private Drawable drawable;
+	private Drawable afterDrawable;
 	
 	public int getId() {
 		return id;
@@ -32,5 +33,11 @@ public class DonationDTO {
 	}
 	public void setDetails(String details) {
 		this.details = details;
+	}
+	public Drawable getAfterDrawable() {
+		return afterDrawable;
+	}
+	public void setAfterDrawable(Drawable afterDrawable) {
+		this.afterDrawable = afterDrawable;
 	}
 }

@@ -47,8 +47,8 @@ public class HomeActivity extends BeautifulPromiseActivity {
 		PromiseListView = (ListView) findViewById(R.id.list);
 		
 		// 알람
-		Alarm alarm = new Alarm();
-		alarm.SetAlarm(this);
+//		Alarm alarm = new Alarm();
+//		alarm.SetAlarm(this);
 	}
 
 	class MyListAdapter extends BaseAdapter implements OnClickListener {

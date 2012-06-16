@@ -19,9 +19,9 @@ import com.facebook.halo.application.types.connection.Friends;
 public class FriendImageAdapter extends BaseAdapter{
 
 	Context context;
-	ArrayList<Friends> friendsList;
+	ArrayList<Object> friendsList;
 	
-	public FriendImageAdapter(Context context, ArrayList<Friends> friendsList) {
+	public FriendImageAdapter(Context context, ArrayList<Object> friendsList) {
 		this.context = context;
 		this.friendsList = friendsList;
 	}
@@ -49,10 +49,17 @@ public class FriendImageAdapter extends BaseAdapter{
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		
-		Friends friend = (Friends) getItem(position);
+		String friendId = "";
+		if( getItem(position).getClass() == Friends.class){
+			Friends friend = (Friends) getItem(position);
+			friendId = friend.getId();
+		} else{
+			friendId = (String) getItem(position);
+		}
+		
 		WebView imageView = new WebView(context);
 //		imageView.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-		imageView.loadDataWithBaseURL(null, ImageUtils.webViewImageReSize(MessageUtils.FACEBOOK_GRAPH_URL + friend.getId() + "/picture" ), "text/html", "utf-8", null);
+		imageView.loadDataWithBaseURL(null, ImageUtils.webViewImageReSize(MessageUtils.FACEBOOK_GRAPH_URL + friendId + "/picture" ), "text/html", "utf-8", null);
 		return imageView;
 	}
 
