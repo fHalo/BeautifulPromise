@@ -3,22 +3,8 @@ package com.beautifulpromise.application;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import com.beautifulpromise.R;
-import com.beautifulpromise.application.checkpromise.CycleCheckActivity;
-import com.beautifulpromise.application.checkpromise.EtcCheckActivity;
-import com.beautifulpromise.application.checkpromise.WorkCheckActivity;
-import com.beautifulpromise.common.alarm.Alarm;
-import com.beautifulpromise.common.dto.AddPromiseDTO;
-import com.beautifulpromise.database.CheckDAO;
-import com.beautifulpromise.database.CheckDBHelper;
-import com.beautifulpromise.database.DatabaseHelper;
-import com.beautifulpromise.database.GoalsDAO;
-
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
@@ -27,11 +13,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.beautifulpromise.R;
+import com.beautifulpromise.common.alarm.Alarm;
+import com.beautifulpromise.common.dto.AddPromiseDTO;
+import com.beautifulpromise.database.CheckDAO;
+import com.beautifulpromise.database.CheckDBHelper;
+import com.beautifulpromise.database.DatabaseHelper;
+import com.beautifulpromise.database.GoalsDAO;
 
 public class HomeActivity extends BeautifulPromiseActivity {
 	/** Called when the activity is first created. */
@@ -51,34 +47,31 @@ public class HomeActivity extends BeautifulPromiseActivity {
 		PromiseListView = (ListView) findViewById(R.id.home_list);
 		
 		// 알람
-//		Alarm alarm = new Alarm();
-//		alarm.SetAlarm(this);
-
-	}
-	
-	@Override
-	public void onWindowFocusChanged(boolean hasFocus) {
+		Alarm alarm = new Alarm();
+		alarm.SetAlarm(this);
+		
 		if(flag == 0) {
-			ImageView img = (ImageView) findViewById(R.id.imageView1);
+			ImageView img = (ImageView) findViewById(R.id.home_test);
 			
 			mAni = new AnimationDrawable();
+			
+//			mAni.addFrame((BitmapDrawable) getResources().getDrawable(
+//					R.drawable.home_banner1), 1000);
 			mAni.addFrame((BitmapDrawable) getResources().getDrawable(
-					R.drawable.home_banner1), 1000);
+					R.drawable.home_banner2), 2000);
 			mAni.addFrame((BitmapDrawable) getResources().getDrawable(
-					R.drawable.home_banner2), 1000);
+					R.drawable.home_banner3), 2000);
 			mAni.addFrame((BitmapDrawable) getResources().getDrawable(
-					R.drawable.home_banner3), 1000);
-			mAni.addFrame((BitmapDrawable) getResources().getDrawable(
-					R.drawable.home_banner4), 1000);
+					R.drawable.home_banner4), 2000);
 			
 			mAni.setOneShot(false);
-			img.setBackgroundDrawable(mAni);
+			img.setImageDrawable(mAni);
 
 			mAni.start();
 			flag++;
 		}
 	}
-
+	
 	class MyListAdapter extends BaseAdapter implements OnClickListener {
 		Context maincon;
 		LayoutInflater Inflater;
@@ -213,4 +206,5 @@ public class HomeActivity extends BeautifulPromiseActivity {
 		PromiseListView.setItemsCanFocus(false);
 		PromiseListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 	}
+
 }
