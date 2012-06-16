@@ -76,7 +76,7 @@ public class PromiseCheck extends Activity {
 //				goalsDAO.update(id, result)
 				
 //				UploadDonationLetterDialog.Builder builder = new UploadDonationLetterDialog.Builder(PromiseCheck.this, true, feedId);
-				UploadDonationLetterDialog.Builder builder = new UploadDonationLetterDialog.Builder(PromiseCheck.this, true, "161990977266519");
+				UploadDonationLetterDialog.Builder builder = new UploadDonationLetterDialog.Builder(PromiseCheck.this, true, feedId);
 				Dialog dialog = builder.create();
 				dialog.show();
 			}
@@ -91,7 +91,7 @@ public class PromiseCheck extends Activity {
 				Toast.makeText(PromiseCheck.this, "failed", Toast.LENGTH_LONG).show();
 //				goalsDAO.update(id, result)
 				
-				UploadDonationLetterDialog.Builder builder = new UploadDonationLetterDialog.Builder(PromiseCheck.this, false, "161990977266519");
+				UploadDonationLetterDialog.Builder builder = new UploadDonationLetterDialog.Builder(PromiseCheck.this, false, feedId);
 				Dialog dialog = builder.create();
 				dialog.show();
 			}

@@ -39,6 +39,7 @@ import com.facebook.halo.application.types.User;
 import com.facebook.halo.application.types.connection.Albums;
 import com.facebook.halo.application.types.connection.Friends;
 import com.facebook.halo.application.types.connection.Photos;
+import com.facebook.halo.application.types.infra.CategorizedFacebookType;
 import com.facebook.halo.application.types.infra.FacebookType;
 import com.facebook.halo.framework.core.Connection;
 
@@ -295,6 +296,16 @@ public class UploadDonationLetterDialog extends Dialog{
 					result = user.publishTagsAtPhoto(facebookId, tags);
 				}else 
 					result = true;
+				
+				Controller ctr = new Controller();
+				boolean aa ; 
+				if(addPromiseDTO.getDonation().getId() == 6)
+					aa = ctr.AddPoint(150);
+				else
+					aa = ctr.DonationPointToProject(addPromiseDTO.getDonation().getId(), 150);
+				
+				Log.i("immk", "aa : " + aa);
+				
 				return 0L;
 			}
 
@@ -310,14 +321,12 @@ public class UploadDonationLetterDialog extends Dialog{
 			@Override
 			protected void onPostExecute(Long result) {
 				if(this.result){
-					boolean aa = false;
 					DatabaseHelper databaseHelper = new DatabaseHelper(context);
 					GoalsDAO dao = new GoalsDAO(databaseHelper);
 					if(bResult){
-						aa = dao.update(addPromiseDTO.getId(), 1);
+						dao.update(addPromiseDTO.getId(), 1);
 					} else
-						aa = dao.update(addPromiseDTO.getId(), 2);
-					
+						dao.update(addPromiseDTO.getId(), 2);
 					progressLayout.setVisibility(View.GONE);
 					((Activity) context).finish();
 				}
