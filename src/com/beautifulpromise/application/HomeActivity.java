@@ -13,7 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -22,6 +24,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.beautifulpromise.R;
+import com.beautifulpromise.application.PointShopActivity.MyListAdapter;
 import com.beautifulpromise.common.alarm.Alarm;
 import com.beautifulpromise.common.dto.AddPromiseDTO;
 import com.beautifulpromise.database.CheckDAO;
@@ -37,6 +40,9 @@ public class HomeActivity extends BeautifulPromiseActivity {
 	ArrayList<AddPromiseDTO> promisedto;
 	int flag = 0;
 	AnimationDrawable mAni;
+	AlphaAnimation animation1;
+	AlphaAnimation animation2;
+	ImageView img;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -51,12 +57,20 @@ public class HomeActivity extends BeautifulPromiseActivity {
 		alarm.SetAlarm(this);
 		
 		if(flag == 0) {
-			ImageView img = (ImageView) findViewById(R.id.home_test);
+			img = (ImageView) findViewById(R.id.home_test);
 			
 			mAni = new AnimationDrawable();
 			
-//			mAni.addFrame((BitmapDrawable) getResources().getDrawable(
-//					R.drawable.home_banner1), 1000);
+//			animation1 = new AlphaAnimation(1.0f, 0.6f); 
+//			animation1.setDuration(1950); 
+//		    animation1.setStartOffset(50); 
+//			
+//		    animation2 = new AlphaAnimation(0.6f, 1.0f); 
+//		    animation2.setStartOffset(50);
+//		    animation2.setDuration(1950); 
+			
+			mAni.addFrame((BitmapDrawable) getResources().getDrawable(
+					R.drawable.home_banner1), 2000);
 			mAni.addFrame((BitmapDrawable) getResources().getDrawable(
 					R.drawable.home_banner2), 2000);
 			mAni.addFrame((BitmapDrawable) getResources().getDrawable(
@@ -68,10 +82,60 @@ public class HomeActivity extends BeautifulPromiseActivity {
 			img.setImageDrawable(mAni);
 
 			mAni.start();
+//			img.startAnimation(animation1);
+			
 			flag++;
 		}
+//		
+//	    //animation1 AnimationListener 
+//	    animation1.setAnimationListener(new AnimationListener(){ 
+//	 
+//	        @Override 
+//	        public void onAnimationEnd(Animation arg0) { 
+//	            // start animation2 when animation1 ends (continue) 
+//	        	img.startAnimation(animation2); 
+//	        } 
+//	 
+//	        @Override 
+//	        public void onAnimationRepeat(Animation arg0) { 
+//	            // TODO Auto-generated method stub 
+//	 
+//	        } 
+//	 
+//	        @Override 
+//	        public void onAnimationStart(Animation arg0) { 
+//	            // TODO Auto-generated method stub 
+//	 
+//	        } 
+//	 
+//	    }); 
+//	    
+//	    //animation2 AnimationListener 
+//	    animation2.setAnimationListener(new AnimationListener(){ 
+//	 
+//	        @Override 
+//	        public void onAnimationEnd(Animation arg0) { 
+//	            // start animation1 when animation2 ends (repeat) 
+//	        	img.startAnimation(animation1); 
+//	        } 
+//	 
+//	        @Override 
+//	        public void onAnimationRepeat(Animation arg0) { 
+//	            // TODO Auto-generated method stub 
+//	 
+//	        } 
+//	 
+//	        @Override 
+//	        public void onAnimationStart(Animation arg0) { 
+//	            // TODO Auto-generated method stub 
+//	 
+//	        } 
+//	 
+//	    }); 
+	    
 	}
-	
+
+
 	class MyListAdapter extends BaseAdapter implements OnClickListener {
 		Context maincon;
 		LayoutInflater Inflater;
@@ -208,3 +272,4 @@ public class HomeActivity extends BeautifulPromiseActivity {
 	}
 
 }
+
