@@ -73,15 +73,14 @@ public class UploadDonationLetterDialog extends Dialog{
     	
     	int count = 0;
     	boolean bResult;
-    	String feedId;
     	ArrayList<DonationDTO> donationList;
 		ArrayList<String> helperList;
 		AddPromiseDTO addPromiseDTO;
         
-        public Builder(Context context, boolean result, String feedId) {
+        public Builder(Context context, boolean result, AddPromiseDTO addPromiseDTO) {
         	this.context = context;
         	this.bResult = result;
-        	this.feedId = feedId;
+        	this.addPromiseDTO = addPromiseDTO;
 		}
 
 		public UploadDonationLetterDialog create() {
@@ -210,11 +209,11 @@ public class UploadDonationLetterDialog extends Dialog{
 			@Override
 			protected Long doInBackground(URL... params) {
 				
-				DatabaseHelper databaseHelper = new DatabaseHelper(context);
-				GoalsDAO dao = new GoalsDAO(databaseHelper);
-				addPromiseDTO = dao.get(feedId);				
+//				DatabaseHelper databaseHelper = new DatabaseHelper(context);
+//				GoalsDAO dao = new GoalsDAO(databaseHelper);
+//				addPromiseDTO = dao.get(feedId);				
 				Controller ctr = new Controller();
-				helperList = ctr.GetHelperList(feedId);
+				helperList = ctr.GetHelperList(addPromiseDTO.getPostId());
 				return 0L;
 			}
 
@@ -233,7 +232,7 @@ public class UploadDonationLetterDialog extends Dialog{
 				if(addPromiseDTO != null) {
 					resultText.setText(setContent(addPromiseDTO.getTitle(), bResult));           
 					donationImage.setImageDrawable(donationList.get(addPromiseDTO.getCategoryId()).getAfterDrawable());
-		            donationTitle.setText(setDontationText(addPromiseDTO.getDonation().getId(), bResult, 200));
+		            donationTitle.setText(setDontationText(addPromiseDTO.getDonationId(), bResult, 200));
 				}
 				
 				ArrayList<Object> helper = new ArrayList<Object>();
@@ -299,10 +298,10 @@ public class UploadDonationLetterDialog extends Dialog{
 				
 				Controller ctr = new Controller();
 				boolean aa ; 
-				if(addPromiseDTO.getDonation().getId() == 6)
+				if(addPromiseDTO.getDonationId() == 6)
 					aa = ctr.AddPoint(150);
 				else
-					aa = ctr.DonationPointToProject(addPromiseDTO.getDonation().getId(), 150);
+					aa = ctr.DonationPointToProject(addPromiseDTO.getDonationId(), 150);
 				
 				Log.i("immk", "aa : " + aa);
 				
@@ -328,7 +327,9 @@ public class UploadDonationLetterDialog extends Dialog{
 					} else
 						dao.update(addPromiseDTO.getId(), 2);
 					progressLayout.setVisibility(View.GONE);
+					dialog.dismiss();
 					((Activity) context).finish();
+					
 				}
 			}
 		}

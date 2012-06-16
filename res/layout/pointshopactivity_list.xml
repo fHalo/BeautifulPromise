@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:background="@drawable/point_bar"
+    android:background="@drawable/point_bar_selector"
     android:padding="8px" >
 
     <LinearLayout
@@ -43,7 +43,7 @@
 
             <ImageView
                 android:id="@+id/imageView1"
-                android:layout_marginTop="3dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginLeft="4dp"
                 android:layout_marginRight="3dp"
                 android:layout_width="wrap_content"
@@ -58,7 +58,7 @@
                 android:text="100"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#DD0000"
-                android:textSize="25px" />
+                android:textSize="18dp" />
 
         </LinearLayout>
 

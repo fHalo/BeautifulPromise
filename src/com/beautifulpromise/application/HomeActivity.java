@@ -89,7 +89,10 @@ public class HomeActivity extends BeautifulPromiseActivity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Log.e("TEST","TEST");
+				Intent intent = new Intent();
+				intent.setAction("FullBanner");
+				startActivity(intent);
+				
 			}
 		});
 //	    //animation1 AnimationListener 
@@ -224,8 +227,6 @@ public class HomeActivity extends BeautifulPromiseActivity {
 			if(promiseObject.getResult() == 0 && promiseObject.getD_day() < 1)
 			{
 				intent.setAction("feedviewer.PromiseCheck");
-				intent.putExtra("feedId", "159564817509135");
-				startActivity(intent);
 			}
 			// 주기(GPS)
 			else if(promiseObject.getCategoryId() == 0) {
@@ -242,8 +243,8 @@ public class HomeActivity extends BeautifulPromiseActivity {
 				intent.setAction("checkpromise.EtcCheckActivity");
 			}
 			intent.putExtras(extras);
-			startActivityForResult(intent, 0);
-		}
+			startActivity(intent);
+			}
 	}
 
 	@Override
@@ -262,10 +263,21 @@ public class HomeActivity extends BeautifulPromiseActivity {
 		checkDAO.feedtest();
 		checkDAO.close();
 		
+		int index = promisedto.size();
+		for (int j = 0; j < index; j++) {
+			for (int i = 0; i < promisedto.size(); i++) {
+				if(promisedto.get(i).getResult() != 0)
+				{
+					promisedto.remove(i);
+					break;
+				}
+			}
+		}
+		
 		// D-day계산해서 객체에 값넣음
 		for (int i = 0; i < promisedto.size(); i++) {
 			promisedto.get(i).setD_day(promisedto.get(i).getEndDate());
-		}
+			}
 
 		MyAdapter = new MyListAdapter(this, R.layout.homeactivity_list,
 				promisedto);

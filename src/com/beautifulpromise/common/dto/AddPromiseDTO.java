@@ -28,6 +28,7 @@ public class AddPromiseDTO implements Serializable {
 	private String content;
 	private ArrayList<Friends> helperList;
 	private DonationDTO donation;
+	private int donationId;
 	private String createDate;
 	private int result ;
 	private String signPath;
@@ -165,10 +166,10 @@ public class AddPromiseDTO implements Serializable {
 	public void setPostId(String postId) {
 		this.postId = postId;
 	}
-	
-	public void setDonationId(int id) {
-		if(this.donation==null)
-			this.donation = new DonationDTO();
-		this.donation.setId(id); 
+	public int getDonationId() {
+		return donationId;
+	}
+	public void setDonationId(int donationId) {
+		this.donationId = donationId;
 	}
 }

@@ -20,6 +20,7 @@ import com.beautifulpromise.R;
 import com.beautifulpromise.application.addpromise.AddPromiseActivity;
 import com.beautifulpromise.application.addpromise.RepeatDayDialog;
 import com.beautifulpromise.application.addpromise.UploadDonationLetterDialog;
+import com.beautifulpromise.common.dto.AddPromiseDTO;
 import com.beautifulpromise.database.DatabaseHelper;
 import com.beautifulpromise.database.GoalsDAO;
 import com.beautifulpromise.parser.Controller;
@@ -55,6 +56,8 @@ public class PromiseCheck extends Activity {
 	
 	GoalsDAO goalsDAO;
 	
+	AddPromiseDTO promiseobject;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -76,7 +79,7 @@ public class PromiseCheck extends Activity {
 //				goalsDAO.update(id, result)
 				
 //				UploadDonationLetterDialog.Builder builder = new UploadDonationLetterDialog.Builder(PromiseCheck.this, true, feedId);
-				UploadDonationLetterDialog.Builder builder = new UploadDonationLetterDialog.Builder(PromiseCheck.this, true, feedId);
+				UploadDonationLetterDialog.Builder builder = new UploadDonationLetterDialog.Builder(PromiseCheck.this, true, promiseobject);
 				Dialog dialog = builder.create();
 				dialog.show();
 			}
@@ -91,7 +94,7 @@ public class PromiseCheck extends Activity {
 				Toast.makeText(PromiseCheck.this, "failed", Toast.LENGTH_LONG).show();
 //				goalsDAO.update(id, result)
 				
-				UploadDonationLetterDialog.Builder builder = new UploadDonationLetterDialog.Builder(PromiseCheck.this, false, feedId);
+				UploadDonationLetterDialog.Builder builder = new UploadDonationLetterDialog.Builder(PromiseCheck.this, false, promiseobject);
 				Dialog dialog = builder.create();
 				dialog.show();
 			}
@@ -122,6 +125,10 @@ public class PromiseCheck extends Activity {
 		//db
 		DatabaseHelper databaseHelper = new DatabaseHelper(getApplicationContext());
 		goalsDAO = new GoalsDAO(databaseHelper);
+		
+		//intent 
+		Object tempobject = getIntent().getExtras().get("PromiseDTO");
+		promiseobject = (AddPromiseDTO) tempobject;
 	}
 	
 	private class FeedLoadAsyncTask extends AsyncTask<URL, Integer, Long> {
