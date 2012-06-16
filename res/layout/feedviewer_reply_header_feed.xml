@@ -37,7 +37,7 @@
             android:layout_alignBottom="@+id/profileImage2"
             android:layout_alignLeft="@+id/nameText2"
             android:text="2012.05.16 PM 2:18"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:textAppearance="?android:attr/textAppearanceSmall" android:textColor="#444444"/>
 
         <TextView
             android:id="@+id/percentText2"
@@ -62,10 +62,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/profileImage2"
-            android:layout_alignRight="@+id/percentText"
+            android:layout_alignRight="@+id/percentText2"
             android:layout_below="@+id/photoImage2"
             android:layout_marginTop="14dp"
-            android:text="Hello this is a test about facebook feed. This will be full of feed message and blah blah blah blah blah blah" />
+            android:text="Hello this is a test about facebook feed. This will be full of feed message and blah blah blah blah blah blah" android:textColor="#444444"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
