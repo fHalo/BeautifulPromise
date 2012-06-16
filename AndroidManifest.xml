@@ -150,7 +150,7 @@
         -->
 
         <receiver android:name=".common.alarm.AlarmReceiver" >
->
+
         </receiver>
 
         <activity android:name=".application.PointShopActivity" 
