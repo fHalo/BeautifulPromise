@@ -50,8 +50,8 @@ public class HomeActivity extends BeautifulPromiseActivity {
 		PromiseListView = (ListView) findViewById(R.id.home_list);
 		
 		// 알람
-		Alarm alarm = new Alarm();
-		alarm.SetAlarm(this);
+//		Alarm alarm = new Alarm();
+//		alarm.SetAlarm(this);
 		
 		if(flag == 0) {
 			img = (ImageView) findViewById(R.id.home_test);
