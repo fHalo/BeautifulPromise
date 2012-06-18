@@ -61,12 +61,12 @@ public class CheckDAO {
 			Log.e("ou", e.toString());
 			return false;
 		}
-		feedtest();
 		return true;
 	}
 	
 	public boolean feedcheckinsert(String id, int check){
 		try {
+
 			ContentValues row;
 			row = new ContentValues();
 			row.put("promiseid", id);
@@ -76,7 +76,6 @@ public class CheckDAO {
 			Log.e("ou", e.toString());
 			return false;
 		}
-		feedtest();
 		return true;
 	}
 	
@@ -95,17 +94,6 @@ public class CheckDAO {
 		}
 		cursor.close();
  		return check;
-	}
-	
-	public void feedtest(){
-		Cursor cursor = db.rawQuery("SELECT * FROM feed", null);
-		for(int i=0; i < cursor.getCount() ; i++)
-		{
-			cursor.moveToNext();
-			Log.e("ou", cursor.getString(1)+"  "+Integer.toString(cursor.getInt(2)));
-		}
-		
-		cursor.close();
 	}
 	
 	public boolean feedcheckinit(ArrayList<AddPromiseDTO> promisedto){

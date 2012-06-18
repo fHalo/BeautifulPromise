@@ -17,9 +17,8 @@ import android.util.Log;
 public class Alarm {
 
 	Context context;
-	ArrayList<AddPromiseDTO> promisedto;
 	
-	public void SetAlarm(Context context) {
+	public void SetAlarm(Context context, ArrayList<AddPromiseDTO> promisedto) {
 		this.context = context;
 		AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 

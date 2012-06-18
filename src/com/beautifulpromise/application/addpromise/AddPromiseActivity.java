@@ -441,17 +441,17 @@ public class AddPromiseActivity extends MapActivity {
 			promiseDTO.setMin(30);
 			break;
 		case 1:  	// 운동
-			promiseDTO.setTitle("운동 하기");
+			promiseDTO.setTitle("책 30분 읽기");
 			promiseDTO.setContent("1. 아침운동 30분 하기 \n2. 저녁은 조금만 먹을랭");
-			promiseDTO.setEndDate("2012년 6월 17일");
+			promiseDTO.setEndDate("2012년 7월 16일");
 			promiseDTO.setDayPeriod(new boolean[]{true, true, true, true, true, true, true});
 			promiseDTO.setTime(10);
 			promiseDTO.setMin(0);
 			break;
 		case 2:		// 기타
-			promiseDTO.setTitle("규칙적인 생활하기");
+			promiseDTO.setTitle("금주 하기!");
 			promiseDTO.setContent("1. 아침 9시에 일어나기 \n2. 2시에 자기");
-			promiseDTO.setEndDate("2012년 6월 22일");
+			promiseDTO.setEndDate("2012년 7월 20일");
 			break;			
 		default:
 			break;

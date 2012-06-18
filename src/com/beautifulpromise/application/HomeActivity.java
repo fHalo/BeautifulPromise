@@ -34,7 +34,7 @@ public class HomeActivity extends BeautifulPromiseActivity {
 
 	ListView PromiseListView;
 	MyListAdapter MyAdapter;
-	ArrayList<AddPromiseDTO> promisedto;
+	
 	int flag = 0;
 	AnimationDrawable mAni;
 	AlphaAnimation animation1;
@@ -48,10 +48,10 @@ public class HomeActivity extends BeautifulPromiseActivity {
 		setActivityLayout(layout);
 
 		PromiseListView = (ListView) findViewById(R.id.home_list);
-		
 		// 알람
+		ArrayList<AddPromiseDTO> PromiseDTO = GetNotresultPromise();
 		Alarm alarm = new Alarm();
-		alarm.SetAlarm(this);
+		alarm.SetAlarm(this, PromiseDTO);
 		
 		if(flag == 0) {
 			img = (ImageView) findViewById(R.id.home_test);
@@ -250,18 +250,46 @@ public class HomeActivity extends BeautifulPromiseActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		ArrayList<AddPromiseDTO> PromiseDTO = GetNotresultPromise();
+//		Calendar oCalendar = Calendar.getInstance();
+//		DatabaseHelper databaseHelper = new DatabaseHelper(this);
+//		GoalsDAO goalsDAO = new GoalsDAO(databaseHelper);
+//		
+//		promisedto = goalsDAO.getGoalList(oCalendar.get(Calendar.DAY_OF_WEEK));
+//		
+//		int index = promisedto.size();
+//		for (int j = 0; j < index; j++) {
+//			for (int i = 0; i < promisedto.size(); i++) {
+//				if(promisedto.get(i).getResult() != 0)
+//				{
+//					promisedto.remove(i);
+//					break;
+//				}
+//			}
+//		}
 		
+		// D-day계산해서 객체에 값넣음
+		for (int i = 0; i < PromiseDTO.size(); i++) {
+			PromiseDTO.get(i).setD_day(PromiseDTO.get(i).getEndDate());
+			}
+
+		
+		MyAdapter = new MyListAdapter(this, R.layout.homeactivity_list,
+				PromiseDTO);
+ 
+		// PromiseListView = (ListView) findViewById(R.id.list);
+		PromiseListView.setAdapter(MyAdapter);
+		PromiseListView.setItemsCanFocus(false);
+		PromiseListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+	}
+
+	public ArrayList<AddPromiseDTO> GetNotresultPromise() {
+		ArrayList<AddPromiseDTO> promisedto;
 		Calendar oCalendar = Calendar.getInstance();
 		DatabaseHelper databaseHelper = new DatabaseHelper(this);
 		GoalsDAO goalsDAO = new GoalsDAO(databaseHelper);
 		
 		promisedto = goalsDAO.getGoalList(oCalendar.get(Calendar.DAY_OF_WEEK));
-		
-		CheckDBHelper checkDBHelper = new CheckDBHelper(this);
-		CheckDAO checkDAO = new CheckDAO(checkDBHelper);
-//		checkDAO.feedcheckinit(promisedto);
-		checkDAO.feedtest();
-		checkDAO.close();
 		
 		int index = promisedto.size();
 		for (int j = 0; j < index; j++) {
@@ -273,20 +301,8 @@ public class HomeActivity extends BeautifulPromiseActivity {
 				}
 			}
 		}
+		return promisedto;
 		
-		// D-day계산해서 객체에 값넣음
-		for (int i = 0; i < promisedto.size(); i++) {
-			promisedto.get(i).setD_day(promisedto.get(i).getEndDate());
-			}
-
-		MyAdapter = new MyListAdapter(this, R.layout.homeactivity_list,
-				promisedto);
-
-		// PromiseListView = (ListView) findViewById(R.id.list);
-		PromiseListView.setAdapter(MyAdapter);
-		PromiseListView.setItemsCanFocus(false);
-		PromiseListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 	}
-
 }
 
