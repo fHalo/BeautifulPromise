@@ -117,10 +117,16 @@ public class BeautifulPromiseActivity extends Activity{
 		adapter = new NotificationAdapter(this, cursor);
 		notificationListView.setAdapter(adapter);
 		
+//		ContentValues row = new ContentValues();
+//		row.put("title", "신재명님이 내가 나온 사진을 추가했습니다.");
+//		row.put("send_user_id", "100001066448386");
+//		row.put("fb_id", "163295647136052");
+//		getContentResolver().insert(NotificationProvider.CONTENT_URI, row);
+		
+		
 //		handler = new Handler();
 //		Timer timer = new Timer();
 //		timer.schedule(task, 1000, 10000);
-		
 //		notificationListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //
 //			@Override

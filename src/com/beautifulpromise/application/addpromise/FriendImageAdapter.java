@@ -58,6 +58,8 @@ public class FriendImageAdapter extends BaseAdapter{
 		}
 		
 		WebView imageView = new WebView(context);
+		imageView.setFocusable(false);
+		imageView.setFocusableInTouchMode(false);
 //		imageView.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
 		imageView.loadDataWithBaseURL(null, ImageUtils.webViewImageReSize(MessageUtils.FACEBOOK_GRAPH_URL + friendId + "/picture" ), "text/html", "utf-8", null);
 		return imageView;

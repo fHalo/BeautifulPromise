@@ -187,7 +187,7 @@ public class UploadFeedDialog extends Dialog{
 				}
 						
 				Photos photos = new Photos();
-				photos.setMessage(promiseDTO.getContent() + "\n\n" + "[아름다운 약속] 앱 다운 받기" + "\n" + "http://www.enjoybazar.com");
+				photos.setMessage(promiseDTO.getContent() + "\n\n" + "[Tiny Village] 앱 다운 받기" + "\n" + "http://bit.ly/yBZAXu");
 				photos.setSource(path);
 				photos.setFileName("Beautiful Promise");
 				FacebookType type = user.publishPhotos(albumId, photos);
@@ -238,6 +238,7 @@ public class UploadFeedDialog extends Dialog{
 				DatabaseHelper databaseHelper = new DatabaseHelper(context);
 				GoalsDAO dao = new GoalsDAO(databaseHelper);
 				boolean isCheck = dao.insert(promiseDTO);
+//				Log.i("immk", "" + isCheck);
 				count++;
 				return 0L;
 			}
