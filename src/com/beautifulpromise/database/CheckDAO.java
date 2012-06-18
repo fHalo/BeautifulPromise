@@ -14,6 +14,7 @@ import android.util.Log;
 public class CheckDAO {
 	private CheckDBHelper checkDBHelper;
 	SQLiteDatabase db;
+	
 	public CheckDAO(CheckDBHelper checkDBHelper) {
 		this.checkDBHelper = checkDBHelper;
 		db = this.checkDBHelper.getWritableDatabase();

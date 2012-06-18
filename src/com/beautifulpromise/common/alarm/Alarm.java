@@ -22,12 +22,6 @@ public class Alarm {
 		this.context = context;
 		AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
-		Calendar oCalendar = Calendar.getInstance();
-		DatabaseHelper databaseHelper = new DatabaseHelper(context);
-		GoalsDAO goalsDAO = new GoalsDAO(databaseHelper);
-		
-		promisedto = goalsDAO.getGoalList(oCalendar.get(Calendar.DAY_OF_WEEK));
-		
 		Intent intent;
 		PendingIntent sender;
 

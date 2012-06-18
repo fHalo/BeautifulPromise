@@ -55,7 +55,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
 						Double Latitude = location.getLatitude();
 						Double Longitude = location.getLongitude();
-						checkDAO.gpsinit();
+//						checkDAO.gpsinit();
 						checkDAO.gpsinsert(promiseobject.getPostId(), Latitude, Longitude);
 
 						lm.removeUpdates(mLocationListener);
