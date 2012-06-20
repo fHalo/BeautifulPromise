@@ -224,22 +224,20 @@ public class HomeActivity extends BeautifulPromiseActivity {
 			Bundle extras = new Bundle();
 			extras.putSerializable("PromiseDTO", promiseObject);
 
+			//완료 목표
 			if(promiseObject.getResult() == 0 && promiseObject.getD_day() < 1)
 			{
 				intent.setAction("feedviewer.PromiseCheck");
 			}
 			// 주기(GPS)
 			else if(promiseObject.getCategoryId() == 0) {
-//				intent = new Intent(HomeActivity.this, CycleCheckActivity.class);
 				intent.setAction("checkpromise.CycleCheckActivity");
 			}
 			// 운동/공부 (타이머)
 			else if (promiseObject.getCategoryId() == 1) {
-//				intent = new Intent(HomeActivity.this, WorkCheckActivity.class);
 				intent.setAction("checkpromise.WorkCheckActivity");
 			}
 			else {
-//				intent = new Intent(HomeActivity.this, EtcCheckActivity.class);
 				intent.setAction("checkpromise.EtcCheckActivity");
 			}
 			intent.putExtras(extras);

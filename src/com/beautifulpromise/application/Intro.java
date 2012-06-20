@@ -69,7 +69,7 @@ public class Intro extends Activity {
 		public void handleMessage(Message msg) {
 			finish();
             if(setNewMember())
-            	Toast.makeText(Intro.this, "Success", Toast.LENGTH_SHORT).show();
+//            	Toast.makeText(Intro.this, "Success", Toast.LENGTH_SHORT).show();
             intent.setAction("HomeActivity");
             startActivity(intent);
 		}
@@ -96,7 +96,7 @@ public class Intro extends Activity {
                     AccessToken.setAccessToken(mFacebook.getAccessToken());
                     Repository.getInstance().setUser();
                     if(setNewMember())
-                    	Toast.makeText(Intro.this, "Success", Toast.LENGTH_SHORT).show();
+//                    	Toast.makeText(Intro.this, "Success", Toast.LENGTH_SHORT).show();
                 	intent.setAction("HomeActivity");
                     startActivity(intent);
                 	finish();

@@ -152,13 +152,13 @@ public class AddPromiseDTO implements Serializable {
 		  //getTimeInMillis()는 현재 시각을 밀리세컨드로 리턴하므로 1000으로 나눔.    
 		  //날짜로 구하려고 60*60*24 를 해줌
 		  
-		  cal.set(Integer.parseInt(d_day.substring(0, 4)),Integer.parseInt(d_day.substring(4, 6)) - 1,Integer.parseInt(d_day.substring(6, 8)) - 1,0,0);      
+		  cal.set(Integer.parseInt(d_day.substring(0, 4)),Integer.parseInt(d_day.substring(4, 6)) - 1,Integer.parseInt(d_day.substring(6, 8)),0,0);      
 		  //기준이 될 특정 날짜를 세팅(주의:일, 월 은 0부터 시작)      
 		  long birthTime = cal.getTimeInMillis() / (1000*60*60*24); 
 		  //수정한 시각을 밀리세컨드로 리턴받아서 1000으로 나눔      
 		  int interval = (int)(birthTime -currentTime);     
 		  //현재시각에서 생일시각을 빼서 현재까지 경과된 시간을 구함
-		this.d_day = interval;
+		this.d_day = interval + 1;
 	}
 	public String getPostId() {
 		return postId;

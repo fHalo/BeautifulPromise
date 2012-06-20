@@ -47,6 +47,7 @@ public class CheckDAO {
 		cursor.moveToNext();
 		Location[0] = cursor.getDouble(0);
 		Location[1] = cursor.getDouble(1);
+		cursor.close();
 		return Location;
 	}
 

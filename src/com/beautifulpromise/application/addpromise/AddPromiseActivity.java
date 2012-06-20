@@ -167,7 +167,7 @@ public class AddPromiseActivity extends MapActivity {
 		promiseDTO = new AddPromiseDTO();
 		setView(0);
 		promiseDTO.setCategoryId(0);
-		CreateObject(0);
+//		CreateObject(0);
 		promiseDTO.setDayPeriod(new boolean[]{false, false, false, false, false, false, false});
 		
 //		DatabaseHelper databaseHelper = new DatabaseHelper(this);
@@ -241,19 +241,19 @@ public class AddPromiseActivity extends MapActivity {
 			case R.id.category_1_button:
 				setView(0);
 				promiseDTO.setCategoryId(0);
-				CreateObject(0);
+//				CreateObject(0);
 				break;
 				
 			case R.id.category_2_button:
 				setView(1);
 				promiseDTO.setCategoryId(1);
-				CreateObject(1);
+//				CreateObject(1);
 				break;
 				
 			case R.id.category_3_button:
 				setView(2);
 				promiseDTO.setCategoryId(2);
-				CreateObject(2);
+//				CreateObject(2);
 				break;
 				
 			default:
@@ -476,36 +476,36 @@ public class AddPromiseActivity extends MapActivity {
 		}
 	}
 	
-	private void CreateObject(int key) {
-		
-		switch (key) {
-		case 0: 	// 주기 활동
-			promiseDTO.setTitle("영어 공부 하기");
-			promiseDTO.setContent("1. 하루 30분 공부하기 \n2. 영어 단어 50개 암기");
-			promiseDTO.setEndDate("2012년 6월 20일");
-			promiseDTO.setLatitue(3.749611E7);
-			promiseDTO.setLongitude(1.27051993E8);
-			promiseDTO.setDayPeriod(new boolean[]{true, true, true, true, true, true, true});
-			promiseDTO.setTime(10);
-			promiseDTO.setMin(30);
-			break;
-		case 1:  	// 운동
-			promiseDTO.setTitle("책 30분 읽기");
-			promiseDTO.setContent("1. 아침운동 30분 하기 \n2. 저녁은 조금만 먹을랭");
-			promiseDTO.setEndDate("2012년 7월 16일");
-			promiseDTO.setDayPeriod(new boolean[]{true, true, true, true, true, true, true});
-			promiseDTO.setTime(10);
-			promiseDTO.setMin(0);
-			break;
-		case 2:		// 기타
-			promiseDTO.setTitle("금주 하기!");
-			promiseDTO.setContent("1. 아침 9시에 일어나기 \n2. 2시에 자기");
-			promiseDTO.setEndDate("2012년 7월 20일");
-			break;			
-		default:
-			break;
-		}
-	}
+//	private void CreateObject(int key) {
+//		
+//		switch (key) {
+//		case 0: 	// 장소
+//			promiseDTO.setTitle("수영학원 빠지지 말기!!!");
+//			promiseDTO.setContent("꾸준히 다녀보자!");
+//			promiseDTO.setEndDate("2012년 6월 30일");
+//			promiseDTO.setLatitue(3.749611E7);
+//			promiseDTO.setLongitude(1.27051993E8);
+//			promiseDTO.setDayPeriod(new boolean[]{true, true, true, true, true, true, true});
+//			promiseDTO.setTime(10);
+//			promiseDTO.setMin(30);
+//			break;
+//		case 1:  	// 시간
+//			promiseDTO.setTitle("토익 800점 맞기~");
+//			promiseDTO.setContent("1. 하루 30분 공부하기 \n2. 영어 단어 50개 암기");
+//			promiseDTO.setEndDate("2012년 7월 7일");
+//			promiseDTO.setDayPeriod(new boolean[]{true, true, true, true, true, true, true});
+//			promiseDTO.setTime(10);
+//			promiseDTO.setMin(0);
+//			break;
+//		case 2:		// 기타
+//			promiseDTO.setTitle("금주 하기!");
+//			promiseDTO.setContent("1. 아침 9시에 일어나기 \n2. 2시에 자기");
+//			promiseDTO.setEndDate("2012년 7월 20일");
+//			break;			
+//		default:
+//			break;
+//		}
+//	}
 	
 	public void setRepeatDay(boolean[] dayArr){
 		promiseDTO.setDayPeriod(dayArr);
