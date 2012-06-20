@@ -49,7 +49,11 @@ import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
-
+/**
+ * 장소 체크 엑티비티
+ * @author ou
+ *
+ */
 public class CycleCheckActivity extends MapActivity {
 
 	CheckDBHelper gps_DBHelper;
@@ -76,6 +80,11 @@ public class CycleCheckActivity extends MapActivity {
 	Double Latitude;
 	Double Longitude;
 
+	/**
+	 * 생성할때 알림바제거
+	 * promiseobject에 해당 목표에 대한 정보를 넣어 각 뷰에 목표에 대한 정보 넣음
+	 * gps 데이터 베이스에 있는 정보 받아와서 구글맵으로 뿌려줌
+	 */
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.checkpromise_cyclecheck_activity);
@@ -128,16 +137,10 @@ public class CycleCheckActivity extends MapActivity {
 			MapHour_TextView.setText("오후 " + hour + "시 " +promiseobject.getMin()+"분에");
 		}
 		
-
 		mapview = (MapView) findViewById(R.id.checkpromise_cyclecheck_mapview);
 		mapview.setBuiltInZoomControls(true);
 		mapview.setSatellite(false);
 		mc = mapview.getController();
-
-		gps_DBHelper = new CheckDBHelper(this);
-		db = gps_DBHelper.getWritableDatabase();
-		
-		int a = 12345678;
 		
 		try{
 			
@@ -173,13 +176,17 @@ public class CycleCheckActivity extends MapActivity {
 
 	}
 
+	/**
+	 * 각 버튼의 클릭 이벤트메소드
+	 * post : 아름다운 약속 앨범에 GPS시간과 구글맵이 사진으로 올려짐
+	 * 
+	 */
 	View.OnClickListener buttonClickListener = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
 			switch (v.getId()) {
 
 			case R.id.checkpromise_cyclecheck_post_btn:
-
 				boolean result;
 				MapView_LinearLayout.buildDrawingCache();
 				Bitmap captureBitmap = MapView_LinearLayout.getDrawingCache();
@@ -249,7 +256,7 @@ public class CycleCheckActivity extends MapActivity {
 				
 				if (result) {
 					Toast.makeText(CycleCheckActivity.this, "성공", Toast.LENGTH_SHORT).show();
-					boolean aa = ctr.PublishCheck(promiseobject.getPostId(), type.getId());
+					ctr.PublishCheck(promiseobject.getPostId(), type.getId());
 
 					CheckDBHelper checkDBHelper = new CheckDBHelper(CycleCheckActivity.this);
 					CheckDAO checkDAO = new CheckDAO(checkDBHelper);
@@ -264,9 +271,7 @@ public class CycleCheckActivity extends MapActivity {
 							Toast.LENGTH_SHORT).show();
 				}
 				break;
-
-			
-
+				
 			default:
 				break;
 			}

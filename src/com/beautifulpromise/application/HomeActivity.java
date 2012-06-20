@@ -28,9 +28,13 @@ import com.beautifulpromise.database.CheckDAO;
 import com.beautifulpromise.database.CheckDBHelper;
 import com.beautifulpromise.database.DatabaseHelper;
 import com.beautifulpromise.database.GoalsDAO;
-
+/**
+ * @author ou
+ * 메인 시작 엑티비티 클래스
+ *
+ */
 public class HomeActivity extends BeautifulPromiseActivity {
-	/** Called when the activity is first created. */
+	
 
 	ListView PromiseListView;
 	MyListAdapter MyAdapter;
@@ -144,6 +148,11 @@ public class HomeActivity extends BeautifulPromiseActivity {
 	}
 
 
+	/**
+	 * 리스트뷰 어뎁터 클래스
+	 * @author ou
+	 *
+	 */
 	class MyListAdapter extends BaseAdapter implements OnClickListener {
 		Context maincon;
 		LayoutInflater Inflater;
@@ -170,6 +179,12 @@ public class HomeActivity extends BeautifulPromiseActivity {
 			return position;
 		}
 
+		/**
+		 * D-Day, D-day가 지나서 평가를 해야되는 약속들
+		 * 오늘 피드를 올린 약속
+		 * 오늘 피드를 올리지 않은 약속으로 나눠서 리스트뷰에 보여줌
+		 * 
+		 */
 		public View getView(int position, View convertView, ViewGroup parent) {
 
 			if (convertView == null) {
@@ -215,6 +230,11 @@ public class HomeActivity extends BeautifulPromiseActivity {
 			return convertView;
 		}
 
+		/**
+		 * 리스트뷰 클릭 이벤트
+		 * 각 목표의 CategoryID에 맞춰서 각 목표체크 엑티비티로 전환
+		 * 완료체크해야되는 목표의 경우는 따로 확인하여 PromiseCheck엑티비티로 전환
+		 */
 		public void onClick(View v) {
 			int position = (Integer) v.getTag();
 
@@ -245,6 +265,10 @@ public class HomeActivity extends BeautifulPromiseActivity {
 			}
 	}
 
+	/**
+	 * 메인 화면이 다시 시작될때마다 리스트뷰를 GetNotresultPromise메소드를 호출,
+	 * D-Day계산 하여 리스트 뷰에 다시 출력 
+	 */
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -281,6 +305,12 @@ public class HomeActivity extends BeautifulPromiseActivity {
 		PromiseListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 	}
 
+	/**
+	 * 서버 측에 오늘 요일에 해야되는 목표를 ArrayList<AddPromiseDTO>로 받음
+	 * 이 ArrayList를 오늘 날짜와 완료 날짜를 이용하여 D-Day계산하여 ArrayList<AddPromiseDTO>에 넣음
+	 * 그리고 이미 완료 되어 있는 목표는 ArrayList<AddPromiseDTO>에서 뺌
+	 * @return promisedto
+	 */
 	public ArrayList<AddPromiseDTO> GetNotresultPromise() {
 		ArrayList<AddPromiseDTO> promisedto;
 		Calendar oCalendar = Calendar.getInstance();

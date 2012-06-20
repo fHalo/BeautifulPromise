@@ -11,6 +11,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+/**
+ * feed, gps 데이터 베이스 DAO클래스
+ * @author ou
+ *
+ */
 public class CheckDAO {
 	private CheckDBHelper checkDBHelper;
 	SQLiteDatabase db;
@@ -19,17 +24,31 @@ public class CheckDAO {
 		this.checkDBHelper = checkDBHelper;
 		db = this.checkDBHelper.getWritableDatabase();
 	}
-	
+
+	/**
+	 * 데이터 베이스 close
+	 */
 	public void close(){
 		db.close();
 	}
-	//GPS관련 메소드
+
+	/**
+	 * gps 테이블 초기화
+	 * @return 성공시 true
+	 */
 	public boolean gpsinit(){
 		db.delete("gps", null, null);
 		return true;
 		
 	}
 
+	/**
+	 * gps테이블에 데이터 삽입 
+	 * @param id 목표 ID
+	 * @param Latitude 
+	 * @param Longitude
+	 * @return
+	 */
 	public boolean gpsinsert(String id, Double Latitude,Double Longitude){
 		ContentValues row;
 		row = new ContentValues();

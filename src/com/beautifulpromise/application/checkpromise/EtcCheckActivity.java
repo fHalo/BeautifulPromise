@@ -40,6 +40,11 @@ import com.facebook.halo.application.types.connection.Photos;
 import com.facebook.halo.application.types.infra.FacebookType;
 import com.facebook.halo.framework.core.Connection;
 
+/**
+ * 기타 목표 체크 엑티비티
+ * @author ou
+ *
+ */
 public class EtcCheckActivity extends Activity {
 	private static final int CROP_FROM_CAMERA = 1;
 	
@@ -55,6 +60,9 @@ public class EtcCheckActivity extends Activity {
 
 	AddPromiseDTO promiseobject;
 	
+	/**
+	 * 가져온 목표에 맞게 뷰들 텍스트 설정
+	 */
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.checkpromise_etccheck_activity);
@@ -89,6 +97,10 @@ public class EtcCheckActivity extends Activity {
 
 	View.OnClickListener buttonClickListener = new View.OnClickListener() {
 
+		/**
+		 * post, camera 버튼 이벤트 처리
+		 * 
+		 */
 		@Override
 		public void onClick(View v) {
 			switch (v.getId()) {
@@ -193,6 +205,9 @@ public class EtcCheckActivity extends Activity {
 		}
 	};
 	
+	/**
+	 * 다이얼로그에서 받아온 값을 이용해 사진 찍기, 앨범 선택, 취소 버튼 처리
+	 */
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		Uri imageUri;
@@ -216,7 +231,7 @@ public class EtcCheckActivity extends Activity {
 			
 			case CameraDialog.FINISH_TAKE_PHOTO:
 				bitmap = (Bitmap) data.getExtras().get("data"); 
-				String path = ImageUtils.saveBitmap(EtcCheckActivity.this, bitmap);
+				ImageUtils.saveBitmap(EtcCheckActivity.this, bitmap);
 				Upload_ImageView.setImageBitmap(bitmap);
 				break;
 				
