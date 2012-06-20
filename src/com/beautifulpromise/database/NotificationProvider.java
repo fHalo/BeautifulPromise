@@ -10,6 +10,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.util.Log;
 
+/**
+ * @description Content Provider를 활용한 노티피케이션 정보 가져오기
+ * @author immk
+ */
 public class NotificationProvider extends ContentProvider {
 
 	public static Uri CONTENT_URI = Uri.parse("content://com.beautifulpromise.database/notification");

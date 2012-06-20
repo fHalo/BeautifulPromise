@@ -40,13 +40,15 @@ import com.google.android.maps.MyLocationOverlay;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
 
+/**
+ * @author immk
+ * @description 목표 생성을 위한 Activity
+ */
 public class AddPromiseActivity extends MapActivity {
 
 	protected static final int TIME_DIALOG_ID = 100;
 
 	LinearLayout progressLayout;
-	
-//	Spinner goalSpinner;
 	Button category1Btn;
 	Button category2Btn;
 	Button category3Btn;
@@ -261,34 +263,7 @@ public class AddPromiseActivity extends MapActivity {
 			}	
 		}
 	};
-    
-//    AdapterView.OnItemSelectedListener spinnerSelectListener = new AdapterView.OnItemSelectedListener() {
-//
-//		@Override
-//		public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-//			if(position == 0 ) {
-//				setView(0);
-//				promiseDTO.setCategoryId(0);
-//				CreateObject(0);
-//			}else if(position == 1 ) {
-//				setView(1);
-//				promiseDTO.setCategoryId(1);
-//				CreateObject(1);
-//			}else if(position == 2 ) {
-//				setView(2);
-//				promiseDTO.setCategoryId(2);
-//				CreateObject(2);
-//			}
-//		}
-//
-//		@Override
-//		public void onNothingSelected(AdapterView<?> arg0) {
-//			promiseDTO.setCategoryId(0);
-//			CreateObject(0);
-//		
-//		}
-//	};
-	
+
 	TimePickerDialog.OnTimeSetListener mTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
 		
 		@Override

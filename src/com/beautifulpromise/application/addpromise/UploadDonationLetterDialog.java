@@ -43,6 +43,10 @@ import com.facebook.halo.application.types.infra.CategorizedFacebookType;
 import com.facebook.halo.application.types.infra.FacebookType;
 import com.facebook.halo.framework.core.Connection;
 
+/**
+ * @description 기부증 Upload를 위한 Dialog (내부 Database 갱신, Facebook에 기부증 Upload )
+ * @author immk
+ */
 public class UploadDonationLetterDialog extends Dialog{
 	
     public UploadDonationLetterDialog(Context context, int theme) {

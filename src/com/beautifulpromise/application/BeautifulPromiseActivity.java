@@ -1,5 +1,6 @@
 package com.beautifulpromise.application;
 
+import java.util.Timer;
 import java.util.TimerTask;
 
 import android.app.Activity;
@@ -15,6 +16,7 @@ import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.widget.AdapterView;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -117,16 +119,33 @@ public class BeautifulPromiseActivity extends Activity{
 		adapter = new NotificationAdapter(this, cursor);
 		notificationListView.setAdapter(adapter);
 		
+		visibleNewImage();
+		
 //		ContentValues row = new ContentValues();
-//		row.put("title", "신재명님이 내가 나온 사진을 추가했습니다.");
+//		row.put("title", "Jaemyung Shin commented on your photo: \"오 ! 열심히해~\"");
 //		row.put("send_user_id", "100001066448386");
+//		row.put("fb_id", "163295647136052");
+//		getContentResolver().insert(NotificationProvider.CONTENT_URI, row);
+//		
+//		row.put("title", "Jaemyung Shin commented on your photo: \"나도 학원 다니는 중 !\"");
+//		row.put("send_user_id", "100001066448386");
+//		row.put("fb_id", "163295647136052");
+//		getContentResolver().insert(NotificationProvider.CONTENT_URI, row);
+//		
+//		row.put("title", "Mikyung Kang commented on your photo: \"멋지당 ! \"");
+//		row.put("send_user_id", "100001428910089");
+//		row.put("fb_id", "163295647136052");
+//		getContentResolver().insert(NotificationProvider.CONTENT_URI, row);
+//		
+//		row.put("title", "YooHwan  Oh commented on your photo: \"꼭 성공하길 바래-\"");
+//		row.put("send_user_id", "100002274717846");
 //		row.put("fb_id", "163295647136052");
 //		getContentResolver().insert(NotificationProvider.CONTENT_URI, row);
 		
 		
 //		handler = new Handler();
 //		Timer timer = new Timer();
-//		timer.schedule(task, 1000, 10000);
+//		timer.schedule(task, 3000, 100000);
 //		notificationListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //
 //			@Override

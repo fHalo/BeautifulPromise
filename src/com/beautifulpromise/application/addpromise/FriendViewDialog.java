@@ -22,6 +22,10 @@ import com.facebook.halo.application.types.connection.Friends;
 import com.facebook.halo.framework.common.AccessToken;
 import com.facebook.halo.framework.core.Connection;
 
+/**
+ * @description 친구 목록 Dialog
+ * @author immk
+ */
 public class FriendViewDialog extends Dialog{
 	
 

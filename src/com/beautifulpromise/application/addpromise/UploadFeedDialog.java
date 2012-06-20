@@ -37,6 +37,10 @@ import com.facebook.halo.application.types.connection.Photos;
 import com.facebook.halo.application.types.infra.FacebookType;
 import com.facebook.halo.framework.core.Connection;
 
+/**
+ * @description 서약서 Upload를 위한 Dialog (내부 Database 저장, 서버 저장, Facebook에 서약서 Upload )
+ * @author immk
+ */
 public class UploadFeedDialog extends Dialog{
 	
     public UploadFeedDialog(Context context, int theme) {

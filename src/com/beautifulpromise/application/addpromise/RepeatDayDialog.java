@@ -7,7 +7,10 @@ import android.view.View;
 import android.widget.Button;
 
 import com.beautifulpromise.R;
-
+/**
+ * @description 알람 반복주기 선택 Dialog
+ * @author immk
+ */
 public class RepeatDayDialog extends Dialog{
 	
 

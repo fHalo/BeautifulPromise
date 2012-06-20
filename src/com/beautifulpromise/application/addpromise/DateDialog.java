@@ -8,9 +8,12 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.beautifulpromise.R;
 
+/**
+ * @description 시작일과 종료일 선택
+ * @author immk
+ */
 public class DateDialog extends Dialog{
 	
     public DateDialog(Context context, int theme) {

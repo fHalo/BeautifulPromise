@@ -16,6 +16,10 @@ import com.beautifulpromise.R;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 
+/**
+ * @description 구글 맵을 연동한 Dialog
+ * @author immk
+ */
 public class MapViewDialog extends Dialog {
 
 	private Context context;

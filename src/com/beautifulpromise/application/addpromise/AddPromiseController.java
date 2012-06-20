@@ -12,6 +12,10 @@ import com.beautifulpromise.common.utils.MessageUtils;
 import com.beautifulpromise.parser.HttpClients;
 import com.facebook.halo.application.types.connection.Friends;
 
+/**
+ * @description Server에 데이터 전송
+ * @author immk
+ */
 public class AddPromiseController {
 	
 	HttpClients client;
@@ -19,7 +23,16 @@ public class AddPromiseController {
 	public AddPromiseController(){
 		client = new HttpClients();
 	}
-	
+	/**
+	 * @description Server에 목표 생성에 관련된 데이터 전송
+	 * @param campaignId
+	 * @param facebookId
+	 * @param title
+	 * @param startDate
+	 * @param endDate
+	 * @param helpers
+	 * @return boolean
+	 */
 	public boolean InsertPromise(int campaignId, String facebookId, String title, String startDate, String endDate, ArrayList<Friends> helpers){
 		boolean isSuccess = false;
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -44,7 +57,11 @@ public class AddPromiseController {
 			isSuccess = client.getResult(data);
 		return isSuccess;
 	}
-	
+	/**
+	 * @description Server에 목표 생성에 관련한 데이터 전송
+	 * @param addPromiseDTO
+	 * @return boolean
+	 */
 	public boolean InsertPromise(AddPromiseDTO addPromiseDTO){
 		boolean isSuccess = false;
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
