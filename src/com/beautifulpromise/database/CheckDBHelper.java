@@ -4,6 +4,11 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+/**
+ * gps, feed가 있는 check.db Helper클래스
+ * @author ou
+ *
+ */
 public class CheckDBHelper extends SQLiteOpenHelper {
 	public CheckDBHelper(Context context) {
 		super(context, "check.db", null, 1);

@@ -45,8 +45,8 @@ public class CheckDAO {
 	/**
 	 * gps테이블에 데이터 삽입 
 	 * @param id 목표 ID
-	 * @param Latitude 
-	 * @param Longitude
+	 * @param Latitude 위도
+	 * @param Longitude 경도
 	 * @return
 	 */
 	public boolean gpsinsert(String id, Double Latitude,Double Longitude){
@@ -60,6 +60,11 @@ public class CheckDAO {
 		
 	}
 	
+	/**
+	 * 목표 ID에 해당하는 위도 경도 정보 리턴
+	 * @param id 해당 목표 ID
+	 * @return 위도 경도 Location배열
+	 */
 	public Double[] getGPS(String id){
 		Double [] Location = new Double[2];
 		Cursor cursor = db.rawQuery("SELECT latitude, longitude FROM gps WHERE promiseid=" + id, null);
@@ -70,7 +75,12 @@ public class CheckDAO {
 		return Location;
 	}
 
-	//feedcheck메소드
+	/**
+	 * 목표 ID에 해당하는 오늘 목표를 수행 했는지 체크 정보 갱신
+	 * @param id 해당 목표 ID
+	 * @param check 성공시 true, 실패시 false
+	 * @return
+	 */
 	public boolean feedcheckupdate(String id, int check){
 		try {
 			ContentValues row;
@@ -85,6 +95,12 @@ public class CheckDAO {
 		return true;
 	}
 	
+	/**
+	 * feed 테이블에 해당 목표 ID와 체크상태 삽입
+	 * @param id 목표 ID
+	 * @param check 해당 목표의 오늘 목표 체크 여부
+	 * @return 성공시 true, 실패시 false
+	 */
 	public boolean feedcheckinsert(String id, int check){
 		try {
 
@@ -100,6 +116,12 @@ public class CheckDAO {
 		return true;
 	}
 	
+	/**
+	 * 해당 목표 ID를 Select하여 check값을 가져옴
+	 * 해당 목표가 테이블에 없는 경우는 0리턴
+	 * @param id
+	 * @return 해당 목표의 오늘 목표체크여부
+	 */
 	public int feedcheckdo(String id){
 		Cursor cursor = db.rawQuery("SELECT feedcheck FROM feed WHERE promiseid=" + id , null);
 		int check;
@@ -117,6 +139,12 @@ public class CheckDAO {
  		return check;
 	}
 	
+	/**
+	 * feed테이블 초기화
+	 * check를 전부 0으로 바꿈
+	 * @param promisedto
+	 * @return
+	 */
 	public boolean feedcheckinit(ArrayList<AddPromiseDTO> promisedto){
 		ContentValues row;
 		row = new ContentValues();
