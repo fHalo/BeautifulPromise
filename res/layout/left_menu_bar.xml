@@ -107,7 +107,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
-            android:text="친구목표"
+            android:text="목표뉴스"
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
 

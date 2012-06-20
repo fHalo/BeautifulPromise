@@ -69,7 +69,7 @@ public class CycleCheckActivity extends MapActivity {
 	TextView MapHour_TextView;
 	EditText Feed_EditBox;
 	Button Post_Btn;
-	Intent intent;
+	Intent intent = new Intent();
 	
 	LinearLayout MapView_LinearLayout;
 

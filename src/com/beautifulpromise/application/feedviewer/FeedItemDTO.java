@@ -46,7 +46,10 @@ public class FeedItemDTO implements Serializable {
 		
 		photoImagePath = post.getPicture();
 		
-		feed = post.getMessage();
+		if(post.getMessage() == null)
+			feed = post.getName();
+		else
+			feed = post.getMessage();
 		
 		comment = post.getComments();
 		

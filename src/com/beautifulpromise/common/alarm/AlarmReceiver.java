@@ -57,7 +57,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 						Double Longitude = location.getLongitude();
 						checkDAO.gpsinit();
 						checkDAO.gpsinsert(promiseobject.getPostId(), Latitude, Longitude);
-
+						checkDAO.close();
 						lm.removeUpdates(mLocationListener);
 					}
 				}
@@ -86,9 +86,8 @@ public class AlarmReceiver extends BroadcastReceiver {
 		} else if ((promiseobject.getCategoryId() == 1))
 		{
 			i = new Intent(AlarmReceiver.this.context, WorkCheckActivity.class);
+			checkDAO.close();
 		}
-		
-		checkDAO.close();
 		
 		Bundle extras = new Bundle();
 		extras.putSerializable("PromiseDTO", promiseobject);

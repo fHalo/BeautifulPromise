@@ -14,6 +14,7 @@ import android.util.Log;
 public class CheckDAO {
 	private CheckDBHelper checkDBHelper;
 	SQLiteDatabase db;
+	
 	public CheckDAO(CheckDBHelper checkDBHelper) {
 		this.checkDBHelper = checkDBHelper;
 		db = this.checkDBHelper.getWritableDatabase();
@@ -46,6 +47,7 @@ public class CheckDAO {
 		cursor.moveToNext();
 		Location[0] = cursor.getDouble(0);
 		Location[1] = cursor.getDouble(1);
+		cursor.close();
 		return Location;
 	}
 
