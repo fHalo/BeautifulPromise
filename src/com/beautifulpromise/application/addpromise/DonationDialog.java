@@ -31,13 +31,27 @@ import com.beautifulpromise.common.utils.ImageUtils;
  */
 public class DonationDialog extends Dialog{
 	
+	/**
+	 * Custom Dialog 생성자
+	 * @param context Context
+	 * @param theme 테마 설정
+	 */
     public DonationDialog(Context context, int theme) {
         super(context, theme);
     }
 	
+    /**
+     * Custom Dialog 생성자
+     * @param context Context
+     */
 	public DonationDialog(Context context) {
 		super(context);
 	}
+	
+	/**
+	 * Custom Dialog View 설정
+	 * @author immk
+	 */
 	public static class Builder {
     	 
         private Context context;
@@ -47,11 +61,19 @@ public class DonationDialog extends Dialog{
     	Button okayBtn;
     	AddPromiseDTO promiseDTO;
 
+    	/**
+    	 * Custom Dialog Builder 생성자
+    	 * @param context
+    	 */
         public Builder(Context context, AddPromiseDTO promiseDTO) {
             this.context = context;
             this.promiseDTO = promiseDTO;
         }
         
+        /**
+         * 캠페인 Dialog 생성
+         * @return DonationDialog
+         */
         public DonationDialog create() {
         	        	
         	LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

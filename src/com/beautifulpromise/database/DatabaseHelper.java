@@ -15,6 +15,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		super(context, DatabaseMetadata.DATABASE_NAME, null, DatabaseMetadata.DATABASE_VERSTION);
 	}
 
+	/**
+	 * Database생성
+	 */
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		
@@ -77,6 +80,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 	}
 
+	/**
+	 * Database를 업그레이드할 경우 호출
+	 */
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		db.execSQL("DROP TABLE IF EXISTS Goals");

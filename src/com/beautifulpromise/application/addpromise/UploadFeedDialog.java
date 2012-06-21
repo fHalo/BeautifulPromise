@@ -43,13 +43,27 @@ import com.facebook.halo.framework.core.Connection;
  */
 public class UploadFeedDialog extends Dialog{
 	
+	/**
+	 * Custom Dialog 생성자
+	 * @param context Context
+	 * @param theme 테마 설정
+	 */
     public UploadFeedDialog(Context context, int theme) {
         super(context, theme);
     }
 	
+    /**
+     * Custom Dialog 생성자
+     * @param context Context
+     */
 	public UploadFeedDialog(Context context) {
 		super(context);
 	}
+	
+	/**
+	 * Custom Dialog View 설정
+	 * @author immk
+	 */
 	public static class Builder {
     	 
         private Context context;
@@ -74,11 +88,19 @@ public class UploadFeedDialog extends Dialog{
     	
     	int count = 0;
         
+    	/**
+    	 * Custom Dialog Builder 생성자
+    	 * @param context
+    	 */
         public Builder(Context context, AddPromiseDTO promiseDTO) {
         	this.context = context;
         	this.promiseDTO = promiseDTO;
 		}
 
+        /**
+         * UploadFeedDialog 생성
+         * @return Dialog
+         */
 		public UploadFeedDialog create() {
         	        	
         	LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -148,6 +170,10 @@ public class UploadFeedDialog extends Dialog{
 			}
 		};
 
+		/**
+		 * '아름다운 서약서'의 타이틀 설정
+		 * @return String
+		 */
 		private String setContent(){
 			
 			String str;
@@ -157,6 +183,10 @@ public class UploadFeedDialog extends Dialog{
 			return str; 
 		}
 		
+		/**
+		 * '아름다운 서약서'의 캠페인 설정
+		 * @return String
+		 */
 		private String setDontationText(){
 			String str;
 			
@@ -164,6 +194,10 @@ public class UploadFeedDialog extends Dialog{
 			return str; 
 		}
 		
+		/**
+		 * '아름다운 서약서'를 페이스북에  업로드 / 도움을 주는 사람 태깅 하기 위한 AsyncTask
+		 * @author immk
+		 */
 		public class FacebookAsynTask extends AsyncTask<URL, Integer, Long> {
 			
 			boolean result;
@@ -235,6 +269,10 @@ public class UploadFeedDialog extends Dialog{
 			}
 		}
 		
+		/**
+		 * '아름다운 서약서' 정보를 내부 DB에 저장
+		 * @author immk
+		 */
 		public class DatabaseAsynTask extends AsyncTask<URL, Integer, Long> {
 
 			@Override
@@ -265,7 +303,10 @@ public class UploadFeedDialog extends Dialog{
 			}
 		}
 		
-		public class ServerAsynTask extends AsyncTask<URL, Integer, Long> {
+		/**
+		 * '아름다운 서약서' 정보를 외부 DB에 저장
+		 * @author immk
+		 */		public class ServerAsynTask extends AsyncTask<URL, Integer, Long> {
 			
 			String facebookId;
 			public ServerAsynTask(String facebookId){

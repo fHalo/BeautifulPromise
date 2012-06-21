@@ -8,7 +8,7 @@ import com.beautifulpromise.common.utils.DateUtils;
 import com.beautifulpromise.common.utils.TypeUtils;
 
 /**
- * @description 목표에 관련된 데이터를 저장, 검색, 업데이트 시킬 수 있는 클래스
+ * 목표에 관련된 데이터를 저장, 검색, 업데이트 시킬 수 있는 클래스
  * @author immk
  *
  */
@@ -21,7 +21,7 @@ public class GoalsDAO implements IGoalsDAO {
 	}
 	
 	/**
-	 * @description 목표 생성에 관한 정보 저장
+	 * 목표 생성에 관한 정보 저장
 	 */
 	@Override
 	public boolean insert(AddPromiseDTO addPromiseDTO) {
@@ -64,7 +64,7 @@ public class GoalsDAO implements IGoalsDAO {
 //	}
 	
 	/**
-	 * @description 알람 정보 저장
+	 * 알람 정보 저장
 	 */
 	public boolean insertAlarms (int goalId, int time, int min, boolean[] days) {
 		String query = "INSERT INTO Alarms(goal_id, monday, tuesday, wednesday, thursday, friday, saturday, sunday, time, min) "
@@ -76,7 +76,7 @@ public class GoalsDAO implements IGoalsDAO {
 	}
 
 	/**
-	 * @description 위치 정보 저장
+	 * 위치 정보 저장
 	 */
 	public boolean insertLocations(int goalId, Double latitude, Double longitude) {
 		String query = "INSERT INTO Locations(goal_id, latitude, longitude) "
@@ -86,7 +86,7 @@ public class GoalsDAO implements IGoalsDAO {
 	}
 	
 	/**
-	 * @description 목표 아이디 가져오기
+	 * 목표 아이디 가져오기
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public int getGoalId(String createDate) {
@@ -104,7 +104,7 @@ public class GoalsDAO implements IGoalsDAO {
 	}
 
 	/**
-	 * @description 목표에 관련된 데이터 가져오기
+	 * 목표에 관련된 데이터 가져오기
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
@@ -114,7 +114,7 @@ public class GoalsDAO implements IGoalsDAO {
 	}
 	
 	/**
-	 * @description 목표에 관련된 데이터 가져오기
+	 * 목표에 관련된 데이터 가져오기
 	 */
 	@Override
 	public AddPromiseDTO get(String postId) {
@@ -123,7 +123,7 @@ public class GoalsDAO implements IGoalsDAO {
 	}
 	
 	/**
-	 * @description 목표에 관련된 데이터 가져온 후 객체로 변환
+	 * 목표에 관련된 데이터 가져온 후 객체로 변환
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private AddPromiseDTO parser (String query){
@@ -171,7 +171,7 @@ public class GoalsDAO implements IGoalsDAO {
 	}
 	
 	/**
-	 * @description Database에 저장된 목표리스트 가져오기
+	 * Database에 저장된 목표리스트 가져오기
 	 */
 	@Override
 	public ArrayList<AddPromiseDTO> getList() {
@@ -179,7 +179,7 @@ public class GoalsDAO implements IGoalsDAO {
 		return getList(query);
 	}
 	/**
-	 * @description Database에서 요일에 맞는 목표리스트 가져오기
+	 * Database에서 요일에 맞는 목표리스트 가져오기
 	 */
 	public ArrayList<AddPromiseDTO> getGoalList(int day) {
 		ArrayList<AddPromiseDTO> list = new ArrayList<AddPromiseDTO>();
@@ -254,7 +254,7 @@ public class GoalsDAO implements IGoalsDAO {
 	}
 	
 	/**
-	 * @description Database에 결과 정보 Update
+	 * Database에 결과 정보 Update
 	 */
 	public boolean update(int id, int result){
 		String query = "UPDATE Goals SET result = " + result + " WHERE id = " + id;

@@ -42,7 +42,7 @@ import com.google.android.maps.OverlayItem;
 
 /**
  * @author immk
- * @description 목표 생성을 위한 Activity
+ * 목표 생성을 위한 Activity
  */
 public class AddPromiseActivity extends MapActivity {
 
@@ -89,6 +89,9 @@ public class AddPromiseActivity extends MapActivity {
 	
 	Connection<Friends> friends;
 	
+	/**
+	 * 목표 생성 화면 (View의 id 설정, 초기 세팅) 
+	 */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -188,6 +191,9 @@ public class AddPromiseActivity extends MapActivity {
 //		ArrayList<String> cc = ctr.GetProjectStatus(3);
     }
     
+    /**
+     * 	버튼 액션 설정 : 시작일/종료일 설정, 알람 주기 설정, 알람 시간 설정, 도우미 선택, 좌표 선택 등등
+     */
     View.OnClickListener buttonClickListener = new View.OnClickListener() {
 		
 		@Override
@@ -264,6 +270,10 @@ public class AddPromiseActivity extends MapActivity {
 		}
 	};
 
+    
+    /**
+     * 	알람 시간 설정
+     */
 	TimePickerDialog.OnTimeSetListener mTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
 		
 		@Override
@@ -274,6 +284,9 @@ public class AddPromiseActivity extends MapActivity {
 		}
 	};
 	
+	/**
+	 * 알람 시간 설정
+	 */
 	protected Dialog onCreateDialog(int id) {
 		switch (id) {
 		case TIME_DIALOG_ID:
@@ -285,6 +298,11 @@ public class AddPromiseActivity extends MapActivity {
 		return null;
 	};
 	
+
+	/**
+	 * 화면 세팅 
+	 * @param position 카테고리 position
+	 */
 	private void setView (int position){
 		
 		switch (position) {
@@ -321,6 +339,15 @@ public class AddPromiseActivity extends MapActivity {
 		}
 	}
 	
+	/**
+	 * 날짜 설정
+	 * @param startYear 시작년도
+	 * @param startMonth 시작 월
+	 * @param startDay 시작 날짜
+	 * @param endYear 끝나는 년도
+	 * @param endMonth 끝나는 월
+	 * @param endDay 끝나는 날짜
+	 */
 	public void setDate(int startYear, int startMonth, int startDay, int endYear, int endMonth, int endDay){
 		startDateText.setText(""+ startYear + "년 " + (startMonth+1) + "월 " + startDay + "일");
 		endDateText.setText(""+ endYear + "년 " + (endMonth+1) + "월 " + endDay + "일");
@@ -332,6 +359,9 @@ public class AddPromiseActivity extends MapActivity {
 		this.endDay = endDay;
 	}
 	
+    /**
+     *  변수명 설정
+     */
 	private void setVariable(){
 		
 		progressLayout = (LinearLayout) findViewById(R.id.progressLayout);
@@ -372,13 +402,21 @@ public class AddPromiseActivity extends MapActivity {
 	protected boolean isRouteDisplayed() {		
 		return false;
 	}
-	
+
+	/**
+	 * 친구 목록 가져오기
+	 * @return 친구 목록 리스트
+	 */
 	private List<Friends> getFriendList(){
 		User user = Repository.getInstance().getUser();
 		friends = user.friends();
 		return friends.getData();
 	}
 	
+	/**
+	 * 친구 목록 설정 및 화면에 세팅
+	 * @param helperList 도우미 목록
+	 */
 	public void setHelperFriends(ArrayList<Friends> helperList){
 		
 		if(helperList != null && helperList.size()>0){
@@ -395,6 +433,10 @@ public class AddPromiseActivity extends MapActivity {
 		helperGrid.setAdapter(adapter);
 	}
 
+	/**
+	 * 도우미 목록을 이미지로 변환
+	 * @return Bitmap
+	 */
 	public Bitmap getHelperImage() {
 		helperGrid.setDrawingCacheEnabled(false);
 		return ImageUtils.capture(helperGrid);
@@ -482,6 +524,10 @@ public class AddPromiseActivity extends MapActivity {
 //		}
 //	}
 	
+	/**
+	 * 반복 주기 설정 및 화면에 보여주기
+	 * @param dayArr 선택된 날짜 배열
+	 */
 	public void setRepeatDay(boolean[] dayArr){
 		promiseDTO.setDayPeriod(dayArr);
 		String day = "";

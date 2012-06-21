@@ -25,10 +25,18 @@ public class LoadDonation {
 	
 	Context context;
 	
+	/**
+	 * LoadDonation 생성자
+	 * @param context
+	 */
 	LoadDonation (Context context) {
 		this.context = context;
 	}
 
+	/**
+	 * xml 데이터를 파싱하여 객체로 변환해주는 함수
+	 * @return
+	 */
 	protected ArrayList<DonationDTO> loadDonation() {
 		ArrayList<DonationDTO> list = new ArrayList<DonationDTO>();
 		XmlPullParser parser = context.getResources().getXml(R.xml.donation);
@@ -49,6 +57,11 @@ public class LoadDonation {
 		return list;
 	}
 	
+	/**
+	 * xml 데이터를 파싱하여 DonationDTO 객체로 매핑한 후 리턴 
+	 * @param parser XmlPullParser
+	 * @return DonationDTO
+	 */
 	private DonationDTO add(XmlPullParser parser){
 		
 		DonationDTO donation = new DonationDTO();
@@ -61,6 +74,11 @@ public class LoadDonation {
 		return donation;
 	}
 	
+	/**
+	 * 이미지 경로를 Drawable 이미지로 변환
+	 * @param path 이미지 경로
+	 * @return Drawable
+	 */
 	public Drawable loadResource(String path) {
 		Drawable drawable = null;
 

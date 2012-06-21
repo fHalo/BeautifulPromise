@@ -18,9 +18,10 @@ public class Controller {
 	}
 	
 	/**
-	 * @description 신규 체크 생성
-	 * @param postId(facebook Post Id), checkId (facebook Post Id)
-	 * @return boolean
+	 * 신규 체크 생성
+	 * @param postId facebook Post Id
+	 * @param checkId facebook Post Id
+	 * @return
 	 */
 	public boolean PublishCheck(String postId, String checkId) {
 		boolean isSuccess = false;
@@ -34,8 +35,8 @@ public class Controller {
 	}
 	
 	/**
-	 * @description 포인트추가
-	 * @param point
+	 * 포인트추가
+	 * @param point 포인트 값
 	 * @return boolean
 	 */
 	public boolean AddPoint (int point) {
@@ -50,8 +51,9 @@ public class Controller {
 	}
 	
 	/**
-	 * @description 캠페인에 포인트 추가 (기부)
-	 * @param projectId, point
+	 * 캠페인에 포인트 추가 (기부)
+	 * @param projectId 참여하는 캠페인 id
+	 * @param point 기부하는 금액
 	 * @return boolean
 	 */
 	public boolean DonationPointToProject (int projectId, int point) {
@@ -66,8 +68,8 @@ public class Controller {
 	}
 	
 	/**
-	 * @description Todo 체크 리스트
-	 * @param postId
+	 * Todo 체크 리스트
+	 * @param postId facebook Post Id
 	 * @return ArrayList<String>
 	 */
 
@@ -87,8 +89,8 @@ public class Controller {
 	}
 	
 	/**
-	 * @description Todo 의 헬퍼 리스트
-	 * @param postId
+	 * Todo 의 헬퍼 리스트
+	 * @param postId facebook Post Id
 	 * @return boolean
 	 */
 	@SuppressWarnings({"unchecked", "rawtypes"})
@@ -107,8 +109,8 @@ public class Controller {
 	}
 	
 	/**
-	 * @description Todo 체크 리스트
-	 * @param postId
+	 * 해당 캠페인의 진행사항 정보 가져오기
+	 * @param projectId 참가하는 캠페인 id
 	 * @return boolean
 	 */
 	@SuppressWarnings({"unchecked", "rawtypes"})
@@ -129,7 +131,7 @@ public class Controller {
 	
 
 	/**
-	 * @description Todo List 가져오기
+	 * Todo List 가져오기
 	 * @param mode(=me, helper, all)
 	 * @return
 	 */

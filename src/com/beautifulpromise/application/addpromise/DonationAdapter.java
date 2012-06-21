@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.beautifulpromise.R;
 
 /**
- * @description 캠페인 List 객체를 ListView에서 표시할 수 있게 해주는 Adapter
+ * 캠페인 List 객체를 ListView에서 표시할 수 있게 해주는 Adapter
  * @author immk
  */
 public class DonationAdapter extends BaseAdapter {
@@ -24,27 +24,45 @@ public class DonationAdapter extends BaseAdapter {
 	private LayoutInflater inflater;
 	ViewHolder holder;
 	
+	/**
+	 * Custom Adapter 생성자
+	 * @param context Context
+	 * @param donationList 캠페인에 관련된 리스트
+	 */
 	public DonationAdapter(Context context, ArrayList<DonationDTO> donationList) {
 		this.context = context;
-		this.setUserList(donationList);
+		this.setDonationList(donationList);
 		this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 
+	/**
+	 * 리스트의 갯수
+	 */
 	@Override
 	public int getCount() {
-		return getUserList().size();
+		return getDonationList().size();
 	}
 
+	/**
+	 * 리스트 중 해당 position의 객체 정보 가져오기 
+	 */
 	@Override
 	public Object getItem(int position) {
-		return getUserList().get(position);
+		return getDonationList().get(position);
 	}
-
+	
+	/**
+	 * 리스트 중 해당 position의 id값 가져오기
+	 */
 	@Override
 	public long getItemId(int position) {
 		return position;
 	}
 	
+	/**
+	 * ViewHolder
+	 * @author immk
+	 */
 	public class ViewHolder {
 		public TextView donationTitle;
 		public TextView donationDetails;
@@ -52,9 +70,12 @@ public class DonationAdapter extends BaseAdapter {
 		public LinearLayout donationLayout;
 	}
 
+	/**
+	 * 리스트 중 해당 postion에 해당하는 데이터를 화면에 보여주기
+	 */
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		DonationDTO donation = getUserList().get(position);
+		DonationDTO donation = getDonationList().get(position);
 
 		if(convertView == null) {
 			convertView = inflater.inflate(R.layout.addpromise_donation_item, null);
@@ -79,16 +100,19 @@ public class DonationAdapter extends BaseAdapter {
 		return convertView;
 	}
 	
+	/**
+	 * adapter의 데이터가 변했을 때 호출하는 함수
+	 */
 	@Override
 	public void notifyDataSetChanged() {
 		super.notifyDataSetChanged();
 	}
 
-	public ArrayList<DonationDTO> getUserList() {
+	public ArrayList<DonationDTO> getDonationList() {
 		return donationList;
 	}
 
-	public void setUserList(ArrayList<DonationDTO> donationList) {
+	public void setDonationList(ArrayList<DonationDTO> donationList) {
 		this.donationList = donationList;
 	}
 

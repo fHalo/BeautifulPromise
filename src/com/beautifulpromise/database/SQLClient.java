@@ -9,7 +9,6 @@ import android.database.sqlite.SQLiteDatabase;
 /**
  * @description 데이터베이스에서 정보를 검색한 후 객체화 시켜주는 클래스
  * @author immk
- *
  */
 public class SQLClient {
 

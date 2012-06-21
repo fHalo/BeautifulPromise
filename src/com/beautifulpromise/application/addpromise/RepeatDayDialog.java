@@ -13,14 +13,27 @@ import com.beautifulpromise.R;
  */
 public class RepeatDayDialog extends Dialog{
 	
-
+	/**
+	 * RepeatDayDialog 생성자
+	 * @param context Context
+	 * @param theme 테마 설정
+	 */
     public RepeatDayDialog(Context context, int theme) {
         super(context, theme);
     }
 	
+    /**
+     * RepeatDayDialog 생성자
+     * @param context
+     */
 	public RepeatDayDialog(Context context) {
 		super(context);
 	}
+	
+	/**
+	 * Custom Dialog View 설정
+	 * @author immk
+	 */
 	public static class Builder {
     	 
         private Context context;
@@ -45,11 +58,19 @@ public class RepeatDayDialog extends Dialog{
     	boolean[] dayArr;
     	Button[] dayButtonArr;
     	
+    	/**
+    	 * Custom Dialog Builder 생성자
+    	 * @param context
+    	 */
         public Builder(Context context, boolean[] dayArr) {
             this.context = context;
             this.dayArr = dayArr;
         }
        
+        /**
+         * RepeatDayDialog 생성
+         * @return Dialog
+         */
         public RepeatDayDialog create() {
         	        	
         	LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

@@ -49,13 +49,27 @@ import com.facebook.halo.framework.core.Connection;
  */
 public class UploadDonationLetterDialog extends Dialog{
 	
+	/**
+	 * Custom Dialog 생성자
+	 * @param context Context
+	 * @param theme 테마 설정
+	 */
     public UploadDonationLetterDialog(Context context, int theme) {
         super(context, theme);
     }
 	
+    /**
+     * Custom Dialog 생성자
+     * @param context Context
+     */
 	public UploadDonationLetterDialog(Context context) {
 		super(context);
 	}
+	
+	/**
+	 * Custom Dialog View 설정
+	 * @author immk
+	 */
 	public static class Builder {
     	 
         private Context context;
@@ -81,12 +95,20 @@ public class UploadDonationLetterDialog extends Dialog{
 		ArrayList<String> helperList;
 		AddPromiseDTO addPromiseDTO;
         
+    	/**
+    	 * Custom Dialog Builder 생성자
+    	 * @param context
+    	 */
         public Builder(Context context, boolean result, AddPromiseDTO addPromiseDTO) {
         	this.context = context;
         	this.bResult = result;
         	this.addPromiseDTO = addPromiseDTO;
 		}
 
+        /**
+         * UploadDonationLetterDialog 생성
+         * @return Dialog
+         */
 		public UploadDonationLetterDialog create() {
         	        	
         	LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -148,6 +170,12 @@ public class UploadDonationLetterDialog extends Dialog{
 			}
 		};
 
+		/**
+		 * 프로젝트 타이틀과 결과에 따른 메시지 설정
+		 * @param projectTitle
+		 * @param result
+		 * @return String
+		 */
 		private String setContent(String projectTitle, boolean result){
 			
 			String str;	
@@ -160,6 +188,13 @@ public class UploadDonationLetterDialog extends Dialog{
 			return str; 
 		}
 		
+		/**
+		 * 카테고리, 결과, 포인트에 따른 기부 메시지 설정
+		 * @param category
+		 * @param result
+		 * @param point
+		 * @return
+		 */
 		private String setDontationText(int category, boolean result, int point){
 			String str = "";
 			
@@ -208,6 +243,10 @@ public class UploadDonationLetterDialog extends Dialog{
 			return str; 
 		}
 		
+		/**
+		 * 피드에 업로드 될 '아름다운 기부증' 생성을 위한 AsyncTask
+		 * @author immk
+		 */
 		public class ViewAsynTask extends AsyncTask<URL, Integer, Long> {
 			
 			@Override
@@ -252,6 +291,10 @@ public class UploadDonationLetterDialog extends Dialog{
 			}
 		}
 		
+		/**
+		 * 페이스북에 피드를 업로드 하기 위한 AsyncTask
+		 * @author immk
+		 */
 		public class FacebookAsynTask extends AsyncTask<URL, Integer, Long> {
 			
 			boolean result;

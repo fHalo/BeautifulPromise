@@ -30,6 +30,12 @@ public class MapViewDialog extends Dialog {
 	Button cancelBtn;
 	MapController mapController;
 
+	/**
+	 * MapViewDialog 생성
+	 * @param context Context
+	 * @param theme 테마 생성
+	 * @param mapView MapView
+	 */
 	public MapViewDialog(Context context, int theme, MapView mapView) {
 		super(context, theme);
 		
@@ -45,6 +51,11 @@ public class MapViewDialog extends Dialog {
 		mapLayout.addView(mapView);
 	}
 
+	/**
+	 * MapViewDialog 생성
+	 * @param context Context
+	 * @param mapView MapView
+	 */
 	public MapViewDialog(Context context, MapView mapView) {
 		super(context);
 		

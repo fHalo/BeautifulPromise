@@ -13,12 +13,21 @@ import android.widget.TextView;
 import com.beautifulpromise.R;
 import com.beautifulpromise.common.utils.ImageUtils;
 
+/**
+ * Notification List 객체를 ListView에서 표시할 수 있게 해주는 Adapter
+ * @author immk
+ */
 public class NotificationAdapter extends CursorAdapter{
 
 	Context context;
 	private LayoutInflater inflater;
 	Cursor cursor;
 	
+	/**
+	 * 생성자
+	 * @param context
+	 * @param cursor
+	 */
 	public NotificationAdapter(Context context, Cursor cursor) {
 		super(context, cursor);
 		this.context = context;
@@ -26,6 +35,9 @@ public class NotificationAdapter extends CursorAdapter{
 		this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 
+	/**
+	 * 데이터베이스의 커서를 이용해 데이터와 화면을 연결
+	 */
 	@Override
 	public void bindView(View view, Context context, Cursor cursor) {
 		WebView userImage = (WebView) view.findViewById(R.id.user_image);		
@@ -36,18 +48,11 @@ public class NotificationAdapter extends CursorAdapter{
 		title.setText(cursor.getString(cursor.getColumnIndex("title")));
 	}
 
+	/**
+	 * 커서를 통해 데이터를 보여주기위한 화면을 생성
+	 */
 	@Override
 	public View newView(Context context, Cursor cursor, ViewGroup parent) {
 		return inflater.inflate(R.layout.notificaion_item, null);
 	}
-	
-	
-	@Override
-	public void notifyDataSetChanged() {
-		// TODO Auto-generated method stub
-		super.notifyDataSetChanged();
-//		cursor= ((Activity) context).managedQuery(NotificationProvider.CONTENT_URI, null, null, null, null);
-//		getCursor().setNotificationUri(context.getContentResolver(), NotificationProvider.CONTENT_URI);
-	}
-
 }

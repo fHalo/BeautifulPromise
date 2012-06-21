@@ -26,11 +26,19 @@ public class FriendImageAdapter extends BaseAdapter{
 	Context context;
 	ArrayList<Object> friendsList;
 	
+	/**
+	 * Custom Adapter 생성자
+	 * @param context Context
+	 * @param friendsList 친구 목록 리스트
+	 */
 	public FriendImageAdapter(Context context, ArrayList<Object> friendsList) {
 		this.context = context;
 		this.friendsList = friendsList;
 	}
 	
+	/**
+	 * 리스트의 갯수
+	 */
 	@Override
 	public int getCount() {
 		if(friendsList != null)
@@ -38,6 +46,9 @@ public class FriendImageAdapter extends BaseAdapter{
 		return 0;
 	}
 
+	/**
+	 * 리스트 중 해당 position의 객체 정보 가져오기 
+	 */
 	@Override
 	public Object getItem(int position) {
 
@@ -46,11 +57,17 @@ public class FriendImageAdapter extends BaseAdapter{
 		return null;
 	}
 
+	/**
+	 * 리스트 중 해당 position의 id값 가져오기
+	 */
 	@Override
 	public long getItemId(int position) {
 		return position;
 	}
-
+	
+	/**
+	 * 리스트 중 해당 postion에 해당하는 데이터를 화면에 보여주기
+	 */
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		

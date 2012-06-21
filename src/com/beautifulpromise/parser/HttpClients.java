@@ -37,6 +37,9 @@ public class HttpClients {
 	
 	DefaultHttpClient mHttpClient;
 	
+	/**
+	 * HttpClients 생성자 
+	 */
 	public HttpClients(){
 		
 		mHttpClient = new DefaultHttpClient(); 
@@ -45,6 +48,12 @@ public class HttpClients {
 		HttpConnectionParams.setSoTimeout(params, 5000);
 	}
 	
+	/**
+	 * Client의 정보를 서버에 전송 - Get방식
+	 * @param site
+	 * @param params
+	 * @return json 형식의 데이터
+	 */
 	public String getUrlToJson(String site, ArrayList<NameValuePair> params) {
 		
 		try {
@@ -74,6 +83,11 @@ public class HttpClients {
 		return null;
 	}
 	
+	/**
+	 * 리턴된 데이터를 boolean형식으로 리턴
+	 * @param data 리턴된 json 데이터
+	 * @return boolean
+	 */
 	public boolean getResult(String data){
 		try {
 			JSONObject json = new JSONObject(data);
@@ -84,6 +98,11 @@ public class HttpClients {
 		}
 	}
 
+	/**
+	 * 리턴된 데이터를 리스트형 객체로 리턴
+	 * @param data
+	 * @return ArrayList
+	 */
 	@SuppressWarnings("rawtypes")
 	public ArrayList getResultList(String data){
 		

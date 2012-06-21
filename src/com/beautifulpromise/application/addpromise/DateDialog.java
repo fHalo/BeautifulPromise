@@ -15,14 +15,28 @@ import com.beautifulpromise.R;
  * @author immk
  */
 public class DateDialog extends Dialog{
-	
+
+	/**
+	 * Custom Dialog 생성자
+	 * @param context Context
+	 * @param theme 테마 설정
+	 */
     public DateDialog(Context context, int theme) {
         super(context, theme);
     }
 	
+    /**
+     * Custom Dialog 생성자
+     * @param context Context
+     */
 	public DateDialog(Context context) {
 		super(context);
 	}
+	
+	/**
+	 * Custom Dialog View 설정
+	 * @author immk
+	 */
 	public static class Builder {
     	 
         private Context context;
@@ -47,10 +61,23 @@ public class DateDialog extends Dialog{
     	enum SELECT {start, end};
     	SELECT select = SELECT.start;
     	
+    	/**
+    	 * Custom Dialog Builder 생성자
+    	 * @param context
+    	 */
         public Builder(Context context) {
             this.context = context;
         }
         
+        /**
+         * 시작일과 종료일 설정
+         * @param startYear 시작년도
+         * @param startMonth 시작 월
+         * @param startDay 시작일
+         * @param endYear 끝나는 년도
+         * @param endMonth 끝나는 월
+         * @param endDay 끝나는 일
+         */
         public void setDate(int startYear, int startMonth, int startDay, int endYear, int endMonth, int endDay) {
             this.startYear = startYear;
             this.startMonth = startMonth;
@@ -60,6 +87,10 @@ public class DateDialog extends Dialog{
             this.endDay = endDay;
         }
        
+        /**
+         * DateDialog 생성
+         * @return Dialog
+         */
         public DateDialog create() {
         	        	
         	LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

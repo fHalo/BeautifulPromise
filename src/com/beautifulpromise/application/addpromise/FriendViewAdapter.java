@@ -24,31 +24,52 @@ public class FriendViewAdapter extends BaseAdapter {
 	private LayoutInflater inflater;
 	ViewHolder holder;
 	
+	/**
+	 * Custom Adapter 생성자
+	 * @param context Context
+	 * @param friendsList 친구 목록 리스트
+	 */
 	public FriendViewAdapter(Context context, List<Friends> friendsList) {
 		this.context = context;
 		this.friendsList=friendsList;
 		this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 
+	/**
+	 * 리스트의 갯수
+	 */
 	@Override
 	public int getCount() {
 		return getFriendsList().size();
 	}
 
+	/**
+	 * 리스트 중 해당 position의 객체 정보 가져오기 
+	 */
 	@Override
 	public Object getItem(int position) {
 		return getFriendsList().get(position);
 	}
 
+	/**
+	 * 리스트 중 해당 position의 id값 가져오기
+	 */
 	@Override
 	public long getItemId(int position) {
 		return position;
 	}
 	
+	/**
+	 * ViewHolder
+	 * @author immk
+	 */
 	public class ViewHolder {
 		public CheckedTextView friendNameText;
 	}
 
+	/**
+	 * 리스트 중 해당 postion에 해당하는 데이터를 화면에 보여주기
+	 */
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		Friends friend = getFriendsList().get(position);
@@ -68,6 +89,9 @@ public class FriendViewAdapter extends BaseAdapter {
 		return convertView;
 	}
 	
+	/**
+	 * adapter의 데이터가 변했을 때 호출하는 함수
+	 */
 	@Override
 	public void notifyDataSetChanged() {
 		super.notifyDataSetChanged();

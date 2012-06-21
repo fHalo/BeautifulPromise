@@ -1,14 +1,11 @@
 package com.beautifulpromise.database;
 
-import com.beautifulpromise.application.BeautifulPromiseActivity;
-
 import android.content.ContentProvider;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
-import android.util.Log;
 
 /**
  * @description Content Provider를 활용한 노티피케이션 정보 가져오기
@@ -24,6 +21,9 @@ public class NotificationProvider extends ContentProvider {
 //	static final int UriMatcher matcher;
 //	static {}
 //	
+	/**
+	 * DatabaseHelper 및 SQLiteDatabase 생성
+	 */
 	@Override
 	public boolean onCreate() {
 		helper = new DatabaseHelper(getContext());
@@ -31,17 +31,26 @@ public class NotificationProvider extends ContentProvider {
 		return db != null? true: false;
 	}
 	
+	/**
+	 * URL을 통해 데이터의 MIME 형식 요청
+	 */
 	@Override
 	public String getType(Uri uri) { 
 		return null;
 	}
 	
+	/**
+	 * URL을 통한 데이터 삭제
+	 */
 	@Override
 	public int delete(Uri uri, String selection, String[] selectionArgs) {
 		
 		return 0;
 	}
 
+	/**
+	 * URL을 통한 데이터 저장
+	 */
 	@Override
 	public Uri insert(Uri uri, ContentValues values) {
 		long id = db.insert(TABLE, null, values);
@@ -53,7 +62,9 @@ public class NotificationProvider extends ContentProvider {
 		return null;
 	}
 
-
+	/**
+	 * URL을 통한 데이터 검색
+	 */
 	@Override
 	public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
 		String sql;
@@ -67,6 +78,9 @@ public class NotificationProvider extends ContentProvider {
 		return cursor;
 	}
 
+	/**
+	 * URL을 통한 데이터 업데이트
+	 */
 	@Override
 	public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
 		// TODO Auto-generated method stub

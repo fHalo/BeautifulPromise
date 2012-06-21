@@ -13,7 +13,7 @@ import com.beautifulpromise.parser.HttpClients;
 import com.facebook.halo.application.types.connection.Friends;
 
 /**
- * @description Server에 데이터 전송
+ * Server에 데이터 전송
  * @author immk
  */
 public class AddPromiseController {
@@ -24,7 +24,7 @@ public class AddPromiseController {
 		client = new HttpClients();
 	}
 	/**
-	 * @description Server에 목표 생성에 관련된 데이터 전송
+	 * Server에 목표 생성에 관련된 데이터 전송
 	 * @param campaignId
 	 * @param facebookId
 	 * @param title
@@ -58,7 +58,7 @@ public class AddPromiseController {
 		return isSuccess;
 	}
 	/**
-	 * @description Server에 목표 생성에 관련한 데이터 전송
+	 * Server에 목표 생성에 관련한 데이터 전송
 	 * @param addPromiseDTO
 	 * @return boolean
 	 */

@@ -17,6 +17,10 @@ import android.util.Log;
  */
 public class DateUtils {
 
+	/**
+	 * 현재 날짜 리턴
+	 * @return String
+	 */
 	public static String getDate() {
 
 		DecimalFormat decimalFormat = new DecimalFormat("00");
@@ -33,6 +37,10 @@ public class DateUtils {
 		return resultDate;
 	}
 	
+	/**
+	 * 다음 날짜 리턴
+	 * @return String
+	 */
 	public static String getNextDate() {
 
 		DecimalFormat decimalFormat = new DecimalFormat("00");
@@ -49,7 +57,12 @@ public class DateUtils {
 		return resultDate;
 	}
 
-
+	/**
+	 * 날짜 형식 변경
+	 * @param dateStr
+	 * @param format
+	 * @return String
+	 */
 	public static String convertDateFormat(String dateStr, String format) {
 		// ex) Sun, 19 Oct 2008 15:00 GMT ->
 		Date date = new Date();
@@ -58,27 +71,48 @@ public class DateUtils {
 		return dateFormat.format(date);
 	}
 	
+	/**
+	 * 해당 년도 리턴
+	 * @return int
+	 */
 	public static int getYear(){
 		Calendar currentDate = Calendar.getInstance();
 		return currentDate.get(Calendar.YEAR);
 	}
 
+	/**
+	 * 해당 월 리턴
+	 * @return
+	 */
 	public static int getMonth(){
 		Calendar currentDate = Calendar.getInstance();
 		return currentDate.get(Calendar.MONTH);
 	}
 	
+	/**
+	 * 해당 일 리턴
+	 * @return int
+	 */
 	public static int getDay(){
 		Calendar currentDate = Calendar.getInstance();
 		return currentDate.get(Calendar.DATE);
 	}
 
+	/**
+	 * 현재 날짜 및 시간 리턴
+	 * @return String
+	 */
 	public static String getCreateDate() {
 		SimpleDateFormat formatter = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss", Locale.KOREA);
 		Date currentTime = new Date();
 		return formatter.format (currentTime);	
 	}
 	
+	/**
+	 * 데이터 형식 변경
+	 * @param dateStr 날짜형식
+	 * @return 'yyyyMMdd' 형식의 날짜
+	 */ 
 	public static String convertStringDate(String dateStr){
 
 		SimpleDateFormat formatter = new SimpleDateFormat ("yyyy년 MM월 dd일");	

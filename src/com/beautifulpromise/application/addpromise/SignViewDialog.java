@@ -25,14 +25,27 @@ import com.beautifulpromise.common.dto.AddPromiseDTO;
  */
 public class SignViewDialog extends Dialog{
 	
-
+	/**
+	 * Custom Dialog 생성자
+	 * @param context Context
+	 * @param theme 테마 설정
+	 */
     public SignViewDialog(Context context, int theme) {
         super(context, theme);
     }
 	
+    /**
+     * Custom Dialog 생성자
+     * @param context Context
+     */
 	public SignViewDialog(Context context) {
 		super(context);
 	}
+	
+	/**
+	 * Custom Dialog View 설정
+	 * @author immk
+	 */
 	public static class Builder {
     	 
         private Context context;
@@ -46,12 +59,20 @@ public class SignViewDialog extends Dialog{
     	
         private Paint mPaint;
         AddPromiseDTO promiseDTO;
-        
+
+    	/**
+    	 * Custom Dialog Builder 생성자
+    	 * @param context
+    	 */
         public Builder(Context context, AddPromiseDTO promiseDTO ) {
             this.context = context;
             this.promiseDTO = promiseDTO;
         }
         
+        /**
+         * DateDialog 생성
+         * @return Dialog
+         */
         public SignViewDialog create() {
         	        	
         	LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -121,6 +142,10 @@ public class SignViewDialog extends Dialog{
 			}
 		};
         
+		/**
+		 * Canvas View를 위한 클래스
+		 * @author immk
+		 */
     	public class MyView extends View {
 
     		private static final float MINP = 0.25f;
@@ -131,6 +156,10 @@ public class SignViewDialog extends Dialog{
     		private Path mPath;
     		private Paint mBitmapPaint;
 
+    		/**
+    		 * MyView 생성자
+    		 * @param c Context
+    		 */
     		public MyView(Context c) {
     			super(c);
 
@@ -138,6 +167,9 @@ public class SignViewDialog extends Dialog{
     			mBitmapPaint = new Paint(Paint.DITHER_FLAG);
     		}
 
+    		/**
+    		 * 화면의 사이즈 변경될 때 Call되는 함수
+    		 */
     		@Override
     		protected void onSizeChanged(int w, int h, int oldw, int oldh) {
     			super.onSizeChanged(w, h, oldw, oldh);
@@ -145,6 +177,9 @@ public class SignViewDialog extends Dialog{
     			mCanvas = new Canvas(mBitmap);
     		}
 
+    		/**
+    		 * 그림을 그리기 위한 함수
+    		 */
     		@Override
     		protected void onDraw(Canvas canvas) {
     			canvas.drawColor(0xFFFFFFFF);
@@ -155,6 +190,11 @@ public class SignViewDialog extends Dialog{
     		private float mX, mY;
     		private static final float TOUCH_TOLERANCE = 4;
 
+    		/**
+    		 * 시작 좌표 설정
+    		 * @param x 시작 x좌표
+    		 * @param y 시작 y좌표
+    		 */
     		private void touch_start(float x, float y) {
     			mPath.reset();
     			mPath.moveTo(x, y);
@@ -162,6 +202,11 @@ public class SignViewDialog extends Dialog{
     			mY = y;
     		}
 
+    		/**
+    		 * 움직이는 좌표 설정 및 움직이는 x,y좌표를 통해 경로를 연결시켜줌
+    		 * @param x 터치 후 x좌표
+    		 * @param y 터치 후 y좌표
+    		 */
     		private void touch_move(float x, float y) {
     			float dx = Math.abs(x - mX);
     			float dy = Math.abs(y - mY);
@@ -172,6 +217,9 @@ public class SignViewDialog extends Dialog{
     			}
     		}
 
+    		/**
+    		 * 터치가 끝났을때의 x,y좌표를 통해 화면에 경로의 그림을 그려줌
+    		 */
     		private void touch_up() {
     			mPath.lineTo(mX, mY);
     			// commit the path to our offscreen
@@ -180,6 +228,9 @@ public class SignViewDialog extends Dialog{
     			mPath.reset();
     		}
 
+    		/**
+    		 * 터치 이벤트 처리 함수
+    		 */
     		@Override
     		public boolean onTouchEvent(MotionEvent event) {
     			float x = event.getX();

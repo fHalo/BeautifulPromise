@@ -28,14 +28,27 @@ import com.facebook.halo.framework.core.Connection;
  */
 public class FriendViewDialog extends Dialog{
 	
-
+	/**
+	 * Custom Dialog 생성자
+	 * @param context Context
+	 * @param theme 테마 설정
+	 */
     public FriendViewDialog(Context context, int theme) {
         super(context, theme);
     }
 	
+    /**
+     * Custom Dialog 생성자
+     * @param context Context
+     */
 	public FriendViewDialog(Context context) {
 		super(context);
 	}
+	
+	/**
+	 * Custom Dialog View 설정
+	 * @author immk
+	 */
 	public static class Builder {
     	 
         private Context context;
@@ -47,12 +60,20 @@ public class FriendViewDialog extends Dialog{
     	List<Friends> friends;
     	ArrayList<Friends> helpers;
     	
+    	/**
+    	 * Custom Dialog Builder 생성자
+    	 * @param context
+    	 */
         public Builder(Context context, List<Friends> friends, ArrayList<Friends> helpers) {
             this.context = context;
             this.friends = friends;
             this.helpers = helpers;
         }
        
+        /**
+         * FriendViewDialog 생성
+         * @return
+         */
         public FriendViewDialog create() {
         	        	
         	LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

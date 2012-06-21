@@ -25,6 +25,11 @@ import android.view.View;
  */
 public class ImageUtils {
 
+	/**
+	 * url을 통해 Bitmap 이미지 다운로드
+	 * @param url
+	 * @return Bitmap
+	 */
 	public static Bitmap downloadBitmap (String url) {
 
 		try {
@@ -43,6 +48,11 @@ public class ImageUtils {
 		}
 	}
 	
+	/**
+	 * url을 통해 Drawable 이미지 다운로드
+	 * @param url
+	 * @return Drawable
+	 */
 	public static Drawable downloadDrawable (String url) {
 
 		try {
@@ -62,6 +72,11 @@ public class ImageUtils {
 		}
 	}
 	
+	/**
+	 * 웹뷰의 사이즈에 따라 이미지 사이즈 변경을 위한 html 코드
+	 * @param url
+	 * @return
+	 */
 	public static String webViewImageReSize(String url){
 		
 		StringBuffer sb = new StringBuffer("<HTML>");
@@ -80,6 +95,12 @@ public class ImageUtils {
 		return htmlBody;
 	}
 	
+	/**
+	 * 이미지 경로를 통해 Bitmap 이미지 생성
+	 * @param path 이미지 경로
+	 * @param sampleSize 이미지 압축 사이즈
+	 * @return Bitmap
+	 */
 	public static Bitmap getBitmap(String path, int sampleSize){
 		
 		BitmapFactory.Options bfo = new BitmapFactory.Options();
@@ -89,6 +110,11 @@ public class ImageUtils {
 		return bitmap;
 	}
 
+	/**
+	 * 이미지 경로를 통해 Bitamp 이미지 생성
+	 * @param path 이미지 경로
+	 * @return Bitamp
+	 */
 	public static Bitmap getResizedBitmap(String path){
 		int sampleSize = 4;
 		BitmapFactory.Options bfo = new BitmapFactory.Options();
@@ -113,6 +139,11 @@ public class ImageUtils {
 		return bitmap;
 	}
 	
+	/**
+	 * Drawable 이미지를 Bitmap 이미지로 변경
+	 * @param d Drawable
+	 * @return Bitmap
+	 */
 	public static Bitmap drawableToBitmap(Drawable d) {
 		int width = d.getIntrinsicWidth();
 		int height = d.getIntrinsicHeight();
@@ -123,17 +154,33 @@ public class ImageUtils {
 		return bitmap;
 	}
 	
+	/**
+	 * Bitmap 이미지를 Drawable 이미지로 변경
+	 * @param bitmap
+	 * @return Drawable
+	 */
 	public static Drawable bitmapToDrawable(Bitmap bitmap) {
 		
 		return new BitmapDrawable(bitmap);
 	}
 	
+	/**
+	 * 화면 캡쳐 후 Bitmap으로 변환
+	 * @param view View
+	 * @return Bitmap
+	 */
 	public static Bitmap capture(View view) {
 		view.setDrawingCacheEnabled(true);
 		return view.getDrawingCache();
 
 	}
 	
+	/**
+	 * 이미지 저장 후 이미지 경로 리턴
+	 * @param context Context
+	 * @param bitmap bitmap
+	 * @return 이미지 경로
+	 */
 	public static String saveBitmap(Context context, Bitmap bitmap){
 		try{
 //			String path = Environment.getExternalStorageDirectory().toString() + "/BookieTalkie";
@@ -148,22 +195,4 @@ public class ImageUtils {
 			return null;
 		}
 	}
-	
-    public static Bitmap transform(byte[] bytes) {
-    	
-    	Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length) ;
-    	return bitmap;
-    }
-	
-	public static byte[] transform(Bitmap bitmap) {
-		ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
-		bitmap.compress(CompressFormat.PNG, 100, byteArray);
-		return byteArray.toByteArray();
-	}
-	
-	public static byte[] transform(String path) {
-		
-		return transform(getBitmap(path, 4));
-	}
-	
 }
