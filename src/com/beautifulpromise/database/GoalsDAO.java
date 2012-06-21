@@ -15,6 +15,9 @@ public class GoalsDAO implements IGoalsDAO {
 		this.databaseHelper = databaseHelper;
 	}
 	
+	/**
+	 * @description 목표 생성에 관한 정보 저장
+	 */
 	@Override
 	public boolean insert(AddPromiseDTO addPromiseDTO) {
 		
@@ -55,6 +58,9 @@ public class GoalsDAO implements IGoalsDAO {
 //		return false;
 //	}
 	
+	/**
+	 * @description 알람 정보 저장
+	 */
 	public boolean insertAlarms (int goalId, int time, int min, boolean[] days) {
 		String query = "INSERT INTO Alarms(goal_id, monday, tuesday, wednesday, thursday, friday, saturday, sunday, time, min) "
 						+ "VALUES(" + goalId + "," + TypeUtils.BooleanToInteger(days[0]) + "," + TypeUtils.BooleanToInteger(days[1]) + "," +  TypeUtils.BooleanToInteger(days[2]) + "," +
@@ -64,6 +70,9 @@ public class GoalsDAO implements IGoalsDAO {
 		return isSuccess;
 	}
 
+	/**
+	 * @description 위치 정보 저장
+	 */
 	public boolean insertLocations(int goalId, Double latitude, Double longitude) {
 		String query = "INSERT INTO Locations(goal_id, latitude, longitude) "
 						+ "VALUES(" + goalId + "," + latitude + "," + longitude + ")";
@@ -71,6 +80,9 @@ public class GoalsDAO implements IGoalsDAO {
 		return isSuccess;
 	}
 	
+	/**
+	 * @description 목표 아이디 가져오기
+	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public int getGoalId(String createDate) {
 		ArrayList<Integer> list = new ArrayList<Integer>();
@@ -86,6 +98,9 @@ public class GoalsDAO implements IGoalsDAO {
 		return goalId;
 	}
 
+	/**
+	 * @description 목표에 관련된 데이터 가져오기
+	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public AddPromiseDTO get(int id) {
@@ -93,13 +108,18 @@ public class GoalsDAO implements IGoalsDAO {
 		return parser(query);
 	}
 	
-	
+	/**
+	 * @description 목표에 관련된 데이터 가져오기
+	 */
 	@Override
 	public AddPromiseDTO get(String postId) {
 		String query = "SELECT id, post_id, category, title, start_date, end_date, content, result, donation, create_date FROM Goals WHERE post_id = '" + postId + "'";
 		return parser(query);
 	}
 	
+	/**
+	 * @description 목표에 관련된 데이터 가져온 후 객체로 변환
+	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private AddPromiseDTO parser (String query){
 		AddPromiseDTO promiseDTO = new AddPromiseDTO();
@@ -144,13 +164,18 @@ public class GoalsDAO implements IGoalsDAO {
 		return promiseDTO;
 		
 	}
- 
+	
+	/**
+	 * @description Database에 저장된 목표리스트 가져오기
+	 */
 	@Override
 	public ArrayList<AddPromiseDTO> getList() {
 		String query= "SELECT id FROM Goals WHERE result=0 ORDER BY id";
 		return getList(query);
 	}
-	
+	/**
+	 * @description Database에서 요일에 맞는 목표리스트 가져오기
+	 */
 	public ArrayList<AddPromiseDTO> getGoalList(int day) {
 		ArrayList<AddPromiseDTO> list = new ArrayList<AddPromiseDTO>();
 		//TODO 미평가 목록
@@ -223,6 +248,9 @@ public class GoalsDAO implements IGoalsDAO {
 		return list;
 	}
 	
+	/**
+	 * @description Database에 결과 정보 Update
+	 */
 	public boolean update(int id, int result){
 		String query = "UPDATE Goals SET result = " + result + " WHERE id = " + id;
 		boolean isSuccess = false;

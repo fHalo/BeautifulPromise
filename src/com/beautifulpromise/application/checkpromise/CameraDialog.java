@@ -15,6 +15,10 @@ import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 
+/**
+ * @author ou
+ * 카메라 다이얼로그 엑티비티
+ */
 public class CameraDialog extends Dialog{
 	
 	public static final int FINISH_TAKE_PHOTO = 3;
@@ -33,6 +37,7 @@ public class CameraDialog extends Dialog{
         private Context context;
     	Button takeImageButton;
     	Button getImageButton;
+    	Button cancelButton;
     	private CameraDialog dialog;
     	View layout;
 
@@ -49,9 +54,11 @@ public class CameraDialog extends Dialog{
             
             takeImageButton = (Button) layout.findViewById(R.id.take_photo_button);
             getImageButton = (Button) layout.findViewById(R.id.get_photo_button);
+            cancelButton = (Button) layout.findViewById(R.id.camera_cancel_button);
 
             takeImageButton.setOnClickListener(buttonClick);
             getImageButton.setOnClickListener(buttonClick);
+            cancelButton.setOnClickListener(buttonClick);
             dialog.setContentView(layout);			
             return dialog;
         }
@@ -60,6 +67,9 @@ public class CameraDialog extends Dialog{
 
         	Intent intent;
         	
+        	/**
+        	 * 카메라 찍기, 앨범에서 선택, 취소 버튼 이벤트
+        	 */
 			@Override
 			public void onClick(View v) {
 				switch (v.getId()) {
@@ -75,6 +85,9 @@ public class CameraDialog extends Dialog{
 					intent.setType("image/*");
 					intent.putExtra("return-data", true);
 					((Activity) context).startActivityForResult(intent, FINISH_GET_IMAGE);
+					dialog.dismiss();
+					break;
+				case R.id.camera_cancel_button:
 					dialog.dismiss();
 					break;
 				default:

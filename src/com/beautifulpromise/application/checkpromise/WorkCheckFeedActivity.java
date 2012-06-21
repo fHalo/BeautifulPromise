@@ -40,6 +40,11 @@ import com.facebook.halo.application.types.connection.Photos;
 import com.facebook.halo.application.types.infra.FacebookType;
 import com.facebook.halo.framework.core.Connection;
 
+/**
+ * 시간 목표 체크 한것을 피드하는 엑티비티
+ * @author ou
+ *
+ */
 public class WorkCheckFeedActivity extends Activity{
 	private static final int CROP_FROM_CAMERA = 1;
 	TextView PromiseName_TextView;
@@ -54,6 +59,10 @@ public class WorkCheckFeedActivity extends Activity{
 	Intent intent;
 	AddPromiseDTO promiseobject;
 	
+	/**
+	 * 가져온 목표에 맞게 뷰들 텍스트 설정
+	 * 가져온 목표를 수행한 시간도 텍스트 뷰에 세팅
+	 */
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
@@ -92,6 +101,10 @@ public class WorkCheckFeedActivity extends Activity{
 		
 	}
 	
+	/**
+	 * post, camera 버튼 이벤트 처리
+	 * 
+	 */
 	View.OnClickListener buttonClickListener = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
@@ -199,6 +212,9 @@ public class WorkCheckFeedActivity extends Activity{
 		}
 	};
 	
+	/**
+	 * 다이얼로그에서 받아온 값을 이용해 사진 찍기, 앨범 선택, 취소 버튼 처리
+	 */
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		Uri imageUri;

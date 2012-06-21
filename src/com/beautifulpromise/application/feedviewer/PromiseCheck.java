@@ -75,7 +75,7 @@ public class PromiseCheck extends Activity {
 			@Override
 			public void onClick(View v) {
 				//페북에 성공 글 올리기
-				Toast.makeText(PromiseCheck.this, "success", Toast.LENGTH_LONG).show();
+//				Toast.makeText(PromiseCheck.this, "success", Toast.LENGTH_LONG).show();
 //				goalsDAO.update(id, result)
 				
 //				UploadDonationLetterDialog.Builder builder = new UploadDonationLetterDialog.Builder(PromiseCheck.this, true, feedId);
@@ -91,7 +91,7 @@ public class PromiseCheck extends Activity {
 			@Override
 			public void onClick(View v) {
 				//페북에 실패 글 올리기
-				Toast.makeText(PromiseCheck.this, "failed", Toast.LENGTH_LONG).show();
+//				Toast.makeText(PromiseCheck.this, "failed", Toast.LENGTH_LONG).show();
 //				goalsDAO.update(id, result)
 				
 				UploadDonationLetterDialog.Builder builder = new UploadDonationLetterDialog.Builder(PromiseCheck.this, false, promiseobject);
@@ -135,7 +135,7 @@ public class PromiseCheck extends Activity {
 
 		@Override
 		protected Long doInBackground(URL... params) {
-			checkList = ctrl.GetCheckList(feedId);
+			checkList = ctrl.GetCheckList(promiseobject.getPostId());
 			
 			//가져온 데이터를 arrayList에 담음
 			for(String s : checkList) {

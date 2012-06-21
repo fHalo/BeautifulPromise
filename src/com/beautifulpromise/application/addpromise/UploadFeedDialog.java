@@ -37,6 +37,10 @@ import com.facebook.halo.application.types.connection.Photos;
 import com.facebook.halo.application.types.infra.FacebookType;
 import com.facebook.halo.framework.core.Connection;
 
+/**
+ * @description 서약서 Upload를 위한 Dialog (내부 Database 저장, 서버 저장, Facebook에 서약서 Upload )
+ * @author immk
+ */
 public class UploadFeedDialog extends Dialog{
 	
     public UploadFeedDialog(Context context, int theme) {
@@ -187,7 +191,7 @@ public class UploadFeedDialog extends Dialog{
 				}
 						
 				Photos photos = new Photos();
-				photos.setMessage(promiseDTO.getContent() + "\n\n" + "[아름다운 약속] 앱 다운 받기" + "\n" + "http://www.enjoybazar.com");
+				photos.setMessage(promiseDTO.getContent() + "\n\n" + "[Tiny Village] 앱 다운 받기" + "\n" + "http://bit.ly/yBZAXu");
 				photos.setSource(path);
 				photos.setFileName("Beautiful Promise");
 				FacebookType type = user.publishPhotos(albumId, photos);
@@ -238,6 +242,7 @@ public class UploadFeedDialog extends Dialog{
 				DatabaseHelper databaseHelper = new DatabaseHelper(context);
 				GoalsDAO dao = new GoalsDAO(databaseHelper);
 				boolean isCheck = dao.insert(promiseDTO);
+//				Log.i("immk", "" + isCheck);
 				count++;
 				return 0L;
 			}

@@ -24,6 +24,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+/**
+ * Alarm클래스에서 설정한 알람을 받는 BroadcastReceiver클래스
+ * @author ou
+ *
+ */
 public class AlarmReceiver extends BroadcastReceiver {
 
 	LocationListener mLocationListener;
@@ -33,6 +38,12 @@ public class AlarmReceiver extends BroadcastReceiver {
 	CheckDAO checkDAO;
 	AddPromiseDTO promiseobject;
 
+	/**
+	 * 시간, 장소 목표인 것을 확인한 후
+	 * 시간 목표의 경우는 바로 알림창 띄우고
+	 * 장소 목표의 경우는 해당 시간에 gps 데이터베이스에 
+	 * 위도 경도, 목표ID값을 넣은 후 알림창 띄우기
+	 */
 	public void onReceive(Context context, Intent intent) {
 
 		this.context = context;
@@ -57,7 +68,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 						Double Longitude = location.getLongitude();
 						checkDAO.gpsinit();
 						checkDAO.gpsinsert(promiseobject.getPostId(), Latitude, Longitude);
-
+						checkDAO.close();
 						lm.removeUpdates(mLocationListener);
 					}
 				}
@@ -86,9 +97,8 @@ public class AlarmReceiver extends BroadcastReceiver {
 		} else if ((promiseobject.getCategoryId() == 1))
 		{
 			i = new Intent(AlarmReceiver.this.context, WorkCheckActivity.class);
+			checkDAO.close();
 		}
-		
-		checkDAO.close();
 		
 		Bundle extras = new Bundle();
 		extras.putSerializable("PromiseDTO", promiseobject);

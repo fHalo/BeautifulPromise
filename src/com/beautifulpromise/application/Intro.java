@@ -84,7 +84,7 @@ public class Intro extends Activity {
 		public void handleMessage(Message msg) {
 			finish();
             if(setNewMember())
-            	Toast.makeText(Intro.this, "Success", Toast.LENGTH_SHORT).show();
+//            	Toast.makeText(Intro.this, "Success", Toast.LENGTH_SHORT).show();
             intent.setAction("HomeActivity");
             startActivity(intent);
 		}
@@ -116,7 +116,7 @@ public class Intro extends Activity {
                     
                     c2dmRegister();
                     if(setNewMember())
-                    	Toast.makeText(Intro.this, "Success", Toast.LENGTH_SHORT).show();
+//                    	Toast.makeText(Intro.this, "Success", Toast.LENGTH_SHORT).show();
                 	intent.setAction("HomeActivity");
                     startActivity(intent);
                 	finish();

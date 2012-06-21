@@ -25,6 +25,10 @@ import com.beautifulpromise.R;
 import com.beautifulpromise.common.dto.AddPromiseDTO;
 import com.beautifulpromise.common.utils.ImageUtils;
 
+/**
+ * @author immk
+ * @description 기부 캠페인 선택 Dialog
+ */
 public class DonationDialog extends Dialog{
 	
     public DonationDialog(Context context, int theme) {

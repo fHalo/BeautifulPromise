@@ -43,23 +43,28 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+/**
+ * @author ou 포인트샵 엑티비티 클래스
+ * 
+ */
 public class PointShopActivity extends BeautifulPromiseActivity {
 	/** Called when the activity is first created. */
 	ListView ItemListView;
 	MyListAdapter MyAdapter;
 	ArrayList<PointItemDTO> ItemList;
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		LinearLayout layout = (LinearLayout) View.inflate(this,R.layout.pointshopactivity, null);
+		LinearLayout layout = (LinearLayout) View.inflate(this,
+				R.layout.pointshopactivity, null);
 		setActivityLayout(layout);
-		
+
 		ItemListView = (ListView) findViewById(R.id.point_list);
 
 		ItemList = loadItem();
 	}
-	
+
 	class MyListAdapter extends BaseAdapter implements OnClickListener {
 		Context maincon;
 		LayoutInflater Inflater;
@@ -69,7 +74,8 @@ public class PointShopActivity extends BeautifulPromiseActivity {
 		public MyListAdapter(Context context, int alayout,
 				ArrayList<PointItemDTO> aarSrc) {
 			maincon = context;
-			Inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			Inflater = (LayoutInflater) context
+					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			arSrc = aarSrc;
 			layout = alayout;
 		}
@@ -92,45 +98,53 @@ public class PointShopActivity extends BeautifulPromiseActivity {
 				convertView = Inflater.inflate(layout, parent, false);
 			}
 
-			TextView itemtxt = (TextView) convertView.findViewById(R.id.point_item_name);
-			TextView pricetxt = (TextView) convertView.findViewById(R.id.point_item_price);
+			TextView itemtxt = (TextView) convertView
+					.findViewById(R.id.point_item_name);
+			TextView pricetxt = (TextView) convertView
+					.findViewById(R.id.point_item_price);
 			ImageView checkimg = (ImageView) convertView
 					.findViewById(R.id.point_item_image);
 
 			itemtxt.setText(arSrc.get(position).getTitle());
 			pricetxt.setText(arSrc.get(position).getprice());
 			checkimg.setImageDrawable(arSrc.get(position).getDrawable());
-			
+
 			convertView.setTag(position);
 			convertView.setOnClickListener(this);
-			
+
 			return convertView;
 		}
 
+		/**
+		 * 각 아이템에 대한 리스트뷰 클릭이벤트
+		 */
 		@Override
 		public void onClick(View v) {
 			int position = (Integer) v.getTag();
 
 		}
 	}
-	
-	
 
-	
-	
 	protected void onResume() {
 		super.onResume();
 
-		MyAdapter = new MyListAdapter(this, R.layout.pointshopactivity_list, ItemList);
+		MyAdapter = new MyListAdapter(this, R.layout.pointshopactivity_list,
+				ItemList);
 
 		ItemListView.setAdapter(MyAdapter);
 		ItemListView.setItemsCanFocus(false);
 		ItemListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 	}
 
+	/**
+	 * pointshopitem.xml파일에 있는 아이템의 정보를 PointItemDTO에 넣는다.
+	 * "pointshopitem"문자열을 이용하여 파싱
+	 * @return list
+	 */
 	protected ArrayList<PointItemDTO> loadItem() {
 		ArrayList<PointItemDTO> list = new ArrayList<PointItemDTO>();
-		XmlPullParser parser = PointShopActivity.this.getResources().getXml(R.xml.pointshopitem);
+		XmlPullParser parser = PointShopActivity.this.getResources().getXml(
+				R.xml.pointshopitem);
 		try {
 			while (parser.next() != XmlPullParser.END_DOCUMENT) {
 				if ("pointshopitem".equals(parser.getName())) {

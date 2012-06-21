@@ -19,7 +19,11 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TextView;
 import android.widget.Toast;
-
+/**
+ * 시간 목표 체크 엑티비티
+ * @author ou
+ *
+ */
 public class WorkCheckActivity extends Activity {
 	Chronometer mChronometer;
 	Boolean StartCheck;
@@ -77,6 +81,10 @@ public class WorkCheckActivity extends Activity {
 		nm.cancel(1);
 	}
 
+	/**
+	 * Start, Stop버튼 이벤트
+	 * Chronometer로 시간 체크
+	 */
 	View.OnClickListener mStartListener = new OnClickListener() {
 		public void onClick(View v) {
 			if(StartCheck == true)
@@ -112,7 +120,9 @@ public class WorkCheckActivity extends Activity {
 			}
 		}
 	};
-	
+	/**
+	 * 생성 버튼 클릭시 목표를 수행한 시간 체크 하여 Feed메소드 호출
+	 */
 	View.OnClickListener mCreationListener = new OnClickListener() {
 		public void onClick(View v) {			
 			if(StartCheck == true)
@@ -126,6 +136,10 @@ public class WorkCheckActivity extends Activity {
 		}
 	};
 	
+	/**
+	 * 목표를 수행한 시간과 해당 목표 객체를 목표 피드 엑티비티로 넘긴다.
+	 * @param Time 목표를 수행한 시간
+	 */
 	public void Feed(Long Time)
 	{
 		try

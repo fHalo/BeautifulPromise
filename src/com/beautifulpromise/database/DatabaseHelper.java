@@ -12,6 +12,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
+		
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("CREATE TABLE Goals (");
 		buffer.append("id INTEGER PRIMARY KEY AUTOINCREMENT,");

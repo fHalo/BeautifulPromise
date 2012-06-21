@@ -5,6 +5,11 @@ import android.graphics.drawable.Drawable;
 import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.OverlayItem;
 
+/**
+ * 구글맵 PinOverlay클래스
+ * @author ou
+ *
+ */
 public class CycleGpsPinOverlay extends ItemizedOverlay<OverlayItem> {
 	private ArrayList<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
 

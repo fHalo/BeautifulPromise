@@ -13,27 +13,29 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-
+/**
+ * 전체 목표에 대해 알람을 호출하는 클래스
+ * @author ou
+ *
+ */
 public class Alarm {
 
 	Context context;
-	ArrayList<AddPromiseDTO> promisedto;
 	
-	public void SetAlarm(Context context) {
+	/**
+	 * 해당 요일에 수행해야 되는 목표들을 불러와 장소, 시간 목표에 맞춰 알람매니저를 세팅
+	 * @param context 알람 클래스를 생성한 엑티비티의 context
+	 * @param promisedto 해당요일에 수행해야되는 목표의 ArrayList
+	 */
+	public void SetAlarm(Context context, ArrayList<AddPromiseDTO> promisedto) {
 		this.context = context;
 		AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
-		Calendar oCalendar = Calendar.getInstance();
-		DatabaseHelper databaseHelper = new DatabaseHelper(context);
-		GoalsDAO goalsDAO = new GoalsDAO(databaseHelper);
-		
-		promisedto = goalsDAO.getGoalList(oCalendar.get(Calendar.DAY_OF_WEEK));
-		
 		Intent intent;
 		PendingIntent sender;
 
 		for (AddPromiseDTO Promise : promisedto) {
-			//주기 알람(GPS)
+			//장소 알람(GPS)
 			if (Promise.getCategoryId() == 0) {
 				intent = new Intent(context, AlarmReceiver.class);
 				
@@ -53,7 +55,7 @@ public class Alarm {
 				am.set(AlarmManager.RTC, calendar.getTimeInMillis(), sender);
 				break;
 			}
-			//운동 알람
+			//시간 알람
 			else if ((Promise.getCategoryId() == 1))
 			{
 				intent = new Intent(context, AlarmReceiver.class);
@@ -75,6 +77,7 @@ public class Alarm {
 				am.set(AlarmManager.RTC, calendar.getTimeInMillis(), sender);
 				break;
 			}
+			//기타 목표는 알람 없음
 			else
 			{
 			}

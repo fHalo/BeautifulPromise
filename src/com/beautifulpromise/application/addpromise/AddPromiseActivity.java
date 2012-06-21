@@ -40,13 +40,19 @@ import com.google.android.maps.MyLocationOverlay;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
 
+/**
+ * @author immk
+ * @description 목표 생성을 위한 Activity
+ */
 public class AddPromiseActivity extends MapActivity {
 
 	protected static final int TIME_DIALOG_ID = 100;
 
 	LinearLayout progressLayout;
+	Button category1Btn;
+	Button category2Btn;
+	Button category3Btn;
 	
-	Spinner goalSpinner;
 	EditText goalTitleEdit;
 	Button createBtn;
 	
@@ -62,6 +68,7 @@ public class AddPromiseActivity extends MapActivity {
 	
 	EditText contentEdit;
 	
+	LinearLayout helperLayout;
 	GridView helperGrid;
 	
 	Button helperBtn;
@@ -94,7 +101,6 @@ public class AddPromiseActivity extends MapActivity {
         mapView = new MapView(this, getResources().getString(R.string.map_api_key));
         mapView.setClickable(true);
 		mapView.displayZoomControls(true);
-//		mapView.setBuiltInZoomControls(true);
 
 		mapController = mapView.getController();
 		mapController.setZoom(15);
@@ -135,11 +141,6 @@ public class AddPromiseActivity extends MapActivity {
 			}
 		});
 		
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.category, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        goalSpinner.setAdapter(adapter);
-        goalSpinner.setOnItemSelectedListener(spinnerSelectListener);
-        
         dateLayout.setOnClickListener(buttonClickListener);
         dayRepeatLayout.setOnClickListener(buttonClickListener);
         alarmLayout.setOnClickListener(buttonClickListener);
@@ -148,6 +149,12 @@ public class AddPromiseActivity extends MapActivity {
         helperBtn.setOnClickListener(buttonClickListener);
         mapBtn.setOnClickListener(buttonClickListener);
         tutorialBtn.setOnClickListener(buttonClickListener);
+        
+        category1Btn.setOnClickListener(buttonClickListener);
+        category2Btn.setOnClickListener(buttonClickListener);
+        category3Btn.setOnClickListener(buttonClickListener);
+        
+        helperLayout.setOnClickListener(buttonClickListener);
         
 		startYear = DateUtils.getYear();
 		startMonth = DateUtils.getMonth();
@@ -159,8 +166,10 @@ public class AddPromiseActivity extends MapActivity {
 		
 		setDate(startYear, startMonth, startDay, endYear, endMonth, endDay);
 		
-		setView(0);
 		promiseDTO = new AddPromiseDTO();
+		setView(0);
+		promiseDTO.setCategoryId(0);
+//		CreateObject(0);
 		promiseDTO.setDayPeriod(new boolean[]{false, false, false, false, false, false, false});
 		
 //		DatabaseHelper databaseHelper = new DatabaseHelper(this);
@@ -202,6 +211,8 @@ public class AddPromiseActivity extends MapActivity {
 				showDialog(TIME_DIALOG_ID);
 				break;
 				
+			case R.id.helper_layout:
+				
 			case R.id.helper_button:
 				FriendViewDialog.Builder friendViewBuilder = new FriendViewDialog.Builder(AddPromiseActivity.this, friends.getData(), promiseDTO.getHelperList());
 				Dialog friendDialog = friendViewBuilder.create();
@@ -219,14 +230,32 @@ public class AddPromiseActivity extends MapActivity {
 			case R.id.create_button:
 				
 				//TODO promiseDTO 객체에 정보 담기  
-//				promiseDTO.setTitle(goalTitleEdit.getText().toString());
+				promiseDTO.setTitle(goalTitleEdit.getText().toString());
 				promiseDTO.setStartDate(startDateText.getText().toString());
-//				promiseDTO.setEndDate(endDateText.getText().toString());
-//				promiseDTO.setContent(contentEdit.getText().toString());
+				promiseDTO.setEndDate(endDateText.getText().toString());
+				promiseDTO.setContent(contentEdit.getText().toString());
 				
 				SignViewDialog.Builder signBuilder = new SignViewDialog.Builder(AddPromiseActivity.this, promiseDTO);
 				Dialog signDialog = signBuilder.create();
 				signDialog.show();
+				break;
+				
+			case R.id.category_1_button:
+				setView(0);
+				promiseDTO.setCategoryId(0);
+//				CreateObject(0);
+				break;
+				
+			case R.id.category_2_button:
+				setView(1);
+				promiseDTO.setCategoryId(1);
+//				CreateObject(1);
+				break;
+				
+			case R.id.category_3_button:
+				setView(2);
+				promiseDTO.setCategoryId(2);
+//				CreateObject(2);
 				break;
 				
 			default:
@@ -234,34 +263,7 @@ public class AddPromiseActivity extends MapActivity {
 			}	
 		}
 	};
-    
-    AdapterView.OnItemSelectedListener spinnerSelectListener = new AdapterView.OnItemSelectedListener() {
 
-		@Override
-		public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-			if(position == 0 ) {
-				setView(0);
-				promiseDTO.setCategoryId(0);
-				CreateObject(0);
-			}else if(position == 1 ) {
-				setView(1);
-				promiseDTO.setCategoryId(1);
-				CreateObject(1);
-			}else if(position == 2 ) {
-				setView(2);
-				promiseDTO.setCategoryId(2);
-				CreateObject(2);
-			}
-		}
-
-		@Override
-		public void onNothingSelected(AdapterView<?> arg0) {
-			promiseDTO.setCategoryId(0);
-			CreateObject(0);
-		
-		}
-	};
-	
 	TimePickerDialog.OnTimeSetListener mTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
 		
 		@Override
@@ -287,16 +289,28 @@ public class AddPromiseActivity extends MapActivity {
 		
 		switch (position) {
 		case 0:
+			category1Btn.setBackgroundDrawable(getResources().getDrawable(R.drawable.category_1_select));
+			category2Btn.setBackgroundDrawable(getResources().getDrawable(R.drawable.category_2));
+			category3Btn.setBackgroundDrawable(getResources().getDrawable(R.drawable.category_3));
+			
 			dayRepeatLayout.setVisibility(View.VISIBLE);
 			alarmLayout.setVisibility(View.VISIBLE);
 			mapBtn.setVisibility(View.VISIBLE);
 			break;
 		case 1:
+			category1Btn.setBackgroundDrawable(getResources().getDrawable(R.drawable.category_1));
+			category2Btn.setBackgroundDrawable(getResources().getDrawable(R.drawable.category_2_select));
+			category3Btn.setBackgroundDrawable(getResources().getDrawable(R.drawable.category_3));
+			
 			dayRepeatLayout.setVisibility(View.VISIBLE);
 			alarmLayout.setVisibility(View.VISIBLE);
 			mapBtn.setVisibility(View.GONE);
 			break;
 		case 2:
+			category1Btn.setBackgroundDrawable(getResources().getDrawable(R.drawable.category_1));
+			category2Btn.setBackgroundDrawable(getResources().getDrawable(R.drawable.category_2));
+			category3Btn.setBackgroundDrawable(getResources().getDrawable(R.drawable.category_3_select));			
+			
 			dayRepeatLayout.setVisibility(View.GONE);
 			alarmLayout.setVisibility(View.GONE);
 			mapBtn.setVisibility(View.GONE);
@@ -321,7 +335,15 @@ public class AddPromiseActivity extends MapActivity {
 	private void setVariable(){
 		
 		progressLayout = (LinearLayout) findViewById(R.id.progressLayout);
-		goalSpinner = (Spinner) findViewById(R.id.goal_spinner);
+//		goalSpinner = (Spinner) findViewById(R.id.goal_spinner);
+		
+		category1Btn = (Button) findViewById(R.id.category_1_button);
+		category2Btn = (Button) findViewById(R.id.category_2_button);
+		category3Btn = (Button) findViewById(R.id.category_3_button);
+		
+		createBtn = (Button) findViewById(R.id.create_button);
+		createBtn = (Button) findViewById(R.id.create_button);
+		
         createBtn = (Button) findViewById(R.id.create_button);
     	goalTitleEdit = (EditText) findViewById(R.id.goal_title_edit);
 
@@ -338,7 +360,9 @@ public class AddPromiseActivity extends MapActivity {
         contentEdit = (EditText) findViewById(R.id.content_edit);
         
         helperGrid = (GridView) findViewById(R.id.friend_image_gridview);
+        helperGrid.setFocusable(false);
         
+        helperLayout = (LinearLayout) findViewById(R.id.helper_layout);
         helperBtn = (Button) findViewById(R.id.helper_button);
         mapBtn = (Button) findViewById(R.id.google_map_button);
         tutorialBtn = (Button) findViewById(R.id.tutorial_button);
@@ -427,36 +451,36 @@ public class AddPromiseActivity extends MapActivity {
 		}
 	}
 	
-	private void CreateObject(int key) {
-		
-		switch (key) {
-		case 0: 	// 주기 활동
-			promiseDTO.setTitle("영어 공부 하기");
-			promiseDTO.setContent("1. 하루 30분 공부하기 \n2. 영어 단어 50개 암기");
-			promiseDTO.setEndDate("2012년 6월 25일");
-			promiseDTO.setLatitue(3.749611E7);
-			promiseDTO.setLongitude(1.27051993E8);
-			promiseDTO.setDayPeriod(new boolean[]{true, true, true, true, true, true, true});
-			promiseDTO.setTime(10);
-			promiseDTO.setMin(30);
-			break;
-		case 1:  	// 운동
-			promiseDTO.setTitle("운동 하기");
-			promiseDTO.setContent("1. 아침운동 30분 하기 \n2. 저녁은 조금만 먹을랭");
-			promiseDTO.setEndDate("2012년 7월 17일");
-			promiseDTO.setDayPeriod(new boolean[]{true, true, true, true, true, true, true});
-			promiseDTO.setTime(10);
-			promiseDTO.setMin(0);
-			break;
-		case 2:		// 기타
-			promiseDTO.setTitle("규칙적인 생활하기");
-			promiseDTO.setContent("1. 아침 9시에 일어나기 \n2. 2시에 자기");
-			promiseDTO.setEndDate("2012년 6월 22일");
-			break;			
-		default:
-			break;
-		}
-	}
+//	private void CreateObject(int key) {
+//		
+//		switch (key) {
+//		case 0: 	// 장소
+//			promiseDTO.setTitle("수영학원 빠지지 말기!!!");
+//			promiseDTO.setContent("꾸준히 다녀보자!");
+//			promiseDTO.setEndDate("2012년 6월 30일");
+//			promiseDTO.setLatitue(3.749611E7);
+//			promiseDTO.setLongitude(1.27051993E8);
+//			promiseDTO.setDayPeriod(new boolean[]{true, true, true, true, true, true, true});
+//			promiseDTO.setTime(10);
+//			promiseDTO.setMin(30);
+//			break;
+//		case 1:  	// 시간
+//			promiseDTO.setTitle("토익 800점 맞기~");
+//			promiseDTO.setContent("1. 하루 30분 공부하기 \n2. 영어 단어 50개 암기");
+//			promiseDTO.setEndDate("2012년 7월 7일");
+//			promiseDTO.setDayPeriod(new boolean[]{true, true, true, true, true, true, true});
+//			promiseDTO.setTime(10);
+//			promiseDTO.setMin(0);
+//			break;
+//		case 2:		// 기타
+//			promiseDTO.setTitle("금주 하기!");
+//			promiseDTO.setContent("1. 아침 9시에 일어나기 \n2. 2시에 자기");
+//			promiseDTO.setEndDate("2012년 7월 20일");
+//			break;			
+//		default:
+//			break;
+//		}
+//	}
 	
 	public void setRepeatDay(boolean[] dayArr){
 		promiseDTO.setDayPeriod(dayArr);

@@ -19,6 +19,10 @@ import android.widget.LinearLayout;
 import com.beautifulpromise.R;
 import com.beautifulpromise.common.dto.AddPromiseDTO;
 
+/**
+ * @description 사인 Dialog
+ * @author immk
+ */
 public class SignViewDialog extends Dialog{
 	
 
