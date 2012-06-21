@@ -433,7 +433,7 @@ public class AddPromiseActivity extends MapActivity {
 		case 0: 	// 주기 활동
 			promiseDTO.setTitle("영어 공부 하기");
 			promiseDTO.setContent("1. 하루 30분 공부하기 \n2. 영어 단어 50개 암기");
-			promiseDTO.setEndDate("2012년 6월 20일");
+			promiseDTO.setEndDate("2012년 6월 25일");
 			promiseDTO.setLatitue(3.749611E7);
 			promiseDTO.setLongitude(1.27051993E8);
 			promiseDTO.setDayPeriod(new boolean[]{true, true, true, true, true, true, true});
@@ -443,7 +443,7 @@ public class AddPromiseActivity extends MapActivity {
 		case 1:  	// 운동
 			promiseDTO.setTitle("운동 하기");
 			promiseDTO.setContent("1. 아침운동 30분 하기 \n2. 저녁은 조금만 먹을랭");
-			promiseDTO.setEndDate("2012년 6월 17일");
+			promiseDTO.setEndDate("2012년 7월 17일");
 			promiseDTO.setDayPeriod(new boolean[]{true, true, true, true, true, true, true});
 			promiseDTO.setTime(10);
 			promiseDTO.setMin(0);

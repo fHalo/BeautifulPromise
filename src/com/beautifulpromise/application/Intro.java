@@ -6,6 +6,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
 import android.app.Activity;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -48,18 +49,32 @@ public class Intro extends Activity {
 		 * splash activity 
 		 */
 		setContentView(R.layout.intro);
+		
 		//이미 로긴 되있으면 바로 시작(자동 로그인 처리)
 		if(SessionStore.restore(mFacebook, this)) {
 			//TODO
 			AccessToken.setAccessToken(mFacebook.getAccessToken());
+			c2dmRegister();
+			
 			loadHandler.sendEmptyMessage(0);
 			handler.sendEmptyMessageDelayed(0, 3000);
 		} else {
-			//Login Button
+			//facebook 으로 로그인하기
 			loginButton = (Button) findViewById(R.id.loginButton);
 			loginButton.setVisibility(View.VISIBLE);
 			loginButton.setOnClickListener(buttonClickListener);
 		}
+	}
+	
+	/**
+	 * c2dm register
+	 * access token 받아온 후에 실행되야함
+	 */
+	private void c2dmRegister() {
+	    Intent registrationIntent = new Intent("com.google.android.c2dm.intent.REGISTER");
+	    registrationIntent.putExtra("app", PendingIntent.getBroadcast(this, 0, new Intent(), 0));
+	    registrationIntent.putExtra("sender", "mythopoeic301@gmail.com");
+	    startService(registrationIntent);
 	}
 	
 	/**
@@ -84,6 +99,9 @@ public class Intro extends Activity {
 		}
 	};
 
+	/**
+	 * SSO 로그인 처리
+	 */
 	View.OnClickListener buttonClickListener = new View.OnClickListener() {
 		
 		@Override
@@ -95,6 +113,8 @@ public class Intro extends Activity {
                 	//TODO
                     AccessToken.setAccessToken(mFacebook.getAccessToken());
                     Repository.getInstance().setUser();
+                    
+                    c2dmRegister();
                     if(setNewMember())
                     	Toast.makeText(Intro.this, "Success", Toast.LENGTH_SHORT).show();
                 	intent.setAction("HomeActivity");

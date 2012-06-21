@@ -11,6 +11,13 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+	
+	<!-- C2DM -->
+	<!--  오직 이 애플리케이션만이 메시지를 받을 수 있도록 권한을 정의하고 추가 protectionLevel이 signature-->
+	<permission android:name="com.beautifulpromise.permission.C2D_MESSAGE" android:protectionLevel="signature"/>
+	<uses-permission android:name="com.beautifulpromise.permission.C2D_MESSAGE" />
+	<uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
     <application
         android:icon="@drawable/icon"
@@ -137,6 +144,23 @@
             android:name=".database.NotificationProvider"
             android:authorities="com.beautifulpromise.database" >
         </provider>
+        
+        <!-- C2DM -->
+        <receiver
+            android:name="com.beautifulpromise.common.c2dm.C2DMReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+
+            <!-- 메시지 수신 -->
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <category android:name="com.beautifulpromise" />
+            </intent-filter>
+            <!-- 등록id 수신 -->
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+                <category android:name="com.beautifulpromise" />
+            </intent-filter>
+        </receiver>
 
         <!--
      <service 
@@ -149,7 +173,6 @@
         -->
 
         <receiver android:name=".common.alarm.AlarmReceiver" >
-
         </receiver>
 
         <activity android:name=".application.PointShopActivity" 

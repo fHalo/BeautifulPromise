@@ -1,7 +1,5 @@
 package com.beautifulpromise.application;
 
-import java.util.TimerTask;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
@@ -12,6 +10,7 @@ import android.database.ContentObserver;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -71,6 +70,7 @@ public class BeautifulPromiseActivity extends Activity{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_activity);
+		Var.CONTEXT = this;
 		
 		leftMenuBtn = (ImageButton) findViewById(R.id.left_menu_button);
 		homeBtn = (ImageButton) findViewById(R.id.home_button);
@@ -116,6 +116,13 @@ public class BeautifulPromiseActivity extends Activity{
 		cursor.moveToFirst();
 		adapter = new NotificationAdapter(this, cursor);
 		notificationListView.setAdapter(adapter);
+		
+		Intent i = getIntent();
+		//c2dm Push message 왔을때
+		if(i.getStringExtra("message") != null) {
+			refreshNotification();
+		}
+		
 		
 //		handler = new Handler();
 //		Timer timer = new Timer();
@@ -231,36 +238,6 @@ public class BeautifulPromiseActivity extends Activity{
 		}
 	};
 
-	TimerTask task = new TimerTask() {
-		
-		@Override
-		public void run() {
-			User user = Repository.getInstance().getUser();
-			notificaitons = user.notifications();
-			if(notificaitons.getData().size()>0){
-				handler.post(new Runnable() {
-					@Override
-					public void run() {
-						ContentResolver cr = getContentResolver();						
-						for(Notifications notification : notificaitons.getData()){
-//							Uri notiUri = ContentUris.withAppendedId(NotificationProvider.CONTENT_URI, id);
-//							Cursor cursor = cr.query(NotificationProvider.CONTENT_URI, new String[]{"_id"}, "fb_id=?", new String[]{notification.getId()}, null);
-							Cursor cursor = cr.query(NotificationProvider.CONTENT_URI, new String[]{"_id"}, "fb_id=?", new String[]{notification.getId()}, null);
-							if(cursor.getCount()==0){	
-								ContentValues row = new ContentValues();
-								row.put("title", notification.getTitle());
-								row.put("send_user_id", notification.getFrom().getId());
-								row.put("fb_id", notification.getId());
-								cr.insert(NotificationProvider.CONTENT_URI, row);
-								visibleNewImage();
-							}
-						}
-					}
-				});
-			}
-		}
-	};
-	
 	
 	View.OnTouchListener hscrollTouchListener = new OnTouchListener() {
 		@Override
@@ -272,6 +249,34 @@ public class BeautifulPromiseActivity extends Activity{
 			return false;
 		}
 	};
+	
+	public void refreshNotification() {
+		Log.e("Refresh", "notification");
+		User user = Repository.getInstance().getUser();
+		notificaitons = user.notifications();
+		if (notificaitons.getData().size() > 0) {
+			ContentResolver cr = getContentResolver();
+			for (Notifications notification : notificaitons.getData()) {
+				// Uri notiUri =
+				// ContentUris.withAppendedId(NotificationProvider.CONTENT_URI,
+				// id);
+				// Cursor cursor = cr.query(NotificationProvider.CONTENT_URI,
+				// new String[]{"_id"}, "fb_id=?", new
+				// String[]{notification.getId()}, null);
+				Cursor cursor = cr.query(NotificationProvider.CONTENT_URI,
+						new String[] { "_id" }, "fb_id=?",
+						new String[] { notification.getId() }, null);
+				if (cursor.getCount() == 0) {
+					ContentValues row = new ContentValues();
+					row.put("title", notification.getTitle());
+					row.put("send_user_id", notification.getFrom().getId());
+					row.put("fb_id", notification.getId());
+					cr.insert(NotificationProvider.CONTENT_URI, row);
+					visibleNewImage();
+				}
+			}
+		}
+	}
 
 	public void hscrollCheck(int x, int y) {
 		if (x <= leftWidth) {	

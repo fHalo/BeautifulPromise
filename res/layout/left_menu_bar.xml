@@ -23,7 +23,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="6dp"
             android:text="목표 설정" android:textSize="12dp"/>
-
     </LinearLayout>
 
     <LinearLayout
@@ -107,7 +106,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
-            android:text="친구목표"
+            android:text="목표뉴스"
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
 

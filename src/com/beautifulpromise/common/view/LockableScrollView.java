@@ -20,7 +20,7 @@ public class LockableScrollView extends HorizontalScrollView {
  
     public void setIsScrollable(boolean scrollable) { 
         mScrollable = scrollable; 
-    } 
+    }
     public boolean getIsScrollable()  {
         return mScrollable; 
     } 

@@ -1,5 +1,7 @@
 package com.beautifulpromise.common;
 
+import android.content.Context;
+
 public class Var {
 	public static boolean menuShowFlag = false;
 	public static float LEFT_MENUBAR_CLOSE_RANGE = 350;
@@ -11,4 +13,7 @@ public class Var {
 		"user_about_me", "publish_stream", "user_photos", "manage_notifications"
 	};
 	
+	/**웹 페이지 주소*/
+	public static final String URL = "http://61.43.139.112/";
+	public static Context CONTEXT;
 }
