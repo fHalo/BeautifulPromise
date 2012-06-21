@@ -23,6 +23,11 @@ import com.facebook.halo.application.types.User;
 import com.facebook.halo.application.types.connection.Friends;
 import com.facebook.halo.framework.core.Connection;
 
+/**
+ * Feed list를 보여줄때 list view를 설정해주는 Adapter 
+ * @author JM
+ *
+ */
 public class FeedListAdapter extends BaseAdapter {
 	Context context;
 	LayoutInflater inflater;
@@ -38,6 +43,14 @@ public class FeedListAdapter extends BaseAdapter {
 	Intent intent = new Intent();
 	
 	
+	/**
+	 * Constructor
+	 * @param context
+	 * @param layout
+	 * @param arrayListFeedItem
+	 * @param mode
+	 * @param isCheck
+	 */
 	public FeedListAdapter(Context context, int layout, ArrayList<FeedItemDTO> arrayListFeedItem, String mode, Boolean isCheck) {
 		this.context = context;
 		this.inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

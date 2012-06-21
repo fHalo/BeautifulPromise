@@ -31,6 +31,11 @@ import com.facebook.halo.application.types.Notifications;
 import com.facebook.halo.application.types.User;
 import com.facebook.halo.framework.core.Connection;
 
+/**
+ * Side navigation + Top menu bar를 담고 있는 액티비티
+ * @author JM
+ *
+ */
 public class BeautifulPromiseActivity extends Activity{
 
 	Facebook mFacebook; 
@@ -118,13 +123,6 @@ public class BeautifulPromiseActivity extends Activity{
 		adapter = new NotificationAdapter(this, cursor);
 		notificationListView.setAdapter(adapter);
 		
-		Intent i = getIntent();
-		//c2dm Push message 왔을때
-		if(i.getStringExtra("message") != null) {
-			refreshNotification();
-		}
-		
-		
 		visibleNewImage();
 		
 //		ContentValues row = new ContentValues();
@@ -162,6 +160,9 @@ public class BeautifulPromiseActivity extends Activity{
 //		});
 	} 
 	
+	/**
+	 * Click listener
+	 */
 	View.OnClickListener clickLisetner = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
@@ -263,6 +264,9 @@ public class BeautifulPromiseActivity extends Activity{
 	};
 
 	
+	/**
+	 * horizontal scroll touch listener
+	 */
 	View.OnTouchListener hscrollTouchListener = new OnTouchListener() {
 		@Override
 		public boolean onTouch(View v, MotionEvent event) {
@@ -274,6 +278,9 @@ public class BeautifulPromiseActivity extends Activity{
 		}
 	};
 	
+	/**
+	 * notification 변경된 부분 refresh
+	 */
 	public void refreshNotification() {
 		Log.e("Refresh", "notification");
 		User user = Repository.getInstance().getUser();
@@ -302,6 +309,11 @@ public class BeautifulPromiseActivity extends Activity{
 		}
 	}
 
+	/**
+	 * horizontal scroll check(open or close)
+	 * @param x
+	 * @param y
+	 */
 	public void hscrollCheck(int x, int y) {
 		if (x <= leftWidth) {	
 			if (x <= leftWidth /2) { 			// 왼쪽 메뉴 보이게
@@ -312,6 +324,11 @@ public class BeautifulPromiseActivity extends Activity{
 		}
 	}
 	
+	/**
+	 * smooth 하게 side navigation 움직이기
+	 * @param x
+	 * @param y
+	 */
 	protected void mySmoothScrollTo(final int x, final int y) {
 		hscroll.post(new Runnable() {
 			@Override
@@ -326,16 +343,33 @@ public class BeautifulPromiseActivity extends Activity{
 		});
 	}
 	
+	/**
+	 * setContentView with BeautifulpromiseActivity
+	 * @param layout
+	 */
 	protected void setActivityLayout(LinearLayout layout){
 		activityLayout.addView(layout);
 	}
+	
+	/**
+	 * setContentView with BeautifulpromiseActivity
+	 * @param layout
+	 */
 	protected void setActivityLayout(ImageView layout){
 		activityLayout.addView(layout);
 	}
+	
+	/**
+	 * visible notification new Image
+	 */
 	public void visibleNewImage(){
 		if(newImage.getVisibility() == View.INVISIBLE)
 			newImage.setVisibility(View.VISIBLE);
 	}
+	
+	/**
+	 * gone notification new Image 
+	 */
 	public void goneNewImage(){
 		newImage.setVisibility(View.INVISIBLE);
 	}

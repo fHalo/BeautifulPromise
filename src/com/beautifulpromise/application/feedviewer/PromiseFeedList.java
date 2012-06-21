@@ -18,6 +18,11 @@ import com.beautifulpromise.parser.Controller;
 import com.facebook.halo.application.types.Post;
 import com.facebook.halo.application.types.User;
 
+/**
+ * 피드 리스트 뷰어
+ * @author JM
+ *
+ */
 public class PromiseFeedList extends BeautifulPromiseActivity{
 	//feed item 들을 담고있는 array
 	ArrayList<FeedItemDTO> arrayFeedItem;
@@ -68,6 +73,9 @@ public class PromiseFeedList extends BeautifulPromiseActivity{
 		
 	}
 	
+	/**
+	 * 각종 변수 초기화
+	 */
 	private void setVariable() {
 		//객체생성
 		arrayFeedItem = new ArrayList<FeedItemDTO>();
@@ -87,6 +95,11 @@ public class PromiseFeedList extends BeautifulPromiseActivity{
 		feedList = (ListView)feedListLayout.findViewById(R.id.feedList);
 	}
 	
+	/**
+	 * progress bar 처리
+	 * @author JM
+	 *
+	 */
 	private class FeedLoadAsyncTask extends AsyncTask<URL, Integer, Long> {
 
 		@Override
@@ -111,20 +124,6 @@ public class PromiseFeedList extends BeautifulPromiseActivity{
 					arrayFeedItem.add(feedItem);
 				}
 			}
-			
-//	        Post feed = new Post();
-//	        feed = feed.createInstance("114940478645556");
-//	        feedItem = new FeedItemDTO(feed);
-//	        arrayFeedItem.add(feedItem);
-//	        
-//	        feed = feed.createInstance("374610762596551");
-//	        feedItem = new FeedItemDTO(feed);
-//	        arrayFeedItem.add(feedItem);
-//	        
-//	        feed = feed.createInstance("114940478645556");
-//	        feedItem = new FeedItemDTO(feed);
-//	        arrayFeedItem.add(feedItem);
-	        
 			return null;
 		}
 

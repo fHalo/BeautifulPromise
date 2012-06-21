@@ -26,6 +26,11 @@ import com.beautifulpromise.database.GoalsDAO;
 import com.beautifulpromise.parser.Controller;
 import com.facebook.halo.application.types.Post;
 
+/**
+ * D-day가 되서 성공/실패를 결정하는 클래스
+ * @author JM
+ *
+ */
 public class PromiseCheck extends Activity {
 	//feed item 들을 담고있는 array
 	ArrayList<FeedItemDTO> arrayFeedItem;
@@ -75,10 +80,6 @@ public class PromiseCheck extends Activity {
 			@Override
 			public void onClick(View v) {
 				//페북에 성공 글 올리기
-//				Toast.makeText(PromiseCheck.this, "success", Toast.LENGTH_LONG).show();
-//				goalsDAO.update(id, result)
-				
-//				UploadDonationLetterDialog.Builder builder = new UploadDonationLetterDialog.Builder(PromiseCheck.this, true, feedId);
 				UploadDonationLetterDialog.Builder builder = new UploadDonationLetterDialog.Builder(PromiseCheck.this, true, promiseobject);
 				Dialog dialog = builder.create();
 				dialog.show();
@@ -91,9 +92,6 @@ public class PromiseCheck extends Activity {
 			@Override
 			public void onClick(View v) {
 				//페북에 실패 글 올리기
-//				Toast.makeText(PromiseCheck.this, "failed", Toast.LENGTH_LONG).show();
-//				goalsDAO.update(id, result)
-				
 				UploadDonationLetterDialog.Builder builder = new UploadDonationLetterDialog.Builder(PromiseCheck.this, false, promiseobject);
 				Dialog dialog = builder.create();
 				dialog.show();
@@ -131,6 +129,11 @@ public class PromiseCheck extends Activity {
 		promiseobject = (AddPromiseDTO) tempobject;
 	}
 	
+	/**
+	 * progress bar 처리 
+	 * @author JM
+	 *
+	 */
 	private class FeedLoadAsyncTask extends AsyncTask<URL, Integer, Long> {
 
 		@Override

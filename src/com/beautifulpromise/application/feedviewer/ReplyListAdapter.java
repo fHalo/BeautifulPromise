@@ -20,6 +20,11 @@ import com.facebook.halo.application.types.Comment;
 import com.facebook.halo.application.types.Post.Comments;
 import com.facebook.halo.application.types.User;
 
+/**
+ * 피드+댓글 뷰어에 쓰이는 댓글 list view adapter
+ * @author JM
+ *
+ */
 public class ReplyListAdapter extends BaseAdapter{
 	
 	ArrayList<Comment> arrayComment;
@@ -28,6 +33,12 @@ public class ReplyListAdapter extends BaseAdapter{
 	int layout;
 	User user;
 
+	/**
+	 * constructor
+	 * @param context
+	 * @param layout
+	 * @param arrayComment
+	 */
 	public ReplyListAdapter(Context context, int layout, ArrayList<Comment> arrayComment) {
 		this.context = context;
 		this.inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

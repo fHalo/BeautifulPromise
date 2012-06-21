@@ -17,6 +17,11 @@ import com.beautifulpromise.application.BeautifulPromiseActivity;
 import com.beautifulpromise.common.Var;
 import com.beautifulpromise.common.repository.Repository;
 
+/**
+ * C2dm registraion, C2dm message receive 부분
+ * @author JM
+ *
+ */
 public class C2DMReceiver extends BroadcastReceiver{
 
 	@Override

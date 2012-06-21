@@ -29,6 +29,11 @@ import com.beautifulpromise.parser.HttpClients;
 import com.facebook.halo.application.types.User;
 import com.facebook.halo.framework.common.AccessToken;
 
+/**
+ * main 화면에 Full Banner 
+ * @author JM
+ *
+ */
 public class FullBanner extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

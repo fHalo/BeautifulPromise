@@ -30,6 +30,12 @@ import com.beautifulpromise.parser.HttpClients;
 import com.facebook.halo.application.types.User;
 import com.facebook.halo.framework.common.AccessToken;
 
+/**
+ * Intro 클래스
+ * SSO 처리 및 C2dm등록 이뤄짐
+ * @author JM
+ *
+ */
 public class Intro extends Activity {
 	
 	Facebook mFacebook;

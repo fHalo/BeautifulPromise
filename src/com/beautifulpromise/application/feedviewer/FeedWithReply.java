@@ -34,6 +34,11 @@ import com.facebook.halo.application.types.connection.Friends;
 import com.facebook.halo.application.types.infra.FacebookType;
 import com.facebook.halo.framework.core.Connection;
 
+/**
+ * 피드+댓글 뷰어
+ * @author JM
+ *
+ */
 public class FeedWithReply extends BeautifulPromiseActivity{
 	
 	//comment 들을 담고있는 array

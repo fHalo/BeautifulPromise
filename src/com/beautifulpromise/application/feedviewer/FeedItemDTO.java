@@ -8,6 +8,11 @@ import com.facebook.halo.application.types.Post.Comments;
 import com.facebook.halo.application.types.Post.Likes;
 import com.facebook.halo.application.types.User;
 
+/**
+ * post 객체를 feed 객체로 변환하는 Data transfer object
+ * @author JM
+ *
+ */
 public class FeedItemDTO implements Serializable {
 	
 	private static final long serialVersionUID = 6025863160122617608L;
@@ -24,6 +29,9 @@ public class FeedItemDTO implements Serializable {
 	private Long commentCount;
 	private Long likeCount;
 	
+	/**
+	 * constructure
+	 */
 	public FeedItemDTO() {}
 	
 	/**
