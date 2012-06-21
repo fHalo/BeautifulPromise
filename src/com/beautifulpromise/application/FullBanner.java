@@ -35,6 +35,9 @@ import com.facebook.halo.framework.common.AccessToken;
  *
  */
 public class FullBanner extends Activity {
+	/**
+	 * 액티비티 실행시 호출
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
