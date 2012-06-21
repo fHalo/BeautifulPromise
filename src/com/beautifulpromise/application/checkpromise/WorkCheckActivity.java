@@ -44,6 +44,11 @@ public class WorkCheckActivity extends Activity {
 	
 	Intent intent= getIntent();
 	
+	/**
+	 * 엑티비티 onCreate메소드
+	 * 알림바 제거
+	 * PromiseDTO가져와서  엑티비티에 들어가는 뷰들 설정
+	 */
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.checkpromise_workcheck_activity);

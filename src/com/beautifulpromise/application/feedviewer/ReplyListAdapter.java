@@ -106,17 +106,26 @@ public class ReplyListAdapter extends BaseAdapter{
 	}
 	
 
+	/**
+	 * list view 의 size return
+	 */
 	@Override
 	public int getCount() {
 		return arrayComment.size();
 
 	}
 
+	/**
+	 * list view 의 position에 해당하는 item return
+	 */
 	@Override
 	public Comment getItem(int position) {
 		return arrayComment.get(position);
 	}
 
+	/**
+	 * list view 의 position에 해당하는 item id return
+	 */
 	@Override
 	public long getItemId(int position) {
 		return position;

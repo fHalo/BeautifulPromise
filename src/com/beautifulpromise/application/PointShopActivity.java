@@ -53,6 +53,11 @@ public class PointShopActivity extends BeautifulPromiseActivity {
 	MyListAdapter MyAdapter;
 	ArrayList<PointItemDTO> ItemList;
 
+	/**
+	 * 포인트샵 엑티비티의 onCreate메소드
+	 * 포인트샵에 들어가는 뷰들 세팅하고
+	 * 각 아이템을 loadItem메소드 호출하여 ArrayList<PointItemDTO> ItemList에 넣음
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -65,12 +70,23 @@ public class PointShopActivity extends BeautifulPromiseActivity {
 		ItemList = loadItem();
 	}
 
+	/**
+	 * 리스트뷰의 OnClickListener
+	 * @author ou
+	 *
+	 */
 	class MyListAdapter extends BaseAdapter implements OnClickListener {
 		Context maincon;
 		LayoutInflater Inflater;
 		ArrayList<PointItemDTO> arSrc;
 		int layout;
 
+		/**
+		 * 리스트뷰 어뎁터 객체
+		 * @param context
+		 * @param alayout
+		 * @param aarSrc
+		 */
 		public MyListAdapter(Context context, int alayout,
 				ArrayList<PointItemDTO> aarSrc) {
 			maincon = context;
@@ -80,18 +96,30 @@ public class PointShopActivity extends BeautifulPromiseActivity {
 			layout = alayout;
 		}
 
+		/**
+		 * 아이템의 갯수 가져옴
+		 */
 		public int getCount() {
 			return arSrc.size();
 		}
 
+		/**
+		 * 선택한 아이템객체를 리턴
+		 */
 		public PointItemDTO getItem(int position) {
 			return arSrc.get(position);
 		}
 
+		/**
+		 * 선택한 아이템의 위치 리턴
+		 */
 		public long getItemId(int position) {
 			return position;
 		}
 
+		/**
+		 * 각 아이템의 세부정보 뷰에 설정
+		 */
 		public View getView(int position, View convertView, ViewGroup parent) {
 
 			if (convertView == null) {
@@ -125,6 +153,9 @@ public class PointShopActivity extends BeautifulPromiseActivity {
 		}
 	}
 
+	/**
+	 * 포인트샵 엑티비티가 다시 활성화 될때 아이템이 갱신된 내용을 다시 출력
+	 */
 	protected void onResume() {
 		super.onResume();
 
@@ -162,6 +193,11 @@ public class PointShopActivity extends BeautifulPromiseActivity {
 		return list;
 	}
 
+	/**
+	 * xml에서 가져온 정보를 파싱하여 객체에 정보 넣음
+	 * @param parser
+	 * @return
+	 */
 	private PointItemDTO add(XmlPullParser parser) {
 
 		PointItemDTO item = new PointItemDTO();
@@ -173,6 +209,11 @@ public class PointShopActivity extends BeautifulPromiseActivity {
 		return item;
 	}
 
+	/**
+	 * 각 아이템의 그림 가져옴
+	 * @param path
+	 * @return
+	 */
 	public Drawable loadResource(String path) {
 		Drawable drawable = null;
 

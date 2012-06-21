@@ -57,6 +57,9 @@ public class PromiseFeedList extends BeautifulPromiseActivity{
 	FeedListAdapter feedListAdapter;
 	ListView feedList;
 	
+	/**
+	 * 액티비티 실행시 처음 실행
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -102,6 +105,9 @@ public class PromiseFeedList extends BeautifulPromiseActivity{
 	 */
 	private class FeedLoadAsyncTask extends AsyncTask<URL, Integer, Long> {
 
+		/**
+		 * progress bar 처리시 background 처리
+		 */
 		@Override
 		protected Long doInBackground(URL... params) {
 			if(isCheck) { //약속일지 피드 뿌려주는 부분일경우
@@ -127,6 +133,9 @@ public class PromiseFeedList extends BeautifulPromiseActivity{
 			return null;
 		}
 
+		/**
+		 * progress bar 처리시 background 처리 후 실행
+		 */
 		@Override
 		protected void onPostExecute(Long result) {
 			//progress bar 없에고, 받아온 데이터 띄워줌

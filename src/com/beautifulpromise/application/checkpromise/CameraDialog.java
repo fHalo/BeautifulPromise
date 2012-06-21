@@ -24,14 +24,26 @@ public class CameraDialog extends Dialog{
 	public static final int FINISH_TAKE_PHOTO = 3;
 	public static final int FINISH_GET_IMAGE = 4;
 	public static final String IMAGE_PATH = "image_path";
-	
+	/**
+	 * context, theme 받아서 객체 생성
+	 * @param context 다이얼 로그를 띄울 엑티비티 context
+	 * @param theme 테마 종류
+	 */
     public CameraDialog(Context context, int theme) {
         super(context, theme);
     }
-	
+	/**
+	 * context만 받아서 객체 생성
+	 * @param context 다이얼 로그를 띄울 엑티비티 context
+	 */
 	public CameraDialog(Context context) {
 		super(context);
 	}
+	/**
+	 * Dialog Builder 클래스
+	 * @author ou
+	 *
+	 */
 	public static class Builder {
     	 
         private Context context;
@@ -41,10 +53,18 @@ public class CameraDialog extends Dialog{
     	private CameraDialog dialog;
     	View layout;
 
+    	/**
+    	 * 해당 엑티비티의 context받아서 Builder객체 생성
+    	 * @param context
+    	 */
         public Builder(Context context) {
             this.context = context;
         }
         
+        /**
+         * Dialog Create 메소드
+         * @return
+         */
         public CameraDialog create() {
         	        	
         	LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

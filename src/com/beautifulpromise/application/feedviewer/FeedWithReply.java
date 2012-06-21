@@ -73,6 +73,9 @@ public class FeedWithReply extends BeautifulPromiseActivity{
 	
 	FacebookType commentId;
 	
+	/**
+	 * 엑티비티 시작시 호출
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -92,7 +95,9 @@ public class FeedWithReply extends BeautifulPromiseActivity{
         FeedLoadAsyncTask task = new FeedLoadAsyncTask();
         task.execute();
         
-		//댓글달기 
+		/**
+		 * 댓글달기
+		 */
 		submitButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -158,6 +163,9 @@ public class FeedWithReply extends BeautifulPromiseActivity{
 	 */
 	private class FeedLoadAsyncTask extends AsyncTask<URL, Integer, Long> {
 
+		/**
+		 * progress bar에서 background 처리 부분
+		 */
 		@Override
 		protected Long doInBackground(URL... params) {
 	        //feed data 가져오기 -> performance issue 있음 (전 액티비티에서 feed객체 넘겨받아야함)
@@ -174,6 +182,9 @@ public class FeedWithReply extends BeautifulPromiseActivity{
 			return null;
 		}
 
+		/**
+		 * progress bar에서 background 처리 후 실행되는 부분
+		 */
 		@Override
 		protected void onPostExecute(Long result) {
 			//progress bar 없에고, 받아온 데이터 띄워줌
@@ -245,9 +256,14 @@ public class FeedWithReply extends BeautifulPromiseActivity{
 			like.setText("좋아요 취소");
 		}
 		
-		//좋아요 버튼 클릭
+		/**
+		 * 좋아요 버튼 클릭
+		 */
 		like.setOnClickListener(new OnClickListener() {
 			
+			/**
+			 *click 했을때 
+			 */
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
@@ -279,7 +295,5 @@ public class FeedWithReply extends BeautifulPromiseActivity{
 		}
 		return false;
 	}
-
-	
 
 }

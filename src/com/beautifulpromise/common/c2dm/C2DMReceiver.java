@@ -24,6 +24,9 @@ import com.beautifulpromise.common.repository.Repository;
  */
 public class C2DMReceiver extends BroadcastReceiver{
 
+	/**
+	 * intent 받을 때
+	 */
 	@Override
 	public void onReceive(Context context, Intent intent) {
         Log.e("###############", "onReceive");
@@ -84,11 +87,6 @@ public class C2DMReceiver extends BroadcastReceiver{
         
         //Push 메시지 다른 activity로 전달
         ((BeautifulPromiseActivity)Var.CONTEXT).refreshNotification();
-//        Intent i = new Intent("HomeActivity");
-//        
-//        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        i.putExtra("message", true);
-//        context.startActivity(i);
     }
     
     /**

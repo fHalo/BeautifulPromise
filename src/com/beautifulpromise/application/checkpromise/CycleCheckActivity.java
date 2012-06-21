@@ -278,11 +278,17 @@ public class CycleCheckActivity extends MapActivity {
 		}
 	};
 
+	/**
+	 * 구글 맵에 현재 위치를 보여줄 것인가
+	 */
 	@Override
 	protected boolean isRouteDisplayed() {
 		return false;
 	}
 
+	/**
+	 * 엑티비티 제거시
+	 */
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
