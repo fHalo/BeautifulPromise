@@ -18,6 +18,11 @@ import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.View;
 
+/**
+ * @description 이미지 정보에 관련된 클래스(url을 통해 Bitmap을 받아오거나 Bitmap의 형식 변환, Drawable의 형식 변환)
+ * @author immk
+ *
+ */
 public class ImageUtils {
 
 	public static Bitmap downloadBitmap (String url) {

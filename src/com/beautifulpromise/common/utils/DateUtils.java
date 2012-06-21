@@ -10,6 +10,11 @@ import java.util.Locale;
 
 import android.util.Log;
 
+/**
+ * @description 날짜 정보에 관련된 클래스 (해당 형식으로 변환, 현재 날짜를 가져옴)
+ * @author immk
+ *
+ */
 public class DateUtils {
 
 	public static String getDate() {

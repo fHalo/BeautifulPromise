@@ -1,5 +1,10 @@
 package com.beautifulpromise.common.utils;
 
+/**
+ * @description Server에 접속하기 위한 URL 정보 
+ * @author immk
+ *
+ */
 public class MessageUtils {
 
 	public static String FACEBOOK_GRAPH_URL = "http://graph.facebook.com/";

@@ -1,5 +1,10 @@
 package com.beautifulpromise.common.utils;
 
+/**
+ * @description 타입 변환을 위한 클래스
+ * @author immk
+ *
+ */
 public class TypeUtils {
 	
 	public static int BooleanToInteger(boolean bData){

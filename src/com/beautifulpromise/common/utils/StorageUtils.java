@@ -8,6 +8,11 @@ import java.util.Date;
 import android.content.Context;
 import android.os.Environment;
 
+/**
+ * @description 데이터 저장을 위한 관련된 클래스
+ * @author immk
+ *
+ */
 public class StorageUtils {
 
 	public static final String DIR_PATH = "BeautifulPromise";

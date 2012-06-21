@@ -2,6 +2,11 @@ package com.beautifulpromise.common.repository;
 
 import com.facebook.halo.application.types.User;
 
+/**
+ * @description SingleTon Pattern을 활용하여 로그인한 사용자 정보와 id값을 저장
+ * @author immk
+ *
+ */
 public class Repository {
 
 	private static Repository instance = new Repository();

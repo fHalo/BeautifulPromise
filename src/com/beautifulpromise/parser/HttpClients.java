@@ -28,6 +28,11 @@ import com.facebook.halo.framework.json.JsonObject;
 
 import android.util.Log;
 
+/**
+ * @description Server-Client 통신, Server에 접속하여 json 형식의 데이터를 String 또는 객체화 시킨다.
+ * @author immk
+ *
+ */
 public class HttpClients {
 	
 	DefaultHttpClient mHttpClient;

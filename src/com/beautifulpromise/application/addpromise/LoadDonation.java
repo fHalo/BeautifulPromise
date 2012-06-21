@@ -16,6 +16,11 @@ import android.graphics.drawable.Drawable;
 import com.beautifulpromise.R;
 import com.beautifulpromise.common.utils.ImageUtils;
 
+/**
+ * @description Assets에 있는 캠페인관련 정보를 파싱해서 객체로 변환해주는 클래스
+ * @author immk
+ *
+ */
 public class LoadDonation {
 	
 	Context context;

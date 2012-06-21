@@ -13,6 +13,10 @@ import android.widget.TextView;
 
 import com.beautifulpromise.R;
 
+/**
+ * @description 캠페인 List 객체를 ListView에서 표시할 수 있게 해주는 Adapter
+ * @author immk
+ */
 public class DonationAdapter extends BaseAdapter {
 	
 	Context context;

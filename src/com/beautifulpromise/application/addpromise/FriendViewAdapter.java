@@ -12,6 +12,11 @@ import android.widget.CheckedTextView;
 import com.beautifulpromise.R;
 import com.facebook.halo.application.types.connection.Friends;
 
+/**
+ * @description 친구 이미지의 List 객체를 ListView에서 표시할 수 있게 해주는 Adapter
+ * @author immk
+ *
+ */
 public class FriendViewAdapter extends BaseAdapter {
 	
 	Context context;

@@ -7,6 +7,11 @@ import com.beautifulpromise.common.dto.AddPromiseDTO;
 import com.beautifulpromise.common.utils.DateUtils;
 import com.beautifulpromise.common.utils.TypeUtils;
 
+/**
+ * @description 목표에 관련된 데이터를 저장, 검색, 업데이트 시킬 수 있는 클래스
+ * @author immk
+ *
+ */
 public class GoalsDAO implements IGoalsDAO {
 
 	private DatabaseHelper databaseHelper;

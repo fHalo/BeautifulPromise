@@ -9,6 +9,10 @@ import com.facebook.halo.application.types.connection.Friends;
 
 import android.graphics.Bitmap;
 
+/**
+ * @description 목표 생성을 위한 DTO 객체 (facebook의 post id와 목표 생성의 제목, 카테고리 분류, 알람 주기 등의 데이터를 객체화)
+ * @author immk
+ */
 public class AddPromiseDTO implements Serializable {
 
 	private static final long serialVersionUID = -2166289912424139381L;

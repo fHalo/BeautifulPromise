@@ -16,6 +16,11 @@ import com.beautifulpromise.common.utils.ImageUtils;
 import com.beautifulpromise.common.utils.MessageUtils;
 import com.facebook.halo.application.types.connection.Friends;
 
+/**
+ * 친구 이미지의 List 객체를 ListView에서 표시할 수 있게 해주는 Adapter
+ * @author immk
+ *
+ */
 public class FriendImageAdapter extends BaseAdapter{
 
 	Context context;
