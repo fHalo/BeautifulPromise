@@ -2,6 +2,11 @@ package com.beautifulpromise.application;
 
 import android.graphics.drawable.Drawable;
 
+/**
+ * 포인트샵에 사용되는 아이템들의 DTO객체
+ * @author ou
+ *
+ */
 public class PointItemDTO {
 
 	private int id;

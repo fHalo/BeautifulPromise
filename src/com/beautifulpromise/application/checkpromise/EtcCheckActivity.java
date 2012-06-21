@@ -43,7 +43,6 @@ import com.facebook.halo.framework.core.Connection;
 /**
  * 기타 목표 체크 엑티비티
  * @author ou
- *
  */
 public class EtcCheckActivity extends Activity {
 	private static final int CROP_FROM_CAMERA = 1;

@@ -45,6 +45,12 @@ public class HomeActivity extends BeautifulPromiseActivity {
 	AlphaAnimation animation2;
 	ImageView img;
 
+	/**
+	 * HomeActivity onCreate메소드
+	 * 배너 애니메이션 처리
+	 * 배너 클릭이벤트 처리
+	 * 알람설정
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -159,6 +165,12 @@ public class HomeActivity extends BeautifulPromiseActivity {
 		ArrayList<AddPromiseDTO> arSrc;
 		int layout;
 
+		/**
+		 * ListView에 들어갈 어뎁터 객체 설정
+		 * @param context
+		 * @param alayout
+		 * @param aarSrc 리스트에 들어갈 ArrayList<AddPromiseDTO>객체
+		 */
 		public MyListAdapter(Context context, int alayout,
 				ArrayList<AddPromiseDTO> aarSrc) {
 			maincon = context;
@@ -167,14 +179,22 @@ public class HomeActivity extends BeautifulPromiseActivity {
 			layout = alayout;
 		}
 
+		/**
+		 * ArrayList<AddPromiseDTO>의 size가져옴
+		 */
 		public int getCount() {
 			return arSrc.size();
 		}
-
+		/**
+		 * ListView에서 선택된 아이템의 위치를 가져옴
+		 */
 		public AddPromiseDTO getItem(int position) {
 			return arSrc.get(position);
 		}
 
+		/**
+		 * 위치를 가져옴
+		 */
 		public long getItemId(int position) {
 			return position;
 		}
