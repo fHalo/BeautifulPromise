@@ -71,6 +71,9 @@ public class BeautifulPromiseActivity extends Activity{
 	Handler handler;
 	Connection<Notifications> notificaitons;
 		
+	/**
+	 * 엑티비티 실행시 처음 실행
+	 */
 	@Override 
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -124,46 +127,15 @@ public class BeautifulPromiseActivity extends Activity{
 		notificationListView.setAdapter(adapter);
 		
 		visibleNewImage();
-		
-//		ContentValues row = new ContentValues();
-//		row.put("title", "Jaemyung Shin commented on your photo: \"오 ! 열심히해~\"");
-//		row.put("send_user_id", "100001066448386");
-//		row.put("fb_id", "163295647136052");
-//		getContentResolver().insert(NotificationProvider.CONTENT_URI, row);
-//		
-//		row.put("title", "Jaemyung Shin commented on your photo: \"나도 학원 다니는 중 !\"");
-//		row.put("send_user_id", "100001066448386");
-//		row.put("fb_id", "163295647136052");
-//		getContentResolver().insert(NotificationProvider.CONTENT_URI, row);
-//		
-//		row.put("title", "Mikyung Kang commented on your photo: \"멋지당 ! \"");
-//		row.put("send_user_id", "100001428910089");
-//		row.put("fb_id", "163295647136052");
-//		getContentResolver().insert(NotificationProvider.CONTENT_URI, row);
-//		
-//		row.put("title", "YooHwan  Oh commented on your photo: \"꼭 성공하길 바래-\"");
-//		row.put("send_user_id", "100002274717846");
-//		row.put("fb_id", "163295647136052");
-//		getContentResolver().insert(NotificationProvider.CONTENT_URI, row);
-		
-		
-//		handler = new Handler();
-//		Timer timer = new Timer();
-//		timer.schedule(task, 3000, 100000);
-//		notificationListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//
-//			@Override
-//			public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-//				
-//			}
-//			
-//		});
 	} 
 	
 	/**
 	 * Click listener
 	 */
 	View.OnClickListener clickLisetner = new View.OnClickListener() {
+		/**
+		 * click 할때
+		 */
 		@Override
 		public void onClick(View v) {
 			switch (v.getId()) {
@@ -253,6 +225,9 @@ public class BeautifulPromiseActivity extends Activity{
 	 */
 	DialogInterface.OnClickListener logoutClickListener = new DialogInterface.OnClickListener() {
 		
+		/**
+		 * click 할때
+		 */
 		@Override
 		public void onClick(DialogInterface dialog, int which) {
 			mFacebook = new Facebook(Var.APP_ID);
@@ -268,6 +243,9 @@ public class BeautifulPromiseActivity extends Activity{
 	 * horizontal scroll touch listener
 	 */
 	View.OnTouchListener hscrollTouchListener = new OnTouchListener() {
+		/**
+		 * click 할때
+		 */
 		@Override
 		public boolean onTouch(View v, MotionEvent event) {
 			if (event.getAction() == MotionEvent.ACTION_UP) {
@@ -330,7 +308,13 @@ public class BeautifulPromiseActivity extends Activity{
 	 * @param y
 	 */
 	protected void mySmoothScrollTo(final int x, final int y) {
+		/**
+		 * scroll 옮김
+		 */
 		hscroll.post(new Runnable() {
+			/**
+			 * thread 실행
+			 */
 			@Override
 			public void run() {
 				if(x == 0)

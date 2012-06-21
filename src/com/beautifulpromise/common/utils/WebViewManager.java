@@ -3,6 +3,11 @@ package com.beautifulpromise.common.utils;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+/**
+ * Webview 관련 환경설정 세팅 클래스
+ * @author JM
+ *
+ */
 public class WebViewManager extends WebViewClient {
 
 	/**

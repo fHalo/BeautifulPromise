@@ -63,6 +63,9 @@ public class PromiseCheck extends Activity {
 	
 	AddPromiseDTO promiseobject;
 	
+	/**
+	 * 액티비티 실행시 처음 실행
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -74,9 +77,14 @@ public class PromiseCheck extends Activity {
 		task.execute();
 		
 		
-		//set yes btn click listener
+		/**
+		 * set yes btn click listener
+		 */
 		yesBtn.setOnClickListener(new OnClickListener() {
 			
+			/**
+			 * click 시
+			 */
 			@Override
 			public void onClick(View v) {
 				//페북에 성공 글 올리기
@@ -86,9 +94,14 @@ public class PromiseCheck extends Activity {
 			}
 		});
 		
-		//set no btn click listener
+		/**
+		 * set no btn click listener
+		 */
 		noBtn.setOnClickListener(new OnClickListener() {
 			
+			/**
+			 * click 시
+			 */
 			@Override
 			public void onClick(View v) {
 				//페북에 실패 글 올리기
@@ -99,6 +112,9 @@ public class PromiseCheck extends Activity {
 		});
 	}
 	
+	/**
+	 * 변수 초기화
+	 */
 	private void setVariable() {
 		//feed item 들을 담고있는 array
 		arrayFeedItem = new ArrayList<FeedItemDTO>();
@@ -136,11 +152,16 @@ public class PromiseCheck extends Activity {
 	 */
 	private class FeedLoadAsyncTask extends AsyncTask<URL, Integer, Long> {
 
+		/**
+		 * progress bar 에서 background 처리
+		 */
 		@Override
 		protected Long doInBackground(URL... params) {
 			checkList = ctrl.GetCheckList(promiseobject.getPostId());
 			
-			//가져온 데이터를 arrayList에 담음
+			/**
+			 * 가져온 데이터를 arrayList에 담음
+			 */
 			for(String s : checkList) {
 				Log.e("s : ", "" + s);
 				feed = new Post();
@@ -153,6 +174,9 @@ public class PromiseCheck extends Activity {
 			return null;
 		}
 
+		/**
+		 * progress bar 에서 background 처리 후 실행
+		 */
 		@Override
 		protected void onPostExecute(Long result) {
 			//progress bar 없에고, 받아온 데이터 띄워줌

@@ -45,6 +45,9 @@ public class Intro extends Activity {
 	Intent intent = new Intent();
 
 	
+	/**
+	 * 액티비티 실행시 처음 실행
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -87,6 +90,9 @@ public class Intro extends Activity {
 	 * delay 후 home activity 실행하는 handler
 	 */
 	Handler handler = new Handler() {
+		/**
+		 * 메시지 처리부분
+		 */
 		public void handleMessage(Message msg) {
 			finish();
             if(setNewMember())
@@ -109,10 +115,18 @@ public class Intro extends Activity {
 	 * SSO 로그인 처리
 	 */
 	View.OnClickListener buttonClickListener = new View.OnClickListener() {
-		
+		/**
+		 * click 할때
+		 */
 		@Override
 		public void onClick(View v) {
+			/**
+			 * facebook 인증 부분
+			 */
 			mFacebook.authorize(Intro.this, Var.PERMISSIONS , new DialogListener() {
+				/**
+				 * 인증 완료 되었을 때
+				 */
                 @Override
                 public void onComplete(Bundle values) {
                 	SessionStore.save(mFacebook, getBaseContext());
@@ -128,12 +142,21 @@ public class Intro extends Activity {
                 	finish();
                 }
     
+                /**
+                 * facebook 인증 에러일 때
+                 */
                 @Override
                 public void onFacebookError(FacebookError error) {}
     
+                /**
+                 * 에러났을경우
+                 */
                 @Override
                 public void onError(DialogError e) {}
     
+                /**
+                 * 취소일 경우
+                 */
                 @Override
                 public void onCancel() {}
             });
@@ -147,6 +170,10 @@ public class Intro extends Activity {
         mFacebook.authorizeCallback(requestCode, resultCode, data);
 	}
 	
+	/**
+	 * 새로운 멤버 서버에 추가
+	 * @return
+	 */
 	private boolean setNewMember() {
 		User user = Repository.getInstance().getUser();
 		
@@ -174,6 +201,9 @@ public class Intro extends Activity {
 			return false;
 	}
 	
+	/**
+	 * 액티비티 종료시 호출
+	 */
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();

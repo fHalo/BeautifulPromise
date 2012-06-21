@@ -71,17 +71,26 @@ public class FeedListAdapter extends BaseAdapter {
 		}
 			
 	}
-
+	
+	/**
+	 * list view 의 size return 
+	 */
 	@Override
 	public int getCount() {
 		return arrayListFeedItem.size();
 	}
 
+	/**
+	 * list view 의 position 에 해당하는 item return
+	 */
 	@Override
 	public FeedItemDTO getItem(int position) {
 		return arrayListFeedItem.get(position);
 	}
 
+	/**
+	 * list view 의 position 에 해당하는 item id return
+	 */
 	@Override
 	public long getItemId(int position) {
 		return position;

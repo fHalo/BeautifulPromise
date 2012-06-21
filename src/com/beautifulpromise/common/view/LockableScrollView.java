@@ -8,8 +8,18 @@ import android.widget.HorizontalScrollView;
 
 import com.beautifulpromise.common.Var;
 
+/**
+ * side navigation에서 side에서만 동작하도록 scroll을 lock 하는 클래스
+ * @author JM
+ *
+ */
 public class LockableScrollView extends HorizontalScrollView {
 
+	/**
+	 * constructor
+	 * @param context
+	 * @param attrs
+	 */
 	public LockableScrollView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
@@ -18,13 +28,25 @@ public class LockableScrollView extends HorizontalScrollView {
     // false if we cannot scroll (locked) 
     private boolean mScrollable = true; 
  
+    /**
+     * scroll 가능/불가능 세팅
+     * @param scrollable
+     */
     public void setIsScrollable(boolean scrollable) { 
         mScrollable = scrollable; 
     }
+    
+    /**
+     * scroll 가능 여부 리턴
+     * @return
+     */
     public boolean getIsScrollable()  {
         return mScrollable; 
     } 
  
+    /**
+     * 화면 touch event catch
+     */
     @Override 
     public boolean onTouchEvent(MotionEvent ev) { 
         switch (ev.getAction()) { 
@@ -38,6 +60,9 @@ public class LockableScrollView extends HorizontalScrollView {
         } 
     } 
     
+    /**
+     * touch event intercept
+     */
 	@Override
 	public boolean onInterceptTouchEvent(MotionEvent ev) {
 		if (Var.menuShowFlag) { // 메뉴바 show 상태
